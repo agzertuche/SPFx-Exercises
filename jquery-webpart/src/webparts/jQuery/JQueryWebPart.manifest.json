@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../node_modules/@microsoft/sp-module-interfaces/lib/manifestSchemas/jsonSchemas/clientSideComponentManifestSchema.json",
+
+  "id": "48b86820-4adc-4531-86d6-82156f5f8495",
+  "alias": "JQueryWebPart",
+  "componentType": "WebPart",
+  "version": "0.0.1",
+  "manifestVersion": 2,
+
+  "preconfiguredEntries": [{
+    "groupId": "48b86820-4adc-4531-86d6-82156f5f8495",
+    "group": { "default": "Under Development" },
+    "title": { "default": "jQuery" },
+    "description": { "default": "jQuery Web Part" },
+    "officeFabricIconFontName": "Page",
+    "properties": {
+      "description": "jQuery"
+    }
+  }]
+}

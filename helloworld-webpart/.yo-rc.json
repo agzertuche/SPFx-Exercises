@@ -1,0 +1,7 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "libraryName": "helloworld-webpart",
+    "libraryId": "695d6fd5-ac29-412c-a3e9-52b7310d170c",
+    "framework": "none"
+  }
+}

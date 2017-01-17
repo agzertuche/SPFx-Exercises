@@ -1,0 +1,10 @@
+{
+  "solution": {
+    "name": "react-custompropertypanecontrol-client-side-solution",
+    "id": "1ea77ecb-1ded-48b7-8a65-bc5c259f32ed",
+    "version": "1.0.0.0"
+  },
+  "paths": {
+    "zippedPackage": "solution/react-custompropertypanecontrol.spapp"
+  }
+}

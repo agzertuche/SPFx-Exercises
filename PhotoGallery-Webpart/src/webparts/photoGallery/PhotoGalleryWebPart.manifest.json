@@ -1,0 +1,25 @@
+{
+  "$schema": "../../../node_modules/@microsoft/sp-module-interfaces/lib/manifestSchemas/jsonSchemas/clientSideComponentManifestSchema.json",
+
+  "id": "2a1a7c46-5bb2-4ca1-86c2-6aa1d1b552ed",
+  "alias": "PhotoGalleryWebPart",
+  "componentType": "WebPart",
+  "version": "0.0.1",
+  "manifestVersion": 2,
+
+  "preconfiguredEntries": [{
+    "groupId": "2a1a7c46-5bb2-4ca1-86c2-6aa1d1b552ed",
+    "group": { "default": "Under Development" },
+    "title": { "default": "PhotoGallery" },
+    "description": { "default": "PhotoGallery description" },
+    "officeFabricIconFontName": "PhotoCollection",
+    "properties": {
+      "description": "PhotoGallery",
+      "imageCount": 20,
+      "imageWidth": 180,
+      "imageHeight": 300,
+      "grayImages": false,
+      "category":""
+    }
+  }]
+}
