@@ -1,0 +1,10 @@
+{
+  "solution": {
+    "name": "google-charts-webpart-client-side-solution",
+    "id": "3e8dfcb3-8446-415d-9f10-391f5f7dc1b7",
+    "version": "1.0.0.0"
+  },
+  "paths": {
+    "zippedPackage": "solution/google-charts-webpart.sppkg"
+  }
+}

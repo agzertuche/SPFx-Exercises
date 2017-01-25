@@ -1,0 +1,26 @@
+{
+  "$schema": "../../../node_modules/@microsoft/sp-module-interfaces/lib/manifestSchemas/jsonSchemas/clientSideComponentManifestSchema.json",
+
+  "id": "f94389eb-801b-4872-8a05-1ac373d5296e",
+  "alias": "GoogleChartsWebpartWebPart",
+  "componentType": "WebPart",
+  "version": "0.0.1",
+  "manifestVersion": 2,
+
+  "preconfiguredEntries": [{
+    "groupId": "f94389eb-801b-4872-8a05-1ac373d5296e",
+    "group": { "default": "Under Development" },
+    "title": { "default": "google-charts-webpart" },
+    "description": { "default": "web part to display sharepoint list data as charts using the Google Chart API " },
+    "officeFabricIconFontName": "Chart",
+    "properties": {
+      "title": "This is the chart title...",
+      "legend": "right",
+      "is3D": false,
+      "width": 700,
+      "height": 500,
+      "chartType": "PieChart",
+      "data": null
+    }
+  }]
+}

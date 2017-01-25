@@ -1,0 +1,13 @@
+{
+  "entries": [
+    {
+      "entry": "./lib/webparts/googleChartsWebpart/GoogleChartsWebpartWebPart.js",
+      "manifest": "./src/webparts/googleChartsWebpart/GoogleChartsWebpartWebPart.manifest.json",
+      "outputPath": "./dist/google-charts-webpart.bundle.js"
+    }
+  ],
+  "externals": {},
+  "localizedResources": {
+    "googleChartsWebpartStrings": "webparts/googleChartsWebpart/loc/{locale}.js"
+  }
+}
