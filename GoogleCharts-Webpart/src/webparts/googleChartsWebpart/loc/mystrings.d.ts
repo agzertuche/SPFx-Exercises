@@ -7,7 +7,7 @@ declare interface IGoogleChartsWebpartStrings {
   WidthField: string;
   HeightField: string;
   ChartTypeField: string;
-  DataField: string;
+  ListName: string;
 }
 
 declare module 'googleChartsWebpartStrings' {

@@ -8,6 +8,6 @@ define([], function() {
     "WidthField": "Width",
     "HeightField": "Height",
     "ChartTypeField": "Chart Type",
-    "DataField": "Data"
+    "ListName": "List Name"
   }
 });

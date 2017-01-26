@@ -5,5 +5,5 @@ export interface IGoogleChartsWebpartWebPartProps {
   width: number;
   height: number;
   chartType: string;
-  data: string;  
+  listName: string;  
 }
