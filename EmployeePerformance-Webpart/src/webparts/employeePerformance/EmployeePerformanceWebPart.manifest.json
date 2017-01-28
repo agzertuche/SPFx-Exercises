@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../node_modules/@microsoft/sp-module-interfaces/lib/manifestSchemas/jsonSchemas/clientSideComponentManifestSchema.json",
+
+  "id": "03b3e65d-f891-4f19-877a-f80fa4c23994",
+  "alias": "EmployeePerformanceWebPart",
+  "componentType": "WebPart",
+  "version": "0.0.1",
+  "manifestVersion": 2,
+
+  "preconfiguredEntries": [{
+    "groupId": "03b3e65d-f891-4f19-877a-f80fa4c23994",
+    "group": { "default": "Under Development" },
+    "title": { "default": "Employee Performance" },
+    "description": { "default": "This webpart is to display the performance of employees as dashboard" },
+    "officeFabricIconFontName": "Page",
+    "properties": {
+      "description": "Employee Performance"
+    }
+  }]
+}

@@ -1,0 +1,10 @@
+{
+  "solution": {
+    "name": "employee-performance-client-side-solution",
+    "id": "f64cef0c-6e5f-4dc7-b436-e2896d7ae494",
+    "version": "1.0.0.0"
+  },
+  "paths": {
+    "zippedPackage": "solution/employee-performance.sppkg"
+  }
+}
