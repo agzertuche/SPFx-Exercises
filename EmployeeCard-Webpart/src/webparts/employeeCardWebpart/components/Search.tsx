@@ -1,5 +1,4 @@
 import * as React from 'react';
-import styles from '../styles/app.module.scss';
 import { NormalPeoplePicker } from 'office-ui-fabric-react/lib/Pickers';
 
 export interface ISearchProps {
@@ -59,6 +58,8 @@ export default class Search extends React.Component<ISearchProps, ISearchState>{
                         loadingText: 'Loading...' ,
                     }}
                     onChange={ this._onChangeSelection.bind(this) }
+                    className={ 'ms-PeoplePicker' }
+                    key={ 'normal' }
                 /> 
             </div>
         );

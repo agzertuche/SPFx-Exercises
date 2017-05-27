@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styles from '../styles/app.module.scss';
+//import styles from '../styles/app.module.scss';
 import Achievements from './Achievements';
 import Information from './Information';
 import Performance from './Performance';
@@ -12,7 +12,8 @@ export interface IMainState {}
 export default class Main extends React.Component<IMainProps,IMainState>{
     public render(): React.ReactElement<IMainProps>{
         return (
-            <div className={styles.mainContainer}>
+            //<div className={styles.mainContainer}>
+            <div>
                 <div className="ms-Grid">
                     <div className="ms-Grid-row">
                         <div className="ms-Grid-col ms-u-sm12">
