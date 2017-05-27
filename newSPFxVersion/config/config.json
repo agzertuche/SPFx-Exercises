@@ -1,0 +1,13 @@
+{
+  "entries": [
+    {
+      "entry": "./lib/webparts/newSpFxVersion/NewSpFxVersionWebPart.js",
+      "manifest": "./src/webparts/newSpFxVersion/NewSpFxVersionWebPart.manifest.json",
+      "outputPath": "./dist/new-sp-fx-version.bundle.js"
+    }
+  ],
+  "externals": {},
+  "localizedResources": {
+    "newSpFxVersionStrings": "webparts/newSpFxVersion/loc/{locale}.js"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "libraryName": "new-sp-fx-version",
+    "framework": "react",
+    "version": "1.0.2",
+    "libraryId": "b0554044-7785-447f-ab55-80569bcd2316"
+  }
+}

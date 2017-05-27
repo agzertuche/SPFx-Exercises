@@ -1,0 +1,13 @@
+{
+  "entries": [
+    {
+      "entry": "./lib/webparts/employeeCardWebpart/EmployeeCardWebpartWebPart.js",
+      "manifest": "./src/webparts/employeeCardWebpart/EmployeeCardWebpartWebPart.manifest.json",
+      "outputPath": "./dist/employee-card-webpart.bundle.js"
+    }
+  ],
+  "externals": {},
+  "localizedResources": {
+    "employeeCardWebpartStrings": "webparts/employeeCardWebpart/loc/{locale}.js"
+  }
+}

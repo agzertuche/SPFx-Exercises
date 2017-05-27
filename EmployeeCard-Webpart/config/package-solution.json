@@ -1,0 +1,10 @@
+{
+  "solution": {
+    "name": "employee-card-webpart-client-side-solution",
+    "id": "26366d93-5998-493a-8bbe-0c179bd0a3cb",
+    "version": "1.0.0.0"
+  },
+  "paths": {
+    "zippedPackage": "solution/employee-card-webpart.sppkg"
+  }
+}

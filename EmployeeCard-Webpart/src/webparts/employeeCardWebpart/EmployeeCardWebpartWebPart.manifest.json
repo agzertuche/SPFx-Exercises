@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../node_modules/@microsoft/sp-module-interfaces/lib/manifestSchemas/jsonSchemas/clientSideComponentManifestSchema.json",
+
+  "id": "140c7329-cc92-4dbc-a730-7077088fb3ba",
+  "alias": "EmployeeCardWebpartWebPart",
+  "componentType": "WebPart",
+  "version": "0.0.1",
+  "manifestVersion": 2,
+
+  "preconfiguredEntries": [{
+    "groupId": "140c7329-cc92-4dbc-a730-7077088fb3ba",
+    "group": { "default": "Under Development" },
+    "title": { "default": "employee-card-webpart" },
+    "description": { "default": "employee-card-webpart description" },
+    "officeFabricIconFontName": "Page",
+    "properties": {
+      "description": "employee-card-webpart"
+    }
+  }]
+}

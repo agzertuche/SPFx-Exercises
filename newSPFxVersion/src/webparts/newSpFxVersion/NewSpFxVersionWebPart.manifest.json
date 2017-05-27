@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../node_modules/@microsoft/sp-module-interfaces/lib/manifestSchemas/jsonSchemas/clientSideComponentManifestSchema.json",
+
+  "id": "cd70dd1e-bcdd-49bd-8213-837755cff0c1",
+  "alias": "NewSpFxVersionWebPart",
+  "componentType": "WebPart",
+  "version": "0.0.1",
+  "manifestVersion": 2,
+
+  "preconfiguredEntries": [{
+    "groupId": "cd70dd1e-bcdd-49bd-8213-837755cff0c1",
+    "group": { "default": "Under Development" },
+    "title": { "default": "NewSPFxVersion" },
+    "description": { "default": "To test the new version of SPFx" },
+    "officeFabricIconFontName": "Page",
+    "properties": {
+      "description": "NewSPFxVersion"
+    }
+  }]
+}
