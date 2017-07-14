@@ -1,0 +1,65 @@
+Project:
+  ✔ Reestructure the componets with index, model, styles and tests on the same folder @high @done (12/7/2017 21:51:42)
+    ✔ Indexes @done (12/7/2017 21:17:19)
+    ✔ Props @done (12/7/2017 21:17:21)
+    ✔ States @done (12/7/2017 21:17:21)
+    ✔ Styles @done (12/7/2017 21:19:29)
+    ✔ Models @done (12/7/2017 21:51:39)
+    ✘ Tests @cancelled (12/7/2017 21:48:41)
+  ✔ Status Renderers https://github.com/SharePoint/sp-dev-fx-webparts/tree/master/samples/react-todo-basic#status-renderers @done (13/7/2017 15:20:30)
+    ✔ Loading indicator @done (13/7/2017 15:20:25)
+    ✘ Error indicator @cancelled (13/7/2017 15:20:28)
+  ✔ Placeholders https://github.com/SharePoint/sp-dev-fx-webparts/tree/master/samples/react-todo-basic#placeholders @done (13/7/2017 15:20:43)
+  ✘ Implement Redux https://github.com/SharePoint/sp-dev-fx-webparts/tree/master/samples/react-redux @low @cancelled (13/7/2017 15:20:59)
+  ✔ Employee Cards Tab: @done (11/7/2017 16:52:59)
+    ✔ Show employee cards when they are selected from the search box @done (11/7/2017 16:52:56)
+  ✔ Configure Navegation menu @done (13/7/2017 13:54:21)
+  ☐ Search Information Tab:@low
+    ☐ Add a new tab to look for employee information 
+    ☐ Display a grid of employees filtered by the search box
+  ☐ Performance Dashboard Tab:@low 
+    ☐ Avergae of performance
+    ☐ Add a Normal Distribution Chart vs current performance Distribution
+  ☐ Achievements Dashboard Tab:@low 
+    ☐ Most completed achievements
+    ☐ Least completed achievements
+    ☐ Last achievement
+
+  Artifacts:
+    ☐ Add lists schemas to deploy a list instance when app is installed @critical 
+      ☐ List for user information (Car, primary contact, cell phone, etc)
+      ☐ List for user performance (Personal growth, professional and relationship)
+      ☐ List for user Achievements
+
+  API:
+    ☐ Add data providers: https://github.com/SharePoint/sp-dev-fx-webparts/tree/master/samples/react-todo-basic#data-providers
+    ☐ Implement MS GraphQL @critical 
+      ☐ Get user info from UPS
+      ☐ Get performance info from SP Lists
+      ☐ Get achievements form SP List
+
+UI: 
+  ☐ Add primary colors
+  ☐ Add prmiary Fonts
+  ☐ Define Icon colors
+  ☐ App icon when to display when adding the webpart to the page
+    
+Tests:
+  ☐ Fix Test gulp task, since it is not finding any test on the project
+  ☐ Verify if the test could be running from outside the Test folder @high 
+  ☐ Implement tests for each component:
+    ☐ Achievements
+    ☐ Card
+    ☐ Information
+    ☐ Main
+    ☐ Nav
+    ☐ Performance
+    ☐ Search
+  ☐ Test application on following windows:
+    ☐ Small - Cellphone
+    ☐ Medium - Tablet
+    ☐ Large - PC
+
+Publishing:
+  ☐ Update readme.md file
+  ☐ Deploy final package to a SPOnline tenant
