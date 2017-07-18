@@ -1,0 +1,8 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "version": "1.1.1",
+    "libraryName": "employee-development-app",
+    "libraryId": "f1961b52-5795-45bb-93ae-517b178a68c5",
+    "environment": "spo"
+  }
+}

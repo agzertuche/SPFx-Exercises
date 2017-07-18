@@ -1,0 +1,10 @@
+.employeeCardWebPart{
+    @import "./variables.module";
+
+    // Common styles
+    .container {
+        background-color: $primaryBackground;
+        color: $primaryForeground;        
+    }            
+}
+ 
