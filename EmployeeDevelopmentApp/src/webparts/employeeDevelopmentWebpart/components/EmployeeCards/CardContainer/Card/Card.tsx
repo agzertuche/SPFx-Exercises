@@ -5,6 +5,9 @@ import CardInformation from './CardInformation';
 import CardPerformance from './CardPerformance';
 
 export default class Card extends React.Component<ICardProps,{}>{
+//TODO: get performance skills and achievements for employee
+
+
   public render(): React.ReactElement<ICardProps>{
     return (
       <div className="ms-u-fadeIn200"> 

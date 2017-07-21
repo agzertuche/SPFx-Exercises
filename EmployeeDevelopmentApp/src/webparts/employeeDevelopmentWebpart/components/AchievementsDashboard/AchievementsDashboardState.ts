@@ -1,6 +1,6 @@
-import IUser from '../../models/IUser';
+import IAchievement from '../../models/IAchievement';
 
 export interface AchievementsDashboardState{
   filterText?: string;
-  users?: IUser[];
+  filteredAchievements?: IAchievement[];
 }

@@ -6,7 +6,6 @@ import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
 import {
   DetailsList,
   buildColumns,
-  IColumn
 } from 'office-ui-fabric-react/lib/DetailsList';
 
 let _items: any[];
@@ -16,6 +15,8 @@ export default class EmployeeInformation extends React.Component<IEmployeeInform
     super(props);
 
     _items = _items || this.props.users;
+    
+    this._onColumnClick = this._onColumnClick.bind(this);
 
     this.state = {
       sortedItems: _items,
@@ -67,12 +68,10 @@ export default class EmployeeInformation extends React.Component<IEmployeeInform
         <div className="ms-Grid-col ms-u-sm12">          
           <DetailsList
             items={ sortedItems }
-            setKey='set'
             columns={ columns }
             onRenderItemColumn={ _renderItemColumn }
-            onColumnHeaderClick={ this._onColumnClick.bind(this) }
-            onItemInvoked={ (item, index) => alert(`Item ${item.name} at index ${index} has been invoked.`) }
-            onColumnHeaderContextMenu={ (column, ev) => console.log(`column ${column.key} contextmenu opened.`) } />
+            onColumnHeaderClick={ this._onColumnClick }  
+          />
         </div>
       </div>
     );
@@ -81,29 +80,35 @@ export default class EmployeeInformation extends React.Component<IEmployeeInform
 
 function _buildColumns() {
   let columns = buildColumns(_items);
+  let filteredColumns = columns.filter((c) => {
+    switch (c.name) {
+      case "imageUrl":
+      case "displayName":
+      case "mail":      
+      case "department":
+      case "city":
+        return c;
+      default:
+    }    
+  });
 
-  // let thumbnailColumn = columns.filter(column => column.name === 'thumbnail')[0];
+  let thumbnailColumn = filteredColumns.filter(column => column.name === 'imageUrl')[0];
+  
+  // Special case one column's definition.
+  thumbnailColumn.name = 'imageUrl';
+  thumbnailColumn.maxWidth = 50;
 
-  // // Special case one column's definition.
-  // thumbnailColumn.name = '';
-  // thumbnailColumn.maxWidth = 50;
-
-  return columns;
+  return filteredColumns;
 }
 
 function _renderItemColumn(item, index, column) {
   let fieldContent = item[column.fieldName];
 
   switch (column.key) {
-    case 'thumbnail':
+    case 'imageUrl':
       return <Image src={ fieldContent } width={ 50 } height={ 50 } imageFit={ ImageFit.cover } />;
-
-    case 'name':
+    case 'displayName':
       return <Link href='#'>{ fieldContent }</Link>;
-
-    case 'color':
-      return <span data-selection-disabled={ true } style={ { color: fieldContent } }>{ fieldContent }</span>;
-
     default:
       return <span>{ fieldContent }</span>;
   }

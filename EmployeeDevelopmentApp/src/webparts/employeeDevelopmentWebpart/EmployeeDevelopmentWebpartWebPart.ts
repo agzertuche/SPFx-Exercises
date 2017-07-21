@@ -11,40 +11,36 @@ import { IEmployeeDevelopmentWebpartWebPartProps } from './IEmployeeDevelopmentW
 import Main, { IMainProps } from './components/Main';
 import { Environment, EnvironmentType } from '@microsoft/sp-core-library';
 import IDataProvider from './dataProviders/IDataProvider';
-import { MockDataProvider, AxiosDataProvider } from './dataProviders';
+import { MockDataProvider } from './dataProviders';
 
 export default class EmployeeDevelopmentWebpartWebPart extends BaseClientSideWebPart<IEmployeeDevelopmentWebpartWebPartProps> {
   private _dataProvider: IDataProvider;
 
   protected onInit(): Promise<void> {
-    this.context.statusRenderer.displayLoadingIndicator(this.domElement, "Test");
-
     /*
-    Create the appropriate data provider depending on where the web part is running.
-    The DEBUG flag will ensure the mock data provider is not bundled with the web part when you package the solution for distribution, that is, using the --ship flag with the package-solution gulp command.
+      Create the appropriate data provider depending on where the web part is running.
+      The DEBUG flag will ensure the mock data provider is not bundled with the web part when you package the solution for distribution, that is, using the --ship flag with the package-solution gulp command.
     */
     if (DEBUG && Environment.type === EnvironmentType.Local) {
       this._dataProvider = new MockDataProvider();
       this._dataProvider.webPartContext = this.context;
     } else {
-      this._dataProvider = new AxiosDataProvider();
+      this._dataProvider = new MockDataProvider();
       this._dataProvider.webPartContext = this.context;
     }
-
-    this.context.statusRenderer.clearLoadingIndicator(this.domElement);
+    
     return super.onInit();   
   }
 
   public render(): void {
-//    ReactDom.render(React.createElement(Main), this.domElement);
-    const element: React.ReactElement<IMainProps> = React.createElement(
+    const main: React.ReactElement<IMainProps> = React.createElement(
       Main,
       {
         dataProvider: this._dataProvider
       }
-    );
+    );      
 
-    ReactDom.render(element, this.domElement);
+    ReactDom.render(main, this.domElement);
   }
 
   protected get dataVersion(): Version {

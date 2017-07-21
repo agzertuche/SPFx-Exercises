@@ -11,6 +11,13 @@ const suggestionProps: IBasePickerSuggestionsProps = {
 };
 
 export default class CardSearch extends React.Component<ICardSearchProps, {}>{
+  constructor(props: ICardSearchProps){
+    super(props);
+
+    this._onFilterChanged = this._onFilterChanged.bind(this);
+    this._onChangeSelection = this._onChangeSelection.bind(this);
+  }
+
   private _peopleList: IPersonaProps[];
 
   public componentDidMount(): void{  
@@ -33,11 +40,11 @@ export default class CardSearch extends React.Component<ICardSearchProps, {}>{
   public _renderPicker() {
     return (
       <NormalPeoplePicker
-        onResolveSuggestions={ this._onFilterChanged.bind(this) }
+        onResolveSuggestions={ this._onFilterChanged }
         getTextFromItem={ (persona: IPersonaProps) => persona.primaryText }
         pickerSuggestionsProps={ suggestionProps }
         className={ 'ms-PeoplePicker' }
-        onChange={ this._onChangeSelection.bind(this) }
+        onChange={ this._onChangeSelection }
       />
     );
   }

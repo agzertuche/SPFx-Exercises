@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { ICardInformationProps } from './ICardInformationProps';
-import IconComponent, { Size } from '../../../../Common/IconComponent';
+import IconComponent from '../../../../Common/IconComponent';
+import { Size } from '../../../../../models/Enums';
 import { Image } from 'office-ui-fabric-react/lib/Image';
 import { IPersonaProps, Persona, PersonaSize, PersonaPresence } from 'office-ui-fabric-react/lib/Persona';
 
 export default class CardInformation extends React.Component<ICardInformationProps, {}>{
   private _onRenderSecondaryText(props: IPersonaProps): JSX.Element {
     return (
-        <IconComponent icon={ 'Suitcase' } description={props.secondaryText} size={Size.Large} />
+        <IconComponent iconName={ 'Suitcase' } description={props.secondaryText} size={Size.Large} />
     );
   }
   
@@ -32,23 +33,23 @@ export default class CardInformation extends React.Component<ICardInformationPro
         </div>                        
         <div className="ms-Grid-row">
           <div className="ms-Grid-col ms-u-sm12 ms-u-md6">
-            <IconComponent icon={"Mail"} description={this.props.employee.mail} size={ Size.Small } />
-            <IconComponent icon={"Phone"} description={this.props.employee.mobilePhone} size={ Size.Small } />
-            <IconComponent icon={"Cake"} description={this.props.employee.birthday} size={ Size.Small } />
-            <IconComponent icon={"Ribbon"} description={this.props.employee.companyPoints.toString()} size={ Size.Small } />
+            <IconComponent iconName={"Mail"} description={this.props.employee.mail} size={ Size.Small } />
+            <IconComponent iconName={"Phone"} description={this.props.employee.mobilePhone} size={ Size.Small } />
+            <IconComponent iconName={"Cake"} description={this.props.employee.birthday} size={ Size.Small } />
+            <IconComponent iconName={"Ribbon"} description={this.props.employee.rewardPoints.toString()} size={ Size.Small } />
           </div>
           <div className="ms-Grid-col ms-u-sm12 ms-u-md6">
-            <IconComponent icon={"CellPhone"} description={this.props.employee.mobilePhone} size={ Size.Small } />
-            <IconComponent icon={"Hospital"} description={this.props.employee.emergencyContacts} size={ Size.Small } />
+            <IconComponent iconName={"CellPhone"} description={this.props.employee.mobilePhone} size={ Size.Small } />
+            <IconComponent iconName={"Hospital"} description={this.props.employee.emergencyContacts} size={ Size.Small } />
             {
               this.props.employee.vehicule && 
-              <IconComponent icon={"Car"} description={this.props.employee.vehicule} size={ Size.Small } />
+              <IconComponent iconName={"Car"} description={this.props.employee.vehicule} size={ Size.Small } />
             }            
             {
               this.props.employee.isHomeOffice ? 
-              <IconComponent icon={"OutOfOffice"} description={"Home Office"} size={ Size.Small } />
+              <IconComponent iconName={"OutOfOffice"} description={"Home Office"} size={ Size.Small } />
               :
-              <IconComponent icon={"EMI"} description={this.props.employee.officeLocation} size={ Size.Small } />
+              <IconComponent iconName={"EMI"} description={this.props.employee.officeLocation} size={ Size.Small } />
             }            
           </div>
         </div>

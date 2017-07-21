@@ -1,4 +1,6 @@
 interface IPerformanceSkills {
+  id: number;
+  userPrincipalName: string;
   communication: number;
   thecnicalKnowledge: number;
   teamwork: number;

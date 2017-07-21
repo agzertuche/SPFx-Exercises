@@ -11,6 +11,8 @@ React.Component<IEmployeeCardsProps, IEmployeeCardsState>{
   constructor(props: IEmployeeCardsProps){
     super(props);
     
+    this._updateSelectedUsers = this._updateSelectedUsers.bind(this);
+
     this.state = {
       selectedEmployees: []
     };
@@ -32,7 +34,7 @@ React.Component<IEmployeeCardsProps, IEmployeeCardsState>{
           <div className="ms-Grid-row ">
             <div className="ms-Grid-col ms-u-sm12">
               <CardSearch 
-                onSelectedEmployeesChange={this._updateSelectedUsers.bind(this)} 
+                onSelectedEmployeesChange={this._updateSelectedUsers} 
                 users={this.props.users} 
               />            
             </div>

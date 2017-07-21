@@ -1,6 +1,7 @@
 interface IUser {
-  id: string;
+  id: string;  
   displayName: string;
+  imageUrl?: string;
   mail: string;
   mobilePhone: string;
   jobTitle: string;
@@ -9,8 +10,7 @@ interface IUser {
   companyName: string;
   city: string;
   country: string;
-  userPrincipalName: string;
-  imageUrl?: string;
+  userPrincipalName: string;    
 }
 
 export default IUser;

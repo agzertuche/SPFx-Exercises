@@ -6,6 +6,7 @@ interface IDataProvider {
   webPartContext: IWebPartContext;
   getUsers(): Promise<IUser[]>;
   getEmployees(users: IUser[]): Promise<IEmployee[]>;
+  getAchievements();
 }
 
 export default IDataProvider;

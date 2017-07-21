@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Icon } from 'office-ui-fabric-react';
 import styles from './styles.module.scss';
-import { IIconComponentProps, Size } from './IIconComponentProps';
+import { IIconComponentProps } from './IIconComponentProps';
+import { Size } from '../../../models/Enums';
 
 export default class IconComponent extends React.Component<IIconComponentProps, {}>{
   constructor(props: IIconComponentProps){
@@ -32,37 +33,6 @@ export default class IconComponent extends React.Component<IIconComponentProps, 
     let fontSize:any = {
       fontSize: 'small'
     };
-
-    // switch (this.props.size) {
-    //   case Size.XXSmall:
-    //     iconSize = { fontSize: 'xx-small'};
-    //     fontSize = { fontSize: 'xx-small'};        
-    //     break;        
-    //   case Size.XSmall:
-    //     iconSize = { fontSize: 'x-small'};
-    //     fontSize = { fontSize: 'xx-small'};        
-    //     break;        
-    //   case Size.Small:
-    //     iconSize = { fontSize: 'small'};
-    //     fontSize = { fontSize: 'xx-small'};        
-    //     break;    
-    //   case Size.Medium:
-    //     iconSize = { fontSize: 'medium'};
-    //     fontSize = { fontSize: 'x-small'};        
-    //     break;            
-    //   case Size.Large:
-    //     iconSize = { fontSize: 'large'};
-    //     fontSize = { fontSize: 'small'};        
-    //     break;        
-    //   case Size.XLarge:
-    //     iconSize = { fontSize: 'x-large'};
-    //     fontSize = { fontSize: 'small'};        
-    //     break;        
-    //   case Size.XXLarge:
-    //     iconSize = { fontSize: 'xx-large'};
-    //     fontSize = { fontSize: 'small'};        
-    //     break;        
-    // }
 
     switch (this.props.size) {
       case Size.XXSmall:
@@ -98,7 +68,7 @@ export default class IconComponent extends React.Component<IIconComponentProps, 
     return(
       <div className="ms-Grid-row">
         <div className="ms-Grid-col ms-u-sm2" >
-          <Icon iconName={this.props.icon} style={iconSize} />
+          <Icon iconName={this.props.iconName} style={iconSize} />
         </div>
         <div className={`ms-Grid-col ms-u-sm10`} style={fontSize}>
           {this._renderTitle()}

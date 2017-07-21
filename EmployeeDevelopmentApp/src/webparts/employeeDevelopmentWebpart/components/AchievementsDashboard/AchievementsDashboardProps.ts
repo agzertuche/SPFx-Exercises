@@ -1,5 +1,5 @@
-import IUser from '../../models/IUser';
+import IAchievement from '../../models/IAchievement';
 
 export interface AchievementsDashboardProps {
-  users: IUser[];
+  achievements: IAchievement[];
 }

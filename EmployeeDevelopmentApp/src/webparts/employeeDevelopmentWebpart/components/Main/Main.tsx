@@ -8,8 +8,11 @@ import {
 } from 'office-ui-fabric-react/lib/Pivot';
 import { IMainProps } from './IMainProps';
 import { IMainState } from './IMainState';
+import { ComponentStatus } from '../../models/Enums';
 import IUser from '../../models/IUser';
+import IAchievement from '../../models/IAchievement';
 import styles from '../../styles/app.module.scss';
+import Placeholder from '../Common/Placeholder';
 import EmployeeCards from '../EmployeeCards';
 import AchievementsDashboard from '../AchievementsDashboard';
 import PerformanceDashboard from '../PerformanceDashboard';
@@ -18,19 +21,65 @@ import EmployeeInformation from '../EmployeeInformation';
 export default class Main extends React.Component<IMainProps, IMainState>{
   constructor(props: IMainProps) {
     super(props);
-
     this.state = {
-      users: []
+      users: [],
+      componentStatus: ComponentStatus.Loading
     };
   }
 
-  private componentDidMount(): void{
+  private componentWillMount(): void{
     this.props.dataProvider.getUsers()
     .then((usersArray: IUser[]) => {
       this.setState({
-        users: usersArray
+        users: usersArray,
+        componentStatus: ComponentStatus.Completed
+      });
+    })    
+    .catch(error => {
+      this.setState({
+        users: [],
+        componentStatus: ComponentStatus.Error
       });
     });
+
+    this.props.dataProvider.getAchievements()
+    .then((achievementsArray: IAchievement[]) => {
+      this.setState({
+        users: this.state.users,
+        achievements: achievementsArray
+      });
+    });
+  }
+
+  private _handleRenderMode(){
+    switch (this.state.componentStatus) {
+      case ComponentStatus.Loading:
+        return this._renderLoading();
+      case ComponentStatus.Completed:
+        return this._renderNavigation();
+      case ComponentStatus.Error:
+        return this._renderError();
+      default:
+        return this._renderError();
+    }
+  }
+
+  private _renderLoading() {
+    return (
+      <Placeholder
+        displaySpinner
+        spinnerText={"Loading employees data... please wait."}
+      /> 
+    );
+  }
+  
+  private _renderError() {
+    return (
+      <Placeholder
+        title={"Ooops! error... .  .   .    .     ."}
+        description={"We couldn't find Nemo... sorry =*("}
+      />           
+    );
   }
 
   private _renderNavigation() {
@@ -47,7 +96,7 @@ export default class Main extends React.Component<IMainProps, IMainState>{
                 <EmployeeInformation users={this.state.users} />              
               </PivotItem>
               <PivotItem linkText='Achievements' itemIcon='Trophy'>              
-                <AchievementsDashboard users={this.state.users} />
+                <AchievementsDashboard achievements={this.state.achievements} />
               </PivotItem>
               <PivotItem linkText='Performance' itemIcon='BarChart4'>
                 <PerformanceDashboard />
@@ -64,9 +113,7 @@ export default class Main extends React.Component<IMainProps, IMainState>{
       <Fabric>
         <div className={`${styles.employeeCardWebPart} ${styles.container}`}>
           <div className={`ms-Grid ms-u-fadeIn500`}>
-            {
-              this._renderNavigation()
-            }
+            { this._handleRenderMode() }
           </div>    
         </div>
       </Fabric>

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ICardContainerProps } from './ICardContainerProps';
+import Placeholder from '../../Common/Placeholder';
 import Card from './Card';
 
 export default class CardContainer extends React.Component<ICardContainerProps,{}>{
@@ -17,9 +18,11 @@ export default class CardContainer extends React.Component<ICardContainerProps,{
             cards.length > 0 ? 
             cards : 
             (
-              <div>
-                No employees selected, please search for any employees and select at least one...
-              </div>
+              <Placeholder 
+                icon="Search"
+                title="No employees selected"
+                description="Please search for any employees and select at least one..."
+              />
             ) 
           }
         </div>
