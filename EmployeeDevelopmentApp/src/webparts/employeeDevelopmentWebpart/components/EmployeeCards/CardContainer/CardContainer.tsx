@@ -5,10 +5,19 @@ import Card from './Card';
 
 export default class CardContainer extends React.Component<ICardContainerProps,{}>{
   public render(): React.ReactElement<ICardContainerProps>{
-    const cards = this.props.employees.map((e) =>{
-      return (
-        <Card key={e.id} employee={e}/>
-      );
+    const cards = this.props.employees.map((e) => {
+      if (e){
+        return ( <Card key={e.id} employee={e}/> );
+      } 
+      else {
+        return (
+          <Placeholder 
+            icon="ContactCard" 
+            title="Employee not found"
+            description="No employee information found for this user..."
+          />
+        );
+      }      
     });
 
     return (
@@ -16,14 +25,13 @@ export default class CardContainer extends React.Component<ICardContainerProps,{
         <div className="ms-Grid-col ms-u-sm12">
           {
             cards.length > 0 ? 
-            cards : 
-            (
+              cards 
+            : 
               <Placeholder 
                 icon="Search"
                 title="No employees selected"
                 description="Please search for any employees and select at least one..."
               />
-            ) 
           }
         </div>
       </div>

@@ -20,14 +20,14 @@ export default class Placeholder extends React.Component<IPlaceholderProps, {}>{
             { 
               displayTitleRow && 
               <div className={`ms-Grid-row ${styles.title}`}>
-                <div className="ms-Grid-col ms-u-sm12 ms-u-md2">
-                  <Icon className={styles.icon} iconName={this.props.icon} />
-                  </div>
-                  <div className={`ms-Grid-col ms-u-sm12 ms-u-md10`}>
+                <div className={`${styles.icon} ms-Grid-col ms-u-sm12 ms-u-md4`}>
+                  <Icon  iconName={this.props.icon} />
+                </div>
+                <div className={`ms-Grid-col ms-u-sm12 ms-u-md8`}>
                   <h2>{this.props.title}</h2>
-                  <p>
+                  <div>
                     {this.props.description}
-                  </p>
+                  </div>
                 </div>
               </div>
             }

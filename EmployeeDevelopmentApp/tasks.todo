@@ -21,13 +21,13 @@ Project:
     ✔ Add a new tab to look for employee information @done (19/7/2017 21:22:46)
     ✘ Display a grid of employees filtered by the search box @cancelled (19/7/2017 21:22:37)
   ✔ Achievements Dashboard Tab:@low @done (19/7/2017 21:22:11)
-    ✔ Most completed achievements @done (19/7/2017 20:14:27)
-    ✔ Rising completed achievements @done (19/7/2017 20:14:27)
-    ✔ Users with most completed achievement https://dev.office.com/fabric#/components/persona @done (19/7/2017 20:14:30)
+    ☐ Most completed achievements
+    ☐ Rising completed achievements
+    ☐ Users with most completed achievement https://dev.office.com/fabric#/components/persona
   ✔ Performance Dashboard Tab:@low @done (19/7/2017 21:21:56)
     ✘ Avergae of performance @cancelled (19/7/2017 20:15:42)
-    ✔ Add a Normal Distribution Chart vs current performance Distribution @done (19/7/2017 20:14:36)
-    ✔ Add a radar chart http://www.chartjs.org/docs/latest/charts/radar.html @done (19/7/2017 20:14:46)
+    ☐ Add a Normal Distribution Chart vs current performance Distribution
+    ☐ Add a radar chart http://www.chartjs.org/docs/latest/charts/radar.html
     ✔ Change performance variables, components, objects to "skills": @done (17/7/2017 18:14:26)
       ✔ Communication @done (17/7/2017 18:14:26)
       ✔ Thecnical Knowledge @done (17/7/2017 18:14:27)
@@ -37,6 +37,9 @@ Project:
       ✔ Leadership @done (17/7/2017 18:14:28)
       ✔ Management @done (17/7/2017 18:14:30)
       ✔ Creative @done (17/7/2017 18:14:31)
+  ✔ Add callout component on card info to view more properties https://dev.office.com/fabric#/components/callout @done (7/22/2017, 4:53:04 AM)
+  ✔ Add CommandBar en Employee info https://dev.office.com/fabric#/components/commandbar @done (7/22/2017, 5:29:04 AM)
+  ✘ Add ContextualMenu on Achievements component https://dev.office.com/fabric#/components/contextualmenu @cancelled (7/22/2017, 11:16:10 PM)
   
   Artifacts:
     ☐ Add lists schemas to deploy a list instance when app is installed @high  
@@ -59,7 +62,7 @@ Project:
       ☐ Get Performance
         ☐ All
         ☐ Average
-        ☐ By skill        ☐ 
+        ☐ By skill
     ☐ Implement MS Graph @high  
       ☐ Get user info from UPS
       ☐ Get performance info from SP Lists
@@ -67,15 +70,19 @@ Project:
     ✔ Implement Mockup data @done (17/7/2017 18:15:01)
 
 UI: 
-  ☐ Add 4 primary colors
-  ☐ Add 2 prmiary Fonts
+  ✔ UI Cards @done (7/23/2017, 12:59:21 AM)
+  ✔ UI Information @done (7/23/2017, 12:59:23 AM)
+  ✔ UI Achievements @done (7/23/2017, 12:59:24 AM)
+  ☐ UI Performance
+  ✔ Add 4 primary colors @done (7/21/2017, 9:18:55 PM)
+  ✔ Add 2 prmiary Fonts @done (7/21/2017, 9:18:55 PM)
   ✘ Define Icon colors @cancelled (18/7/2017 20:37:22)
   ☐ App icon when to display when adding the webpart to the page https://thechriskent.com/2017/06/19/sharepoint-framework-app-icon/
   ☐ Improve transitions on components
   ☐ App Styles
-    ☐ Set background color
-    ☐ minimum padding
-    ☐ border or shadow of components
+    ✔ Set background color @done (7/22/2017, 5:30:54 AM)
+    ✔ minimum padding @done (7/22/2017, 5:30:57 AM)
+    ✔ border or shadow of components @done (7/22/2017, 5:30:59 AM)
     ☐ Responsive Navegation
     ☐ Ensure all components are viable on mobile using office ui fabric grid  
     

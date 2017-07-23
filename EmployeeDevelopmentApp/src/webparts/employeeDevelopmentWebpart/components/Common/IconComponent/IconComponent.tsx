@@ -66,15 +66,17 @@ export default class IconComponent extends React.Component<IIconComponentProps, 
     }
 
     return(
-      <div className="ms-Grid-row">
-        <div className="ms-Grid-col ms-u-sm2" >
-          <Icon iconName={this.props.iconName} style={iconSize} />
-        </div>
-        <div className={`ms-Grid-col ms-u-sm10`} style={fontSize}>
-          {this._renderTitle()}
-          <div>
-            {this.props.description}
-          </div>            
+      <div className={styles.iconComponent} >
+        <div className="ms-Grid-row">
+          <div className={`${styles.icon} ms-Grid-col ms-u-sm3`}>
+            <Icon alt={this.props.title} iconName={this.props.iconName} style={iconSize} />
+          </div>
+          <div className={`ms-Grid-col ms-u-sm9`} style={fontSize}>
+            { this._renderTitle() }
+            <div className={styles.iconDescription} >
+              {this.props.description}
+            </div>            
+          </div>
         </div>
       </div>
     );

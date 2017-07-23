@@ -1,29 +1,34 @@
 import * as React from 'react';
 import { IAchievementsContainerProps } from './IAchievementsContainerProps';
+import styles from './styles.module.scss';
 import Achievement from '../../../../Common/Achievement';
+import Placeholder from '../../../../Common/Placeholder';
 
 export default class AchievementsContainer extends React.Component<IAchievementsContainerProps, {}>{
   public render(): React.ReactElement<IAchievementsContainerProps> {
-    const achievements = this.props.achievements.map((a) => {
+    const achievements = this.props.achievements.map((a) => {      
       return ( 
-        <Achievement key={a.id} id={a.id} icon={a.icon} title={a.title} description={a.description} />
+        <div key={a.id} className="ms-Grid-col ms-u-sm12 ms-u-md4">
+          <Achievement achievement={a} />
+        </div>
       );
     });
 
     return(
-      <div className="ms-u-slideUpIn20">
-          <div className={'ms-font-l'}>
-              <span>Achievements</span>
-          </div> 
-          <div className="ms-Grid-row">
-            { 
-              achievements.length > 0 ?
-              achievements : 
-              <div>
-                This employee has not earn any achievement... That's sad =(
-              </div>
-            }
-          </div> 
+      <div className={styles.cardAchievements}>
+        <div className={'ms-font-m'}>
+          <span>Achievements</span>
+        </div> 
+        <div className="ms-Grid-row">          
+          { 
+            achievements.length > 0 ?
+            achievements : 
+            <Placeholder 
+              icon="ReceiptCheck" 
+              description="No achievements found for this employee..."
+            />              
+          }
+        </div> 
       </div>
     );
   }

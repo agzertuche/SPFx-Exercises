@@ -1,11 +1,16 @@
 // Colors
-$blue:      #006f94;
-$grey:      #666666;
+$blue:      #0078d7;
 $lightGrey: #f4f4f4;
+$grey:      #eaeaea;
 $darkGrey:  #333333;
 
 // Common colors
 $primaryBackground:     $lightGrey;
-$primaryForeground:     $grey;
+$primaryForeground:     $darkGrey;
 $secondaryBackground:   $blue;
 $secondaryForeground:   white;
+
+$border: 1px solid $grey;
+
+$padding: .4em;
+$margin: .4em;

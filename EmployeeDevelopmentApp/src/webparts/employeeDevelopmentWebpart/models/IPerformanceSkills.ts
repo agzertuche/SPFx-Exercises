@@ -1,13 +1,11 @@
 interface IPerformanceSkills {
   id: number;
   userPrincipalName: string;
-  communication: number;
-  thecnicalKnowledge: number;
+  technicalKnowledge: number;
   teamwork: number;
   meetingDeadlines: number;
   problemSolving: number;
   leadership: number;
-  creative: number;
   management: number;
 }
 

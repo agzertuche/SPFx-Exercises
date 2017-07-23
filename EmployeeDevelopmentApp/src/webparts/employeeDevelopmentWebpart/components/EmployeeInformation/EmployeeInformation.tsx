@@ -1,17 +1,24 @@
 import * as React from 'react';
-import { IEmployeeInformationProps } from './IEmployeeInformationProps';
+import { 
+  IEmployeeInformationProps,
+  items, 
+  overflowItems,
+  farItems
+} from './IEmployeeInformationProps';
 import { IEmployeeInformationState } from './IEmployeeInformationState';
+import styles from './styles.module.scss';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
 import {
   DetailsList,
   buildColumns,
 } from 'office-ui-fabric-react/lib/DetailsList';
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 
 let _items: any[];
 
 export default class EmployeeInformation extends React.Component<IEmployeeInformationProps,IEmployeeInformationState>{
-  constructor(props: {}) {
+  constructor(props: IEmployeeInformationProps) {
     super(props);
 
     _items = _items || this.props.users;
@@ -20,7 +27,8 @@ export default class EmployeeInformation extends React.Component<IEmployeeInform
 
     this.state = {
       sortedItems: _items,
-      columns: _buildColumns()
+      columns: _buildColumns(),
+      showModal: false
     };
   }
 
@@ -60,18 +68,35 @@ export default class EmployeeInformation extends React.Component<IEmployeeInform
     });
   }
 
+  private _showModal() {
+    this.setState({ showModal: true });
+  }
+
+  private _closeModal() {
+    this.setState({ showModal: false });
+  }
+
   public render(): React.ReactElement<{}>{
-    let { sortedItems, columns } = this.state;
+    let { sortedItems, columns, showModal } = this.state;
     
     return (
-      <div className="ms-Grid-row ms-u-fadeIn200"> 
-        <div className="ms-Grid-col ms-u-sm12">          
-          <DetailsList
-            items={ sortedItems }
-            columns={ columns }
-            onRenderItemColumn={ _renderItemColumn }
-            onColumnHeaderClick={ this._onColumnClick }  
-          />
+      <div className={styles.employeeInformation}>
+        <div className="ms-Grid-row ms-u-fadeIn200"> 
+          <div className={`${styles.detailsList} ms-Grid-col ms-u-sm12`}>     
+            <CommandBar
+              searchPlaceholderText='Search...'
+              elipisisAriaLabel='More options'
+              items={ items }
+              overflowItems={ overflowItems }
+              farItems={ farItems  }
+            />     
+            <DetailsList
+              items={ sortedItems }
+              columns={ columns }
+              onRenderItemColumn={ _renderItemColumn }
+              onColumnHeaderClick={ this._onColumnClick }  
+            />
+          </div>
         </div>
       </div>
     );
@@ -81,22 +106,32 @@ export default class EmployeeInformation extends React.Component<IEmployeeInform
 function _buildColumns() {
   let columns = buildColumns(_items);
   let filteredColumns = columns.filter((c) => {
+    c.maxWidth = 100;
     switch (c.name) {
       case "imageUrl":
+        c.name = "Thumbnail";
+        return c;
       case "displayName":
+        c.name = "Name";        
+        return c;
       case "mail":      
+        c.name = "e-Mail";
+        return c;
       case "department":
+        c.name = "Department";
+        return c;
       case "city":
+        c.name = "City";
+        return c;
+      case "jobTitle":
+        c.name = "Job Title";
+        return c;
+      case "country":
+        c.name = "Country";
         return c;
       default:
     }    
   });
-
-  let thumbnailColumn = filteredColumns.filter(column => column.name === 'imageUrl')[0];
-  
-  // Special case one column's definition.
-  thumbnailColumn.name = 'imageUrl';
-  thumbnailColumn.maxWidth = 50;
 
   return filteredColumns;
 }

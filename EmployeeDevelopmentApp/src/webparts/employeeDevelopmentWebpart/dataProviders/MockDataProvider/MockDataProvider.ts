@@ -14,7 +14,6 @@ import { EmployeeInformation } from './EmployeeInformation';
 export class MockDataProvider implements IDataProvider {
   private _users: IUser[];
   private _achievements: IAchievement[];
-  private _employees: IEmployee[];
   private _employeeInformation: IEmployeeInformation[];
   private _earnedAchievements: any[];
   private _performanceSkills: IPerformanceSkills[];
@@ -26,7 +25,6 @@ export class MockDataProvider implements IDataProvider {
     this._earnedAchievements = EarnedAchievements;
     this._performanceSkills = PerformanceSkills;
     this._employeeInformation = EmployeeInformation;
-    this._employees = [];
   }
 
   public set webPartContext(value: IWebPartContext) {
@@ -68,9 +66,9 @@ export class MockDataProvider implements IDataProvider {
 
   private _getEmployees(users: IUser[]): Promise<IEmployee[]> {
     
-    const employees: IEmployee[] = users.map(user => {      
+    const employees: IEmployee[] = users.map(user => {    
       let employeeInfo = this._employeeInformation.filter(e => user.userPrincipalName == e.userPrincipalName);
-      if(employeeInfo){
+      if(employeeInfo.length > 0){
         return {
           ...user,
           ...employeeInfo[0],

@@ -1,0 +1,38 @@
+.achievementsDashboard{
+  @import "../../styles/variables.module";
+
+  background: white;
+  margin: $margin 0;
+
+  .container {
+    padding: 0 $padding;
+
+    > div{
+      margin: $margin 0;
+    }
+  }
+
+  .mostCompletedAchievement{
+    border: $border;
+    padding: 0 $padding;
+  }
+
+  .trendingCompletedAchievement{
+    border: $border;
+    padding: 0 $padding;
+  }
+
+  .topAchievers{
+    border: $border;
+    padding: $padding;
+
+    > div {
+      margin: .2em 0;
+    }
+  }
+
+  .allAchievements{    
+    border: $border;
+    padding: .2em $padding;
+  }
+}    

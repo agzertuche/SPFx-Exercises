@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { AchievementsDashboardProps } from './AchievementsDashboardProps';
 import { AchievementsDashboardState } from './AchievementsDashboardState';
+import styles from './styles.module.scss';
 import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZone';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { List } from 'office-ui-fabric-react/lib/List';
 import { getRTL } from 'office-ui-fabric-react/lib/Utilities';
-import IconComponent from '../Common/IconComponent';
-import { Size } from '../../models/Enums';
+import Achievement from '../Common/Achievement';
 import { IPersonaProps, Persona, PersonaSize, PersonaPresence } from 'office-ui-fabric-react/lib/Persona';
 
 export default class AchievementsDashboard extends React.Component<AchievementsDashboardProps,AchievementsDashboardState>{
@@ -44,7 +44,14 @@ export default class AchievementsDashboard extends React.Component<AchievementsD
     let mostCompletedAchievement = achievements[0];
 
     return (
-      <IconComponent {...mostCompletedAchievement} size={Size.XXLarge} />
+      <div className={styles.mostCompletedAchievement}>
+        <span className="ms-font-m">
+          Most Completed
+        </span>
+        <Achievement achievement={mostCompletedAchievement} />
+        <Achievement achievement={mostCompletedAchievement} />
+        <Achievement achievement={mostCompletedAchievement} />
+      </div>
     );
   }
 
@@ -54,7 +61,15 @@ export default class AchievementsDashboard extends React.Component<AchievementsD
     let trendingCompletedAchievement = achievements[0];
 
     return (
-      <IconComponent {...trendingCompletedAchievement} size={Size.XXLarge} />
+      <div className={styles.trendingCompletedAchievement}>
+        <span className="ms-font-m">
+          Trending  
+        </span>
+        
+        <Achievement achievement={trendingCompletedAchievement} />
+        <Achievement achievement={trendingCompletedAchievement} />
+        <Achievement achievement={trendingCompletedAchievement} />
+      </div>
     );
   }
 
@@ -80,7 +95,7 @@ export default class AchievementsDashboard extends React.Component<AchievementsD
     };
 
     const topAchievers = [];
-    for (var index = 0; index < 5; index++) {
+    for (var index = 0; index < 3; index++) {
       topAchievers.push(
         <Persona
           key={index}
@@ -93,7 +108,12 @@ export default class AchievementsDashboard extends React.Component<AchievementsD
     }
     
     return (
-        topAchievers
+      <div className={styles.topAchievers}>
+        <span className="ms-font-m">
+          Top Achievers
+        </span>
+        { topAchievers }
+      </div>
     );
   }
 
@@ -103,7 +123,10 @@ export default class AchievementsDashboard extends React.Component<AchievementsD
     let resultCountText = filteredAchievements.length === originalItems.length ? '' : ` (${filteredAchievements.length} of ${originalItems.length} shown)`;
 
     return (
-      <FocusZone direction={ FocusZoneDirection.vertical }>
+      <FocusZone className={styles.allAchievements} direction={ FocusZoneDirection.vertical }>
+        <span className="ms-font-m">
+          All Achievements
+        </span>
         <TextField 
           placeholder="Type to filter achievements" 
           onBeforeChange={ this._onFilterChanged } 
@@ -112,45 +135,41 @@ export default class AchievementsDashboard extends React.Component<AchievementsD
         <List
           items={ filteredAchievements }
           onRenderCell={ (item , index) => (
-            <div data-is-focusable={ true }>
-              <IconComponent {...item} size={Size.XXLarge} />
-            </div>
+            <Achievement key={item.id} achievement={item} />
           )}
         />
       </FocusZone>
     );
   }
 
-  public render(): React.ReactElement<{}>{
+  public render(): React.ReactElement<AchievementsDashboardProps>{
     let { achievements: originalItems } = this.props;
     let { filteredAchievements } = this.state;
     let resultCountText = filteredAchievements.length === originalItems.length ? '' : ` (${filteredAchievements.length} of ${originalItems.length} shown)`;
 
     return (
-      <div className="ms-Grid-row ms-u-slideDownIn20">   
-        <div className="ms-Grid-col ms-u-sm12 ms-u-md8">
-          <div className="ms-Grid-row">         
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md6">
-              { this._mostCompletedAchievement() }
+      <div className={styles.achievementsDashboard}>
+        <div className="ms-Grid-row ms-u-slideDownIn20">   
+          <div className={`${styles.container} ms-Grid-col ms-u-sm12`}>
+            <div className="ms-Grid-row">
+              <div className="ms-Grid-col ms-u-sm12 ms-u-md4">
+                { this._mostCompletedAchievement() }
+              </div>
+              <div className="ms-Grid-col ms-u-sm12 ms-u-md4">
+                { this._trendingCompletedAchievement() }
+              </div>
+              <div className="ms-Grid-col ms-u-sm12 ms-u-md4">
+                { this._topAchievers() }                
+              </div>
             </div>
-            <div className="ms-Grid-col ms-u-sm12 ms-u-md6">
-              { this._trendingCompletedAchievement() }
-            </div>            
-          </div>
-          <div className="ms-Grid-row">         
-            <div className="ms-Grid-col ms-u-sm12">
-              { this._filterAchievementsContainer() }
-            </div>
-          </div>
-        </div>
-        <div className="ms-Grid-col ms-u-sm12 ms-u-md4">
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col">
-              { this._topAchievers() }
+            <div className="ms-Grid-row">
+              <div className="ms-Grid-col ms-u-sm12">
+                { this._filterAchievementsContainer() }
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </div>            
     );
   }
 }

@@ -1,0 +1,10 @@
+.cardPerformance{
+  @import "../../../../../styles/variables.module";
+
+  border: $border;
+  padding: 0 .6em;
+
+  .chart{
+    margin: auto;
+  }
+}

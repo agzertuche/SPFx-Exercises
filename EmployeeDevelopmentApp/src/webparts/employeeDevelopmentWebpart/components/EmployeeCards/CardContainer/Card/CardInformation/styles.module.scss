@@ -1,0 +1,32 @@
+.cardInformation{
+  @import "../../../../../styles/variables.module";
+
+  border: $border;
+  padding: 0 .6em;
+
+  .summarySection{
+    padding: 0 .4em .4em .4em;
+  }
+
+  .dataSection{
+    background: $primaryBackground;
+    padding: $padding;
+  }
+
+  .calloutText{
+    margin: .8em;
+  }
+
+  .calloutButton{
+    text-align: right;
+    height: 1em;
+  }
+
+  .calloutButton i{
+    font-size: 7pt;
+  }
+}
+
+.calloutText{
+  margin: .8em;
+}

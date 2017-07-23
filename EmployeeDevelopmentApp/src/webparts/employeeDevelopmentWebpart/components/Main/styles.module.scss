@@ -1,0 +1,10 @@
+.main{
+  @import "../../styles/variables.module";
+
+  background-color: $primaryBackground;
+  color: $primaryForeground;        
+  
+  .componentSection {
+    margin-top: .6em;
+  }
+}

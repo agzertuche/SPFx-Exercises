@@ -11,7 +11,7 @@ import { IMainState } from './IMainState';
 import { ComponentStatus } from '../../models/Enums';
 import IUser from '../../models/IUser';
 import IAchievement from '../../models/IAchievement';
-import styles from '../../styles/app.module.scss';
+import styles from './styles.module.scss';
 import Placeholder from '../Common/Placeholder';
 import EmployeeCards from '../EmployeeCards';
 import AchievementsDashboard from '../AchievementsDashboard';
@@ -90,16 +90,22 @@ export default class Main extends React.Component<IMainProps, IMainState>{
             this.state.users.length > 0 &&
             <Pivot linkFormat={ PivotLinkFormat.tabs } linkSize={ PivotLinkSize.large }> 
               <PivotItem linkText='Cards' itemIcon='ContactCard'>
-                <EmployeeCards dataProvider={this.props.dataProvider} users={this.state.users} />              
+                <div className={styles.componentSection}> 
+                  <EmployeeCards dataProvider={this.props.dataProvider} users=  {this.state.users} />              
+                </div>
               </PivotItem>
               <PivotItem linkText='Information' itemIcon='ThumbnailView'>
                 <EmployeeInformation users={this.state.users} />              
               </PivotItem>
               <PivotItem linkText='Achievements' itemIcon='Trophy'>              
-                <AchievementsDashboard achievements={this.state.achievements} />
+                <div className={styles.componentSection}>
+                  <AchievementsDashboard achievements={this.state.achievements} />
+                </div>
               </PivotItem>
               <PivotItem linkText='Performance' itemIcon='BarChart4'>
-                <PerformanceDashboard />
+                <div className={styles.componentSection}>
+                  <PerformanceDashboard />
+                </div>
               </PivotItem>
             </Pivot>          
           } 
@@ -111,7 +117,7 @@ export default class Main extends React.Component<IMainProps, IMainState>{
   public render(): React.ReactElement<IMainProps>{
     return (
       <Fabric>
-        <div className={`${styles.employeeCardWebPart} ${styles.container}`}>
+        <div className={styles.main}>
           <div className={`ms-Grid ms-u-fadeIn500`}>
             { this._handleRenderMode() }
           </div>    
