@@ -32,6 +32,10 @@ export default class CardPerformance extends React.Component<ICardPerformancePro
   }
 
   public render(): React.ReactElement<ICardPerformanceProps>{
+    const legend = {
+      display:false
+    };
+
     const options = {
       scale: {
         ticks: {
@@ -44,11 +48,7 @@ export default class CardPerformance extends React.Component<ICardPerformancePro
       animation: {
         duration: 2000
       }
-    };
-
-    const legend = {
-      display:false
-    };
+    };    
    
     const data = {
       labels: ['Teamwork', 'Problem Solving', 'Leadership', 'Management', 'Meeting Deadlines', 'Thecnical Knowledge'],
@@ -95,25 +95,20 @@ export default class CardPerformance extends React.Component<ICardPerformancePro
         <div className={'ms-font-m'}>
           Performance
         </div>
-        <div className={`${styles.chart} ms-Grid-row`}>
-          <div className="ms-Grid-col">
-            {
-              this.props.employeePerformanceSkills &&
-              this.props.employeePerformanceSkills.length > 0 ? 
-                <Radar 
-                  height={200}
-                  data={data}
-                  options={options}
-                  legend={legend}
-                />
-              : 
-                <Placeholder 
-                  icon="FolderSearch" 
-                  description="No performance data found for this employee..."
-                />
-            }            
-          </div>          
-        </div>          
+        {
+          this.props.employeePerformanceSkills &&
+          this.props.employeePerformanceSkills.length > 0 ? 
+            <Radar 
+              data={data}
+              options={options}
+              legend={legend}
+            />
+            : 
+            <Placeholder 
+              icon="FolderSearch" 
+              description="No performance data found for this employee..."
+            />
+        }
       </div>
     );
   }

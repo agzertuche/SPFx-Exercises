@@ -29,7 +29,7 @@ React.Component<IEmployeeCardsProps, IEmployeeCardsState>{
 
   public render(): React.ReactElement<IEmployeeCardsProps>{
     return (
-      <div className={`ms-Grid-row ms-u-fadeIn200`}> 
+      <div className={`ms-Grid-row ms-u-slideDownIn20`}> 
         <div className="ms-Grid-col ms-u-sm12">
           <div className="ms-Grid-row ">
             <div className="ms-Grid-col ms-u-sm12">

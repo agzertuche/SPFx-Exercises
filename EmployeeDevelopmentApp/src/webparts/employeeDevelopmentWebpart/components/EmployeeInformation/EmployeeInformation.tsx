@@ -81,7 +81,7 @@ export default class EmployeeInformation extends React.Component<IEmployeeInform
     
     return (
       <div className={styles.employeeInformation}>
-        <div className="ms-Grid-row ms-u-fadeIn200"> 
+        <div className="ms-Grid-row ms-u-slideDownIn20"> 
           <div className={`${styles.detailsList} ms-Grid-col ms-u-sm12`}>     
             <CommandBar
               searchPlaceholderText='Search...'

@@ -56,7 +56,7 @@ export default class Main extends React.Component<IMainProps, IMainState>{
       case ComponentStatus.Loading:
         return this._renderLoading();
       case ComponentStatus.Completed:
-        return this._renderNavigation();
+        return this._renderApp();
       case ComponentStatus.Error:
         return this._renderError();
       default:
@@ -82,33 +82,47 @@ export default class Main extends React.Component<IMainProps, IMainState>{
     );
   }
 
-  private _renderNavigation() {
+  private _renderNavigation(showLinkText: boolean){
+    const navigationTexts = {
+      cards:        showLinkText ? 'Cards' : '',
+      information:  showLinkText ? 'Information' : '',
+      achievements: showLinkText ? 'Achievements' : '',
+      performance:  showLinkText ? 'Performance' : '',
+    };
+
+    return(
+      <Pivot linkFormat={ PivotLinkFormat.tabs } linkSize={ PivotLinkSize.large }>        
+        <PivotItem linkText={navigationTexts.cards} itemIcon='ContactCard' className={styles.componentSection}>
+          <EmployeeCards 
+            dataProvider={this.props.dataProvider} 
+            users={this.state.users} 
+          />
+        </PivotItem>
+        <PivotItem linkText={navigationTexts.information} itemIcon='ThumbnailView'>
+          <EmployeeInformation 
+            users={this.state.users} 
+          />
+        </PivotItem>
+        <PivotItem linkText={navigationTexts.achievements} itemIcon='Trophy' className={styles.componentSection}>             
+          <AchievementsDashboard 
+            achievements={this.state.achievements} 
+          /> 
+        </PivotItem>
+        <PivotItem linkText={navigationTexts.performance} itemIcon='BarChart4' className={styles.componentSection}>
+          <PerformanceDashboard /> 
+        </PivotItem>
+      </Pivot>    
+    );
+  }
+
+  private _renderApp() {
     return (
-      <div className="ms-Grid-row">
-        <div className="ms-Grid-col ms-u-md12">
-          {
-            this.state.users.length > 0 &&
-            <Pivot linkFormat={ PivotLinkFormat.tabs } linkSize={ PivotLinkSize.large }> 
-              <PivotItem linkText='Cards' itemIcon='ContactCard'>
-                <div className={styles.componentSection}> 
-                  <EmployeeCards dataProvider={this.props.dataProvider} users=  {this.state.users} />              
-                </div>
-              </PivotItem>
-              <PivotItem linkText='Information' itemIcon='ThumbnailView'>
-                <EmployeeInformation users={this.state.users} />              
-              </PivotItem>
-              <PivotItem linkText='Achievements' itemIcon='Trophy'>              
-                <div className={styles.componentSection}>
-                  <AchievementsDashboard achievements={this.state.achievements} />
-                </div>
-              </PivotItem>
-              <PivotItem linkText='Performance' itemIcon='BarChart4'>
-                <div className={styles.componentSection}>
-                  <PerformanceDashboard />
-                </div>
-              </PivotItem>
-            </Pivot>          
-          } 
+      <div>
+        <div className={'ms-u-hiddenMdUp'} >
+          {this._renderNavigation(false)}
+        </div>
+        <div className={'ms-u-hiddenSm'} >
+          {this._renderNavigation(true)}
         </div>
       </div>
     );
@@ -116,10 +130,12 @@ export default class Main extends React.Component<IMainProps, IMainState>{
   
   public render(): React.ReactElement<IMainProps>{
     return (
-      <Fabric>
-        <div className={styles.main}>
-          <div className={`ms-Grid ms-u-fadeIn500`}>
-            { this._handleRenderMode() }
+      <Fabric className={styles.main}>
+        <div className="ms-Grid">
+          <div className="ms-Grid-row">
+            <div className="ms-Grid-col ms-u-sm12">
+              { this._handleRenderMode() } 
+            </div>    
           </div>    
         </div>
       </Fabric>

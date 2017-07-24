@@ -3,8 +3,11 @@
 
   border: $border;
   padding: 0 .6em;
+  min-height: 15em;
 
-  .chart{
-    margin: auto;
-  }
+  canvas{
+    width: 100% !important;
+    max-width: 800px;
+    height: auto !important;
+  }  
 }

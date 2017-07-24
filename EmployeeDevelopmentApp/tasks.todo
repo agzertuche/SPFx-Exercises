@@ -49,7 +49,7 @@ Project:
 
   API:
     ✔ Add data providers: https://github.com/SharePoint/sp-dev-fx-webparts/tree/master/samples/react-todo-basic#data-providers @done (17/7/2017 18:14:39)
-    ☐ Implement Mock Data Provider @critical 
+    ☐ Implement Mock Data Provider @critical https://github.com/SharePoint/PnP/blob/master/Samples/MicrosoftGraph.Office365.GroupsExplorer/Utils/TokenHelper.cs
       ☐ Get Achievements
         ☐ All 
         ☐ from user 
@@ -73,7 +73,9 @@ UI:
   ✔ UI Cards @done (7/23/2017, 12:59:21 AM)
   ✔ UI Information @done (7/23/2017, 12:59:23 AM)
   ✔ UI Achievements @done (7/23/2017, 12:59:24 AM)
-  ☐ UI Performance
+  ☐ UI Performance Dashboard
+  ☐ Add Microtransactions http://www.n8d.at/blog/microinteractions-how-to-hide-an-ux-easter-egg-in-sharepoint/
+  ☐ Add themes http://www.n8d.at/blog/how-to-use-theme-colors-in-spfx-web-parts/
   ✔ Add 4 primary colors @done (7/21/2017, 9:18:55 PM)
   ✔ Add 2 prmiary Fonts @done (7/21/2017, 9:18:55 PM)
   ✘ Define Icon colors @cancelled (18/7/2017 20:37:22)
@@ -89,7 +91,7 @@ UI:
 Tests:
   ☐ Fix Test gulp task, since it is not finding any test on the project
   ☐ Verify if the test could be running from outside the Test folder @high 
-  ☐ Implement tests for each component:
+  ☐ Implement tests for each component: https://github.com/OfficeDev/office-ui-fabric-react/blob/master/ghdocs/TESTING.md
     ☐ Achievements
     ☐ Card
     ☐ Information

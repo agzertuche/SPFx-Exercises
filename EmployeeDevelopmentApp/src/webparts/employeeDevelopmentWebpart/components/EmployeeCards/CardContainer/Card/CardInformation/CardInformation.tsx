@@ -4,21 +4,36 @@ import { ICardInformationState } from './ICardInformationState';
 import styles from './styles.module.scss';
 import IconComponent from '../../../../Common/IconComponent';
 import { Size } from '../../../../../models/Enums';
-import { Image } from 'office-ui-fabric-react/lib/Image';
+//import { Image } from 'office-ui-fabric-react/lib/Image';
 import { IPersonaProps, Persona, PersonaSize, PersonaPresence } from 'office-ui-fabric-react/lib/Persona';
 import Placeholder from '../../../../Common/Placeholder';
 import { Callout, DirectionalHint } from 'office-ui-fabric-react/lib/Callout';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { IconButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
 
 export default class CardInformation extends React.Component<ICardInformationProps, ICardInformationState>{
   private _calloutButton: any;
   constructor(props: ICardInformationProps){
     super(props);
+    
+    this._onCalloutClicked = this._onCalloutClicked.bind(this);
+    this._onCalloutDismiss = this._onCalloutDismiss.bind(this);
 
     this.state = {
       isCalloutVisible: false
     };
   }
+
+  private _onCalloutDismiss(){
+    this.setState({
+      isCalloutVisible: false
+    });
+  }
+
+  private _onCalloutClicked(){
+    this.setState({
+      isCalloutVisible: !this.state.isCalloutVisible
+    });
+  }  
 
   private _onRenderSecondaryText(props: IPersonaProps): JSX.Element {
     return (
@@ -26,16 +41,29 @@ export default class CardInformation extends React.Component<ICardInformationPro
     );
   }
 
-  public _renderEmployeeInformation(){
+  private _renderEmployeeInformation(){
     return(
       <div>
         <div className={`${styles.summarySection} ms-Grid-row`}>
-          <div className="ms-Grid-col ms-u-sm12">
+          <div className="ms-Grid-col ms-u-sm12 ms-u-hiddenMdUp">
             <Persona
               { ...this.props.employee }
               primaryText= {this.props.employee.displayName}
               secondaryText={this.props.employee.jobTitle}
               tertiaryText={`${this.props.employee.city}, ${this.props.employee.country}`}
+
+              size={ PersonaSize.small }
+              presence={ PersonaPresence.online }
+              onRenderSecondaryText={ this._onRenderSecondaryText }
+            />
+          </div>
+          <div className="ms-Grid-col ms-u-sm12 ms-u-hiddenSm">
+            <Persona
+              { ...this.props.employee }
+              primaryText= {this.props.employee.displayName}
+              secondaryText={this.props.employee.jobTitle}
+              tertiaryText={`${this.props.employee.city}, ${this.props.employee.country}`}
+              
               size={ PersonaSize.extraLarge }
               presence={ PersonaPresence.online }
               onRenderSecondaryText={ this._onRenderSecondaryText }
@@ -69,12 +97,17 @@ export default class CardInformation extends React.Component<ICardInformationPro
                 } size={ Size.Small } />
               </div>              
             }
-            <div className={styles.calloutButton} ref={ (calloutButton) => this._calloutButton = calloutButton }>
+            <div className={styles.calloutButton} ref={ (calloutButton) => this._calloutButton = calloutButton }>             
               <IconButton
+                style={ { 
+                  width: 12, 
+                  height: 12,
+                  padding: 0 
+                } } 
                 iconProps={ { iconName: 'ChevronDown' } }
                 title='More information'
                 onClick={this._onCalloutClicked.bind(this)}
-              />
+              /> 
             </div>
             {this.state.isCalloutVisible && 
               <Callout
@@ -82,8 +115,8 @@ export default class CardInformation extends React.Component<ICardInformationPro
                 targetElement={ this._calloutButton.firstChild }
                 isBeakVisible
                 beakWidth={ 12 }
-                onDismiss={ this._onCalloutDismiss.bind(this) }
-                directionalHint={ DirectionalHint.bottomLeftEdge }
+                onDismiss={ this._onCalloutDismiss }
+                directionalHint={ DirectionalHint.bottomAutoEdge }
               >
                 <div className={styles.calloutText} >
                   <IconComponent iconName={"MoreSports"} description={this.props.employee.hobbies} size={ Size.Small } />
@@ -103,19 +136,7 @@ export default class CardInformation extends React.Component<ICardInformationPro
     );
   }
 
-  private _onCalloutDismiss(){
-    this.setState({
-      isCalloutVisible: false
-    });
-  }
-
-  private _onCalloutClicked(){
-    this.setState({
-      isCalloutVisible: !this.state.isCalloutVisible
-    });
-  }
-
-  public _employeeNotFound(){
+  private _employeeNotFound(){
     return(
       <Placeholder 
         icon="ContactCard" 
@@ -125,7 +146,7 @@ export default class CardInformation extends React.Component<ICardInformationPro
   }
   
   public render(): React.ReactElement<ICardInformationProps> {
-    return(      
+    return(
       <div className={styles.cardInformation}>
         <div className={'ms-font-m'}>
           Information

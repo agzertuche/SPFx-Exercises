@@ -11,7 +11,7 @@ export default class Card extends React.Component<ICardProps,{}>{
 
   public render(): React.ReactElement<ICardProps>{
     return (
-      <div className={`${styles.card} ms-u-fadeIn200`}> 
+      <div className={`${styles.card}`}> 
         <div className="ms-Grid-row">
           <div className="ms-Grid-col ms-u-sm12 ms-u-md6">
             <CardInformation employee={this.props.employee}/>           

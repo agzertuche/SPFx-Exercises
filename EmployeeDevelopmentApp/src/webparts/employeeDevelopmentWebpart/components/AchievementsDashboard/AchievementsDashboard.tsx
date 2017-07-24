@@ -169,7 +169,7 @@ export default class AchievementsDashboard extends React.Component<AchievementsD
             </div>
           </div>
         </div>
-      </div>            
+      </div>  
     );
   }
 }

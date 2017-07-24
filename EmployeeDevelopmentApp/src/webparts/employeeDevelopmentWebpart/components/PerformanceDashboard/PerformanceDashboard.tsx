@@ -155,13 +155,13 @@ export default class PerformanceDashboard extends React.Component<{},{}>{
                   legend={legend}
                 />
               </div>
-              <div className="ms-Grid-col ms-u-sm12 ms-u-md6">
+               <div className="ms-Grid-col ms-u-sm12 ms-u-md6"> 
                 <Radar 
                   data={dataRadar}
                   options={optionsRadar}
                   legend={legend}
                 />
-              </div>            
+               </div>             
             </div>
             <div className="ms-Grid-row">
               <div className="ms-Grid-col">
