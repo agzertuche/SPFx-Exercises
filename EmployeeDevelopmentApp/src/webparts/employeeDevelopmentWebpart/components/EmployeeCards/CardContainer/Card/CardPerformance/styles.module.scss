@@ -2,8 +2,15 @@
   @import "../../../../../styles/variables.module";
 
   border: $border;
-  padding: 0 .6em;
-  min-height: 15em;
+
+  .title{
+    padding: 0 .6em;
+  }
+
+  .container{
+    min-height: 14em;
+    padding: 0 .6em;
+  }
 
   canvas{
     width: 100% !important;

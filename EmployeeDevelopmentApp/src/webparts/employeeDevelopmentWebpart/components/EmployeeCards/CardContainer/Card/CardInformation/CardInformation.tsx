@@ -4,7 +4,6 @@ import { ICardInformationState } from './ICardInformationState';
 import styles from './styles.module.scss';
 import IconComponent from '../../../../Common/IconComponent';
 import { Size } from '../../../../../models/Enums';
-//import { Image } from 'office-ui-fabric-react/lib/Image';
 import { IPersonaProps, Persona, PersonaSize, PersonaPresence } from 'office-ui-fabric-react/lib/Persona';
 import Placeholder from '../../../../Common/Placeholder';
 import { Callout, DirectionalHint } from 'office-ui-fabric-react/lib/Callout';
@@ -43,8 +42,8 @@ export default class CardInformation extends React.Component<ICardInformationPro
 
   private _renderEmployeeInformation(){
     return(
-      <div>
-        <div className={`${styles.summarySection} ms-Grid-row`}>
+      <div >
+        <div className={`${styles.summarySection} ms-Grid-row`}> 
           <div className="ms-Grid-col ms-u-sm12 ms-u-hiddenMdUp">
             <Persona
               { ...this.props.employee }
@@ -70,7 +69,7 @@ export default class CardInformation extends React.Component<ICardInformationPro
             />
           </div>
         </div>                        
-        <div className={`${styles.dataSection} ms-Grid-row`}>
+         <div className={`${styles.dataSection} ms-Grid-row`}> 
           <div className="ms-Grid-col ms-u-sm12 ms-u-md6">
             <IconComponent iconName={"Mail"} description={this.props.employee.mail} size={ Size.Small } />
             <IconComponent iconName={"Phone"} description={this.props.employee.mobilePhone} size={ Size.Small } />
@@ -148,15 +147,17 @@ export default class CardInformation extends React.Component<ICardInformationPro
   public render(): React.ReactElement<ICardInformationProps> {
     return(
       <div className={styles.cardInformation}>
-        <div className={'ms-font-m'}>
+        <div className={`${styles.title} ms-font-m`}>
           Information
         </div>
-        {
-          this.props.employee ? 
-            this._renderEmployeeInformation()
-          :
-            this._employeeNotFound()
-        }        
+        <div className={`${styles.container}`}>
+          {
+            this.props.employee ? 
+              this._renderEmployeeInformation()
+            :
+              this._employeeNotFound()
+          }
+        </div>
       </div>
     );
   }

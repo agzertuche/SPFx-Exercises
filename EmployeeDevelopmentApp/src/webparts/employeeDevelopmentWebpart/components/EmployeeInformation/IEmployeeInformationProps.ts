@@ -137,21 +137,9 @@ export const overflowItems = [
 
 export const farItems = [
   {
-    key: 'sort',
-    name: 'Sort',
-    icon: 'SortLines',
-    onClick: () => { return; }
-  },
-  {
     key: 'tile',
     name: 'Grid view',
     icon: 'Tiles',
-    onClick: () => { return; }
-  },
-  {
-    key: 'info',
-    name: 'Info',
-    icon: 'Info',
     onClick: () => { return; }
   }
 ];

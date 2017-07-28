@@ -7,13 +7,6 @@ import Placeholder from '../../../../Common/Placeholder';
 export default class AchievementsContainer extends React.Component<IAchievementsContainerProps, {}>{
   public render(): React.ReactElement<IAchievementsContainerProps> {
     const achievementsList = this.props.achievements.map((a, index) => {
-      // if (index%3 == 0) {
-      //   <div key={a.id} className="ms-Grid-row">
-      //     <div className="ms-Grid-col ms-u-sm12 ms-u-md4">
-      //       <Achievement achievement={a} />
-      //     </div>
-      //   </div>
-      // }
       return ( 
         <div key={a.id} className="ms-Grid-col ms-u-sm12 ms-u-md4">
           <Achievement achievement={a} />
@@ -23,18 +16,20 @@ export default class AchievementsContainer extends React.Component<IAchievements
 
     return(
       <div className={styles.cardAchievements}>
-        <div className={'ms-font-m'}>
-          <span>Achievements</span>
+        <div className={`${styles.title} ms-font-m`}>
+          Achievements
         </div> 
-        { 
-          achievementsList.length > 0 ?
-            achievementsList
-          : 
-          <Placeholder 
-            icon="ReceiptCheck" 
-            description="No achievements found for this employee..."
-          />              
-        }
+        <div className={`${styles.container} ms-Grid-row`}>
+          { 
+            achievementsList.length > 0 ?
+              achievementsList
+            : 
+            <Placeholder 
+              icon="ReceiptCheck" 
+              description="No achievements found for this employee..."
+            />              
+          }
+        </div> 
       </div>
     );
   }

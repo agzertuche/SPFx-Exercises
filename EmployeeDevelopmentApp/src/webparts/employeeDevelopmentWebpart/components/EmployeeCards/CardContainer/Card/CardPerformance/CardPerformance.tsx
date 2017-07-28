@@ -92,23 +92,27 @@ export default class CardPerformance extends React.Component<ICardPerformancePro
 
     return (
       <div className={styles.cardPerformance}>
-        <div className={'ms-font-m'}>
+        <div className={`${styles.title} ms-font-m`}>
           Performance
         </div>
-        {
-          this.props.employeePerformanceSkills &&
-          this.props.employeePerformanceSkills.length > 0 ? 
-            <Radar 
-              data={data}
-              options={options}
-              legend={legend}
-            />
+        <div className={`${styles.container} ms-Grid-row`}>
+          {
+            this.props.employeePerformanceSkills &&
+            this.props.employeePerformanceSkills.length > 0 ? 
+            <div className="ms-Grid-col ms-u-sm12"> 
+              <Radar 
+                data={data}
+                options={options}
+                legend={legend}
+              />
+            </div>
             : 
             <Placeholder 
               icon="FolderSearch" 
               description="No performance data found for this employee..."
             />
-        }
+          }
+        </div>
       </div>
     );
   }

@@ -108,3 +108,7 @@ Publishing:
   ☐ Fix warnings and erros, gulp serve && gulp bundle
   ☐ Update readme.md file
   ☐ Deploy final package to a SPOnline tenant
+
+Bugs:
+  ☐ Performance chart on card information renders too small on moblie view
+  ☐ 
