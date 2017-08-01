@@ -1,17 +1,12 @@
 import * as React from 'react';
 import { Fabric } from 'office-ui-fabric-react';
-import {
-  Pivot,
-  PivotItem,
-  PivotLinkFormat,
-  PivotLinkSize
-} from 'office-ui-fabric-react/lib/Pivot';
-import { IMainProps } from './IMainProps';
+import { IMainProps, menuItems } from './IMainProps';
 import { IMainState } from './IMainState';
-import { ComponentStatus } from '../../models/Enums';
+import { ComponentStatus, MenuItem } from '../../models/Enums';
 import IUser from '../../models/IUser';
 import IAchievement from '../../models/IAchievement';
 import styles from './styles.module.scss';
+import Nav from '../Nav';
 import Placeholder from '../Common/Placeholder';
 import EmployeeCards from '../EmployeeCards';
 import AchievementsDashboard from '../AchievementsDashboard';
@@ -19,25 +14,32 @@ import PerformanceDashboard from '../PerformanceDashboard';
 import EmployeeInformation from '../EmployeeInformation';
 
 export default class Main extends React.Component<IMainProps, IMainState>{
+  private _menuItems: any[];
+  
   constructor(props: IMainProps) {
     super(props);
+
+    this._menuItems = menuItems;
+    this._updateSelectedComponent = this._updateSelectedComponent.bind(this);
+
     this.state = {
-      users: [],
-      componentStatus: ComponentStatus.Loading
+      selectedUsers: [],
+      componentStatus: ComponentStatus.Loading,
+      selectedComponent: MenuItem.Cards
     };
   }
 
-  private componentWillMount(): void{
+  private componentWillMount(): void {
     this.props.dataProvider.getUsers()
     .then((usersArray: IUser[]) => {
       this.setState({
-        users: usersArray,
-        componentStatus: ComponentStatus.Completed
+        selectedUsers: usersArray,
+        componentStatus: ComponentStatus.Completed,
       });
     })    
     .catch(error => {
       this.setState({
-        users: [],
+        selectedUsers: [],
         componentStatus: ComponentStatus.Error
       });
     });
@@ -45,8 +47,29 @@ export default class Main extends React.Component<IMainProps, IMainState>{
     this.props.dataProvider.getAchievements()
     .then((achievementsArray: IAchievement[]) => {
       this.setState({
-        users: this.state.users,
+        selectedUsers: this.state.selectedUsers,
         achievements: achievementsArray
+      });
+    });
+
+    this.props.dataProvider.getMostCompletedAchievements()
+    .then((items: IAchievement[]) => {
+      this.setState({
+        mostCompleted: items
+      });
+    });
+
+    this.props.dataProvider.getTrendingAchievements()
+    .then((items: IAchievement[]) => {
+      this.setState({
+        trending: items
+      });
+    });
+
+    this.props.dataProvider.getTopAchievers()
+    .then((users: IUser[]) => {
+      this.setState({
+        topAchievements: users
       });
     });
   }
@@ -82,47 +105,84 @@ export default class Main extends React.Component<IMainProps, IMainState>{
     );
   }
 
+  private _updateSelectedComponent(item){
+    this.setState({
+      selectedComponent: item.props.itemKey
+    });
+  }
+
   private _renderNavigation(showLinkText: boolean){
-    const navigationTexts = {
-      cards:        showLinkText ? 'Cards' : '',
-      information:  showLinkText ? 'Information' : '',
-      achievements: showLinkText ? 'Achievements' : '',
-      performance:  showLinkText ? 'Performance' : '',
-    };
+    if (showLinkText) {
+      this._menuItems = menuItems;
+    } else {
+      this._menuItems = menuItems.map((i) => {
+        return {          
+          itemKey: i.itemKey,
+          linkText: '',
+          itemIcon: i.itemIcon,       
+        };
+      });
+    }
 
     return(
-      <Pivot linkFormat={ PivotLinkFormat.tabs } linkSize={ PivotLinkSize.large }>        
-        <PivotItem linkText={navigationTexts.cards} itemIcon='ContactCard' className={styles.componentSection}>
+      <Nav 
+        menuItems={ this._menuItems } 
+        onNavegationItemChange={ this._updateSelectedComponent }
+      />
+    );
+  }
+
+  private _renderSelectedComponent(){
+    switch (this.state.selectedComponent) {
+      case MenuItem.Cards:
+        return (
           <EmployeeCards 
             dataProvider={this.props.dataProvider} 
-            users={this.state.users} 
+            users={this.state.selectedUsers} 
           />
-        </PivotItem>
-        <PivotItem linkText={navigationTexts.information} itemIcon='ThumbnailView'>
+        );
+      case MenuItem.Information:
+        return (
           <EmployeeInformation 
-            users={this.state.users} 
+            users={this.state.selectedUsers} 
           />
-        </PivotItem>
-        <PivotItem linkText={navigationTexts.achievements} itemIcon='Trophy' className={styles.componentSection}>             
+        );
+      case MenuItem.Achievements:
+        return (
           <AchievementsDashboard 
             achievements={this.state.achievements} 
+            mostCompleted={ this.state.mostCompleted }
+            trending={ this.state.trending }
+            topAchievers={ this.state.topAchievements }
           /> 
-        </PivotItem>
-        <PivotItem linkText={navigationTexts.performance} itemIcon='BarChart4' className={styles.componentSection}>
+        );
+      case MenuItem.Performance:
+        return (
           <PerformanceDashboard /> 
-        </PivotItem>
-      </Pivot>    
-    );
+        );
+      default:
+        return (
+          <EmployeeCards 
+            dataProvider={this.props.dataProvider} 
+            users={this.state.selectedUsers} 
+          />
+        );
+    }
   }
 
   private _renderApp() {
     return (
       <div>
         <div className={'ms-u-hiddenMdUp'} >
-          {this._renderNavigation(false)}
+          { this._renderNavigation(false) }
         </div>
         <div className={'ms-u-hiddenSm'} >
-          {this._renderNavigation(true)}
+          { this._renderNavigation(true) }
+        </div>
+        <div className="componentSection">
+          { 
+            this._renderSelectedComponent()
+          }
         </div>
       </div>
     );

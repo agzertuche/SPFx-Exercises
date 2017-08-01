@@ -12,22 +12,9 @@
     }
   }
 
-  .mostCompletedAchievement{
-    border: $border;
-    padding: 0 $padding;
-  }
-
-  .trendingCompletedAchievement{
-    border: $border;
-    padding: 0 $padding;
-  }
-
   .topAchievers{
-    border: $border;
-    padding: $padding;
-
-    > div {
-      margin: .2em 0;
+    > div > div:nth-child(2) > div {
+      margin: $margin 0;
     }
   }
 

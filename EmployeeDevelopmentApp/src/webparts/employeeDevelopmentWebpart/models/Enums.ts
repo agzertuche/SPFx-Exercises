@@ -13,3 +13,10 @@ export enum Size {
   XLarge,
   XXLarge
 }
+
+export enum MenuItem{
+  Cards,
+  Information,
+  Achievements,
+  Performance
+}

@@ -55,6 +55,16 @@ export class MockDataProvider implements IDataProvider {
     });
   }
 
+  private _getUser(upn): IUser{
+    const user = this._users.filter((u) => {
+      if(u.userPrincipalName == upn){
+        return u;
+      }
+    });
+
+    return user.length > 0 ? user[0] : null;
+  }
+
   // private _getEmployees(users: IUser[]): Promise<IEmployee[]> {
   //   const employees: IEmployee[] = this._employees.filter(e => 
   //     users.some(u => u.userPrincipalName == e.userPrincipalName));
@@ -99,6 +109,16 @@ export class MockDataProvider implements IDataProvider {
     });
   }
 
+  private _getAchievement(achievementId): IAchievement{
+    const achievement = this._achievements.filter((a) => {
+      if(a.id == achievementId){
+        return a;
+      }
+    });
+
+    return achievement.length > 0 ? achievement[0] : null;
+  }
+
   private _getEmployeeAchievements(userPrincipalName: string): IAchievement[] {
     const earnedAchievements = this._earnedAchievements.filter(a => a.userPrincipalName == userPrincipalName);
     
@@ -109,5 +129,62 @@ export class MockDataProvider implements IDataProvider {
 
   private _getEmployeePerformanceSkills(userPrincipalName: string): IPerformanceSkills[] {
     return this._performanceSkills.filter(ps => ps.userPrincipalName == userPrincipalName);
+  }
+
+  private _groupByArray(xs, key) { 
+    return xs.reduce((rv, x) => { 
+      let v = key instanceof Function ? key(x) : x[key]; let el = rv.find((r) => r && r.key === v); 
+      if (el) { 
+        el.values.push(x); 
+      } else {
+        rv.push({
+          key: v, values: [x] }); 
+        } 
+        return rv; 
+      },
+    []); 
+  } 
+
+  public getMostCompletedAchievements(): Promise<IAchievement[]>{
+    let groupedBy = this._groupByArray(this._earnedAchievements, 'achievementId').sort((a,b) => {
+      return b.values.length - a.values.length;
+    });
+
+    let achievements: IAchievement[] = groupedBy.map((x) => {
+      return this._getAchievement(x.key);
+    });
+    
+    return new Promise<IAchievement[]>((resolve) => {
+      setTimeout(() => resolve(achievements), 500);
+    });
+  }
+
+  public getTrendingAchievements(): Promise<IAchievement[]>{
+    let groupedBy = this._earnedAchievements.sort((a,b) => {
+      return b.id - a.id;
+    });
+    
+    let achievements: IAchievement[] = groupedBy.map((x) => {
+      return this._getAchievement(x.achievementId);
+    });
+    
+    return new Promise<IAchievement[]>((resolve) => {
+      setTimeout(() => resolve(achievements), 500);
+    });
+  }
+
+  public getTopAchievers(): Promise<IUser[]>{
+    debugger;
+    let groupedBy = this._groupByArray(this._earnedAchievements, 'userPrincipalName').sort((a,b) => {
+      return b.values.length - a.values.length;
+    });
+
+    let users: IUser[] = groupedBy.map((x) => {
+      return this._getUser(x.key);
+    });
+    
+    return new Promise<IUser[]>((resolve) => {
+      setTimeout(() => resolve(users), 500);
+    });
   }
 }

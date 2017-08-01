@@ -1,13 +1,15 @@
 import IUser from '../../models/IUser';
-import IEmployee from '../../models/IEmployee';
 import IAchievement from '../../models/IAchievement';
 import IPerformanceSkills from '../../models/IPerformanceSkills';
-import { ComponentStatus } from '../../models/Enums';
+import { ComponentStatus, MenuItem } from '../../models/Enums';
 
 export interface IMainState{
-  users: IUser[];
-  employees?: IEmployee[];
+  selectedUsers?: IUser[];
   achievements?: IAchievement[];
   performanceSkills?: IPerformanceSkills[];
   componentStatus?: ComponentStatus;
+  selectedComponent?: MenuItem;
+  mostCompleted?: IAchievement[];
+  trending?: IAchievement[];
+  topAchievements?: IUser[];
 }

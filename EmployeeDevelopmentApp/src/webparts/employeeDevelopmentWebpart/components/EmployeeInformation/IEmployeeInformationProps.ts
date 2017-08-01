@@ -36,7 +36,7 @@ export const items = [
   {
     key: 'share',
     name: 'Share',
-    icon: 'Share',
+    icon: 'Share',    
     onClick: () => { return; }
   },
   {

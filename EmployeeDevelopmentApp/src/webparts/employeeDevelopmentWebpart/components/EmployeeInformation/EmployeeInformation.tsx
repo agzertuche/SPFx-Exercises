@@ -9,10 +9,7 @@ import { IEmployeeInformationState } from './IEmployeeInformationState';
 import styles from './styles.module.scss';
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
-import {
-  DetailsList,
-  buildColumns,
-} from 'office-ui-fabric-react/lib/DetailsList';
+import { DetailsList, buildColumns } from 'office-ui-fabric-react/lib/DetailsList';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 
 let _items: any[];
@@ -78,7 +75,7 @@ export default class EmployeeInformation extends React.Component<IEmployeeInform
 
   public render(): React.ReactElement<{}>{
     let { sortedItems, columns, showModal } = this.state;
-    
+
     return (
       <div className={styles.employeeInformation}>
         <div className="ms-Grid-row ms-u-slideDownIn20"> 
@@ -88,7 +85,7 @@ export default class EmployeeInformation extends React.Component<IEmployeeInform
               elipisisAriaLabel='More options'
               items={ items }
               overflowItems={ overflowItems }
-              farItems={ farItems  }
+              /* farItems={ farItems  }               */
             />     
             <DetailsList
               items={ sortedItems }

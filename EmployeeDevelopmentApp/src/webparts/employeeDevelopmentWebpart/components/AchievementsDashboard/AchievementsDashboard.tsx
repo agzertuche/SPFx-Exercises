@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { AchievementsDashboardProps } from './AchievementsDashboardProps';
-import { AchievementsDashboardState } from './AchievementsDashboardState';
+import { IAchievementsDashboardProps } from './IAchievementsDashboardProps';
+import { IAchievementsDashboardState } from './IAchievementsDashboardState';
 import styles from './styles.module.scss';
+import AchievementsIndicator from './AchievementsIndicator';
 import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZone';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
@@ -11,8 +12,8 @@ import { getRTL } from 'office-ui-fabric-react/lib/Utilities';
 import Achievement from '../Common/Achievement';
 import { IPersonaProps, Persona, PersonaSize, PersonaPresence } from 'office-ui-fabric-react/lib/Persona';
 
-export default class AchievementsDashboard extends React.Component<AchievementsDashboardProps,AchievementsDashboardState>{
-  constructor(props: AchievementsDashboardProps) {
+export default class AchievementsDashboard extends React.Component<IAchievementsDashboardProps,IAchievementsDashboardState>{
+  constructor(props: IAchievementsDashboardProps) {
     super(props);
 
     this._onFilterChanged = this._onFilterChanged.bind(this);
@@ -39,37 +40,32 @@ export default class AchievementsDashboard extends React.Component<AchievementsD
   }
 
   private _mostCompletedAchievement(){
-    let { achievements } = this.props;
-    //FIXME: get mostCompletedAchievement from api
-    let mostCompletedAchievement = achievements[0];
+    let { mostCompleted } = this.props;
+    const mostCompletedAchievement = mostCompleted.slice(0,3);
+
+    const items = mostCompletedAchievement.map((a, index) => {
+      return(
+        <Achievement key={index} achievement={a} />
+      );
+    });
 
     return (
-      <div className={styles.mostCompletedAchievement}>
-        <span className="ms-font-m">
-          Most Completed
-        </span>
-        <Achievement achievement={mostCompletedAchievement} />
-        <Achievement achievement={mostCompletedAchievement} />
-        <Achievement achievement={mostCompletedAchievement} />
-      </div>
+      <AchievementsIndicator title="Most Completed" items={ items } />
     );
   }
 
   private _trendingCompletedAchievement(){
-    let { achievements } = this.props;
-    //FIXME: get trendingCompletedAchievement from api
-    let trendingCompletedAchievement = achievements[0];
+    let { trending } = this.props;    
+    let trendingCompletedAchievement = trending.slice(0,3);
+
+    const items = trendingCompletedAchievement.map((a, index) => {
+      return(
+        <Achievement key={index} achievement={a} />
+      );
+    });
 
     return (
-      <div className={styles.trendingCompletedAchievement}>
-        <span className="ms-font-m">
-          Trending  
-        </span>
-        
-        <Achievement achievement={trendingCompletedAchievement} />
-        <Achievement achievement={trendingCompletedAchievement} />
-        <Achievement achievement={trendingCompletedAchievement} />
-      </div>
+      <AchievementsIndicator title="Trending" items={ items } />
     );
   }
 
@@ -83,36 +79,24 @@ export default class AchievementsDashboard extends React.Component<AchievementsD
   }
 
   private _topAchievers(){
-    //FIXME: get _topAchievers from api
-
-    const examplePersona = {
-      //imageUrl: TestImages.personaFemale,
-      imageInitials: 'AL',
-      primaryText: 'Annie Lindqvist',
-      secondaryText: 'Software Engineer',
-      tertiaryText: 'In a meeting',
-      optionalText: 'Available at 4:00pm'
-    };
-
-    const topAchievers = [];
-    for (var index = 0; index < 3; index++) {
-      topAchievers.push(
+    let { topAchievers } = this.props;
+    let items = topAchievers.slice(0,3).map((a, index) => {
+      return(
         <Persona
           key={index}
-          { ...examplePersona }
+          { ...a }
+          primaryText={a.displayName}
+          secondaryText={a.jobTitle}
           size={ PersonaSize.regular }
           presence={ index }
           onRenderSecondaryText={ this._onRenderSecondaryText }
         />
-      );      
-    }
+      );
+    });
     
     return (
       <div className={styles.topAchievers}>
-        <span className="ms-font-m">
-          Top Achievers
-        </span>
-        { topAchievers }
+        <AchievementsIndicator title="Top Achievers" items={ items } />
       </div>
     );
   }
@@ -142,7 +126,7 @@ export default class AchievementsDashboard extends React.Component<AchievementsD
     );
   }
 
-  public render(): React.ReactElement<AchievementsDashboardProps>{
+  public render(): React.ReactElement<IAchievementsDashboardProps>{
     let { achievements: originalItems } = this.props;
     let { filteredAchievements } = this.state;
     let resultCountText = filteredAchievements.length === originalItems.length ? '' : ` (${filteredAchievements.length} of ${originalItems.length} shown)`;

@@ -1,6 +1,6 @@
 import IAchievement from '../../models/IAchievement';
 
-export interface AchievementsDashboardState{
+export interface IAchievementsDashboardState{
   filterText?: string;
   filteredAchievements?: IAchievement[];
 }

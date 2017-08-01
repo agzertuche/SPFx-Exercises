@@ -21,9 +21,9 @@ Project:
     ✔ Add a new tab to look for employee information @done (19/7/2017 21:22:46)
     ✘ Display a grid of employees filtered by the search box @cancelled (19/7/2017 21:22:37)
   ✔ Achievements Dashboard Tab:@low @done (19/7/2017 21:22:11)
-    ☐ Most completed achievements
-    ☐ Rising completed achievements
-    ☐ Users with most completed achievement https://dev.office.com/fabric#/components/persona
+    ✔ Most completed achievements @done (8/1/2017, 3:04:25 AM)
+    ✔ Rising completed achievements @done (8/1/2017, 3:04:26 AM)
+    ✔ Users with most completed achievement https://dev.office.com/fabric#/components/persona @done (8/1/2017, 3:04:33 AM)
   ✔ Performance Dashboard Tab:@low @done (19/7/2017 21:21:56)
     ✘ Avergae of performance @cancelled (19/7/2017 20:15:42)
     ☐ Add a Normal Distribution Chart vs current performance Distribution
@@ -70,6 +70,7 @@ Project:
     ✔ Implement Mockup data @done (17/7/2017 18:15:01)
 
 UI: 
+  ✔ Change main menu functionality to render content separetely as mentioned on the documentation https://dev.office.com/fabric#/components/pivot, to avoid having to render a different component depending on the size of the screen that cause weird behaviors. @high @done (7/31/2017, 8:12:24 PM)
   ✔ UI Cards @done (7/23/2017, 12:59:21 AM)
   ✔ UI Information @done (7/23/2017, 12:59:23 AM)
   ✔ UI Achievements @done (7/23/2017, 12:59:24 AM)
@@ -80,13 +81,13 @@ UI:
   ✔ Add 2 prmiary Fonts @done (7/21/2017, 9:18:55 PM)
   ✘ Define Icon colors @cancelled (18/7/2017 20:37:22)
   ☐ App icon when to display when adding the webpart to the page https://thechriskent.com/2017/06/19/sharepoint-framework-app-icon/
-  ☐ Improve transitions on components
-  ☐ App Styles
+  ✔ Improve transitions on components @done (8/1/2017, 3:10:42 AM)
+  ✔ App Styles @done (8/1/2017, 3:10:43 AM)
     ✔ Set background color @done (7/22/2017, 5:30:54 AM)
     ✔ minimum padding @done (7/22/2017, 5:30:57 AM)
     ✔ border or shadow of components @done (7/22/2017, 5:30:59 AM)
-    ☐ Responsive Navegation
-    ☐ Ensure all components are viable on mobile using office ui fabric grid  
+    ✔ Responsive Navegation @done (7/31/2017, 8:10:29 PM)
+    ✔ Ensure all components are viewable on mobile using office ui fabric grid @done (7/31/2017, 8:11:42 PM)
     
 Tests:
   ☐ Fix Test gulp task, since it is not finding any test on the project
@@ -111,4 +112,4 @@ Publishing:
 
 Bugs:
   ☐ Performance chart on card information renders too small on moblie view
-  ☐ 
+  ☐ Lift one level up the state of navigation to sync both navigations (mobile and pc)
