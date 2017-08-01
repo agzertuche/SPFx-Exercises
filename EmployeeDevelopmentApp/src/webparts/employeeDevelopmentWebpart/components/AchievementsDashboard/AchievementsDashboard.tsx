@@ -11,6 +11,8 @@ import { List } from 'office-ui-fabric-react/lib/List';
 import { getRTL } from 'office-ui-fabric-react/lib/Utilities';
 import Achievement from '../Common/Achievement';
 import { IPersonaProps, Persona, PersonaSize, PersonaPresence } from 'office-ui-fabric-react/lib/Persona';
+import IconComponent from '../Common/IconComponent';
+import { Size } from '../../models/Enums';
 
 export default class AchievementsDashboard extends React.Component<IAchievementsDashboardProps,IAchievementsDashboardState>{
   constructor(props: IAchievementsDashboardProps) {
@@ -72,8 +74,7 @@ export default class AchievementsDashboard extends React.Component<IAchievements
   private _onRenderSecondaryText(props: IPersonaProps): JSX.Element {
     return (
       <div>
-        <Icon iconName={ 'Suitcase' } className={ 'ms-JobIconExample' } />
-        { props.secondaryText }
+        <IconComponent iconName={ 'Suitcase' } description={ props.secondaryText } size={ Size.Small } />        
       </div>
     );
   }
