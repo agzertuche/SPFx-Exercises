@@ -1,4 +1,9 @@
 .performanceDashboard{
+  @import "../../styles/variables.module";
+
+  background-color: white;
+  margin: $margin 0;
+
   canvas{
     width: 100% !important;
     max-width: 800px;

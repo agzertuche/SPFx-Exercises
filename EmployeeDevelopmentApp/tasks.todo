@@ -50,12 +50,12 @@ Project:
   API:
     ✔ Add data providers: https://github.com/SharePoint/sp-dev-fx-webparts/tree/master/samples/react-todo-basic#data-providers @done (17/7/2017 18:14:39)
     ☐ Implement Mock Data Provider @critical https://github.com/SharePoint/PnP/blob/master/Samples/MicrosoftGraph.Office365.GroupsExplorer/Utils/TokenHelper.cs
-      ☐ Get Achievements
-        ☐ All 
-        ☐ from user 
-        ☐ Most used
-        ☐ Rising 
-        ☐ Grouped by users
+      ✔ Get Achievements @done (8/1/2017, 8:45:46 PM)
+        ✔ All @done (8/1/2017, 8:45:54 PM)
+        ✔ from user @done (8/1/2017, 8:45:51 PM)
+        ✔ Most used @done (8/1/2017, 8:45:51 PM)
+        ✔ Rising @done (8/1/2017, 8:45:52 PM)
+        ✔ Grouped by users @done (8/1/2017, 8:45:56 PM)
       ☐ Get Emp info
         ☐ All
         ☐ from id/mail
@@ -75,7 +75,7 @@ UI:
   ✔ UI Information @done (7/23/2017, 12:59:23 AM)
   ✔ UI Achievements @done (7/23/2017, 12:59:24 AM)
   ☐ UI Performance Dashboard
-  ☐ Add Microtransactions http://www.n8d.at/blog/microinteractions-how-to-hide-an-ux-easter-egg-in-sharepoint/
+  ✔ Add Microtransactions http://www.n8d.at/blog/microinteractions-how-to-hide-an-ux-easter-egg-in-sharepoint/ @done (8/1/2017, 9:36:08 PM)
   ☐ Add themes http://www.n8d.at/blog/how-to-use-theme-colors-in-spfx-web-parts/
   ✔ Add 4 primary colors @done (7/21/2017, 9:18:55 PM)
   ✔ Add 2 prmiary Fonts @done (7/21/2017, 9:18:55 PM)

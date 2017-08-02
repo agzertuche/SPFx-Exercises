@@ -179,7 +179,7 @@ export default class Main extends React.Component<IMainProps, IMainState>{
         <div className={'ms-u-hiddenSm'} >
           { this._renderNavigation(true) }
         </div>
-        <div className="componentSection">
+        <div className={styles.componentSection}>
           { 
             this._renderSelectedComponent()
           }

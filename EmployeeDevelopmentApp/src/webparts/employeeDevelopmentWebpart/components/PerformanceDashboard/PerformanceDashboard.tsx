@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styles from './styles.module.scss';
+import ChartContainer from './ChartContainer';
 import { Radar, Line, Doughnut } from 'react-chartjs-2';
 
 export default class PerformanceDashboard extends React.Component<{},{}>{
@@ -147,33 +148,44 @@ export default class PerformanceDashboard extends React.Component<{},{}>{
     return (
       <div className={styles.performanceDashboard}>
         <div className="ms-Grid-row ms-u-slideDownIn20">   
-          <div className="ms-Grid-col">
-            <div className="ms-Grid-row">         
-              <div className="ms-Grid-col ms-u-sm12 ms-u-md6">
+          <div className="ms-Grid-col ms-u-sm12 ms-u-md6">
+            <ChartContainer
+              title="Average Performance"
+              chart={
                 <Doughnut 
                   data={dataDoughnut}
                   legend={legend}
                 />
-              </div>
-               <div className="ms-Grid-col ms-u-sm12 ms-u-md6"> 
+              }
+            />
+          </div>
+          <div className="ms-Grid-col ms-u-sm12 ms-u-md6"> 
+            <ChartContainer
+              title="Skill Performance Average"
+              chart={
                 <Radar 
                   data={dataRadar}
                   options={optionsRadar}
                   legend={legend}
                 />
-               </div>             
-            </div>
-            <div className="ms-Grid-row">
-              <div className="ms-Grid-col">
+              }
+            />
+          </div>             
+        </div>
+        <div className="ms-Grid-row">
+          <div className="ms-Grid-col ms-u-sm12">
+            <ChartContainer
+              title="Normal Distribution for Employees Performance"
+              chart={
                 <Line 
                   data={dataLine}
                   options={optionsLine}
                   legend={legend}
                   width={600}
                 />
-              </div>
-            </div>
-          </div>      
+              }
+            />
+          </div>
         </div>
       </div>
     );

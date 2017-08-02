@@ -31,7 +31,7 @@ React.Component<IEmployeeCardsProps, IEmployeeCardsState>{
     return (
       <div className={`ms-Grid-row ms-u-slideDownIn20`}> 
         <div className="ms-Grid-col ms-u-sm12">
-          <div className="ms-Grid-row ">
+          <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12">
               <CardSearch 
                 onSelectedEmployeesChange={this._updateSelectedUsers} 
@@ -39,7 +39,7 @@ React.Component<IEmployeeCardsProps, IEmployeeCardsState>{
               />            
             </div>
           </div>
-          <div className="ms-Grid-row ms-u-scaleDownIn100">
+          <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12">
               <CardContainer employees={this.state.selectedEmployees}/>
             </div>

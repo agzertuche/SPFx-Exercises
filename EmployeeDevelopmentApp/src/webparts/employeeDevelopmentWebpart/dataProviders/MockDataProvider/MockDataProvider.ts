@@ -65,15 +65,6 @@ export class MockDataProvider implements IDataProvider {
     return user.length > 0 ? user[0] : null;
   }
 
-  // private _getEmployees(users: IUser[]): Promise<IEmployee[]> {
-  //   const employees: IEmployee[] = this._employees.filter(e => 
-  //     users.some(u => u.userPrincipalName == e.userPrincipalName));
-
-  //   return new Promise<IEmployee[]>((resolve) => {
-  //     setTimeout(() => resolve(employees), 500);
-  //   });
-  // } 
-
   private _getEmployees(users: IUser[]): Promise<IEmployee[]> {
     
     const employees: IEmployee[] = users.map(user => {    
@@ -87,16 +78,6 @@ export class MockDataProvider implements IDataProvider {
         };
       }      
     });
-
-    // const employees: IEmployee[] = EmployeeList.filter(e => {
-    //   if(users.some(u => u.userPrincipalName == e.userPrincipalName))
-    //     {
-    //       e.achievements = this._getEmployeeAchievements(e);
-    //       e.performanceSkills = this._getEmployeePerformanceSkills(e);
-    //       return true;
-    //     }
-    //     return false;
-    // });
     
     return new Promise<IEmployee[]>((resolve) => {
       setTimeout(() => resolve(employees), 500);
@@ -174,7 +155,6 @@ export class MockDataProvider implements IDataProvider {
   }
 
   public getTopAchievers(): Promise<IUser[]>{
-    debugger;
     let groupedBy = this._groupByArray(this._earnedAchievements, 'userPrincipalName').sort((a,b) => {
       return b.values.length - a.values.length;
     });
