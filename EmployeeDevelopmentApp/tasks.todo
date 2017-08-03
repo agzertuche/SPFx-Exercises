@@ -26,8 +26,8 @@ Project:
     ✔ Users with most completed achievement https://dev.office.com/fabric#/components/persona @done (8/1/2017, 3:04:33 AM)
   ✔ Performance Dashboard Tab:@low @done (19/7/2017 21:21:56)
     ✘ Avergae of performance @cancelled (19/7/2017 20:15:42)
-    ☐ Add a Normal Distribution Chart vs current performance Distribution
-    ☐ Add a radar chart http://www.chartjs.org/docs/latest/charts/radar.html
+    ✔ Add a Normal Distribution Chart vs current performance Distribution @done (8/2/2017, 6:16:18 PM)
+    ✔ Add a radar chart http://www.chartjs.org/docs/latest/charts/radar.html @done (8/2/2017, 6:16:19 PM)
     ✔ Change performance variables, components, objects to "skills": @done (17/7/2017 18:14:26)
       ✔ Communication @done (17/7/2017 18:14:26)
       ✔ Thecnical Knowledge @done (17/7/2017 18:14:27)
@@ -49,21 +49,21 @@ Project:
 
   API:
     ✔ Add data providers: https://github.com/SharePoint/sp-dev-fx-webparts/tree/master/samples/react-todo-basic#data-providers @done (17/7/2017 18:14:39)
-    ☐ Implement Mock Data Provider @critical https://github.com/SharePoint/PnP/blob/master/Samples/MicrosoftGraph.Office365.GroupsExplorer/Utils/TokenHelper.cs
+    ☐ Implement Mock Data Provider @critical 
       ✔ Get Achievements @done (8/1/2017, 8:45:46 PM)
         ✔ All @done (8/1/2017, 8:45:54 PM)
         ✔ from user @done (8/1/2017, 8:45:51 PM)
         ✔ Most used @done (8/1/2017, 8:45:51 PM)
         ✔ Rising @done (8/1/2017, 8:45:52 PM)
         ✔ Grouped by users @done (8/1/2017, 8:45:56 PM)
-      ☐ Get Emp info
-        ☐ All
-        ☐ from id/mail
+      ✔ Get Emp info @done (8/2/2017, 6:16:07 PM)
+        ✔ All @done (8/2/2017, 6:16:07 PM)
+        ✘ from id/mail @cancelled (8/2/2017, 6:16:06 PM)
       ☐ Get Performance
-        ☐ All
-        ☐ Average
-        ☐ By skill
-    ☐ Implement MS Graph @high  
+        ☐ Average Performance (All employees)
+        ☐ Skill Average Performance (Performance per skill)
+        ☐ Normal Distribution for Employees Performance
+    ☐ Implement MS Graph @high  https://github.com/SharePoint/PnP/blob/master/Samples/MicrosoftGraph.Office365.GroupsExplorer/Utils/TokenHelper.cs
       ☐ Get user info from UPS
       ☐ Get performance info from SP Lists
       ☐ Get achievements form SP List
@@ -75,6 +75,7 @@ UI:
   ✔ UI Information @done (7/23/2017, 12:59:23 AM)
   ✔ UI Achievements @done (7/23/2017, 12:59:24 AM)
   ☐ UI Performance Dashboard
+    ☐ Change chart colors
   ✔ Add Microtransactions http://www.n8d.at/blog/microinteractions-how-to-hide-an-ux-easter-egg-in-sharepoint/ @done (8/1/2017, 9:36:08 PM)
   ☐ Add themes http://www.n8d.at/blog/how-to-use-theme-colors-in-spfx-web-parts/
   ✔ Add 4 primary colors @done (7/21/2017, 9:18:55 PM)

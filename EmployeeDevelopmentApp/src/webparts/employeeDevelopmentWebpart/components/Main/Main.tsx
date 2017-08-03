@@ -5,6 +5,7 @@ import { IMainState } from './IMainState';
 import { ComponentStatus, MenuItem } from '../../models/Enums';
 import IUser from '../../models/IUser';
 import IAchievement from '../../models/IAchievement';
+import IPerformanceSkills from '../../models/IPerformanceSkills';
 import styles from './styles.module.scss';
 import Nav from '../Nav';
 import Placeholder from '../Common/Placeholder';
@@ -70,6 +71,13 @@ export default class Main extends React.Component<IMainProps, IMainState>{
     .then((users: IUser[]) => {
       this.setState({
         topAchievements: users
+      });
+    });
+
+    this.props.dataProvider.getPerformanceSkills()
+    .then((skills: IPerformanceSkills[]) => {
+      this.setState({
+        performanceSkills: skills
       });
     });
   }
@@ -150,7 +158,7 @@ export default class Main extends React.Component<IMainProps, IMainState>{
       case MenuItem.Achievements:
         return (
           <AchievementsDashboard 
-            achievements={this.state.achievements} 
+            achievements={ this.state.achievements } 
             mostCompleted={ this.state.mostCompleted }
             trending={ this.state.trending }
             topAchievers={ this.state.topAchievements }
@@ -158,7 +166,9 @@ export default class Main extends React.Component<IMainProps, IMainState>{
         );
       case MenuItem.Performance:
         return (
-          <PerformanceDashboard /> 
+          <PerformanceDashboard 
+            performanceSkills={ this.state.performanceSkills } 
+          /> 
         );
       default:
         return (
@@ -173,10 +183,10 @@ export default class Main extends React.Component<IMainProps, IMainState>{
   private _renderApp() {
     return (
       <div>
-        <div className={'ms-u-hiddenMdUp'} >
+        <div className={'ms-u-hiddenLgUp'} >
           { this._renderNavigation(false) }
         </div>
-        <div className={'ms-u-hiddenSm'} >
+        <div className={'ms-u-hiddenMdDown'} >
           { this._renderNavigation(true) }
         </div>
         <div className={styles.componentSection}>

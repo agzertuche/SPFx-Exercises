@@ -27,6 +27,20 @@ export class MockDataProvider implements IDataProvider {
     this._employeeInformation = EmployeeInformation;
   }
 
+  private _groupByArray(xs, key) { 
+    return xs.reduce((rv, x) => { 
+      let v = key instanceof Function ? key(x) : x[key]; let el = rv.find((r) => r && r.key === v); 
+      if (el) { 
+        el.values.push(x); 
+      } else {
+        rv.push({
+          key: v, values: [x] }); 
+        } 
+        return rv; 
+      },
+    []); 
+  } 
+
   public set webPartContext(value: IWebPartContext) {
     this._webPartContext = value;
   }
@@ -37,14 +51,6 @@ export class MockDataProvider implements IDataProvider {
 
   public getUsers(): Promise<IUser[]> {
     return this._getUsers();
-  }
-
-  public getEmployees(users: IUser[]): Promise<IEmployee[]> {
-    return this._getEmployees(users);
-  }
-
-  public getAchievements(): Promise<IAchievement[]> {
-    return this._getAchievements();
   }
 
   private _getUsers(): Promise<IUser[]> {
@@ -63,6 +69,10 @@ export class MockDataProvider implements IDataProvider {
     });
 
     return user.length > 0 ? user[0] : null;
+  }
+
+  public getEmployees(users: IUser[]): Promise<IEmployee[]> {
+    return this._getEmployees(users);
   }
 
   private _getEmployees(users: IUser[]): Promise<IEmployee[]> {
@@ -84,6 +94,22 @@ export class MockDataProvider implements IDataProvider {
     });
   } 
 
+  private _getEmployeePerformanceSkills(userPrincipalName: string): IPerformanceSkills[] {
+    return this._performanceSkills.filter(ps => ps.userPrincipalName == userPrincipalName);
+  }
+
+  private _getEmployeeAchievements(userPrincipalName: string): IAchievement[] {
+    const earnedAchievements = this._earnedAchievements.filter(a => a.userPrincipalName == userPrincipalName);
+    
+    return this._achievements.filter((a) => {
+      return earnedAchievements.some(x => x.id == a.id);
+    });
+  }
+
+  public getAchievements(): Promise<IAchievement[]> {
+    return this._getAchievements();
+  }
+
   private _getAchievements(): Promise<IAchievement[]> {
     return new Promise<IAchievement[]>((resolve) => {
       setTimeout(() => resolve(this._achievements), 500);
@@ -99,32 +125,6 @@ export class MockDataProvider implements IDataProvider {
 
     return achievement.length > 0 ? achievement[0] : null;
   }
-
-  private _getEmployeeAchievements(userPrincipalName: string): IAchievement[] {
-    const earnedAchievements = this._earnedAchievements.filter(a => a.userPrincipalName == userPrincipalName);
-    
-    return this._achievements.filter((a) => {
-      return earnedAchievements.some(x => x.id == a.id);
-    });
-  }
-
-  private _getEmployeePerformanceSkills(userPrincipalName: string): IPerformanceSkills[] {
-    return this._performanceSkills.filter(ps => ps.userPrincipalName == userPrincipalName);
-  }
-
-  private _groupByArray(xs, key) { 
-    return xs.reduce((rv, x) => { 
-      let v = key instanceof Function ? key(x) : x[key]; let el = rv.find((r) => r && r.key === v); 
-      if (el) { 
-        el.values.push(x); 
-      } else {
-        rv.push({
-          key: v, values: [x] }); 
-        } 
-        return rv; 
-      },
-    []); 
-  } 
 
   public getMostCompletedAchievements(): Promise<IAchievement[]>{
     let groupedBy = this._groupByArray(this._earnedAchievements, 'achievementId').sort((a,b) => {
@@ -165,6 +165,16 @@ export class MockDataProvider implements IDataProvider {
     
     return new Promise<IUser[]>((resolve) => {
       setTimeout(() => resolve(users), 500);
+    });
+  }
+
+  public getPerformanceSkills(): Promise<IPerformanceSkills[]>{
+    return this._getPerformanceSkills();
+  }
+
+   private _getPerformanceSkills(): Promise<IPerformanceSkills[]>{
+    return new Promise<IPerformanceSkills[]>((resolve) => {
+      setTimeout(() => resolve(this._performanceSkills), 500);
     });
   }
 }

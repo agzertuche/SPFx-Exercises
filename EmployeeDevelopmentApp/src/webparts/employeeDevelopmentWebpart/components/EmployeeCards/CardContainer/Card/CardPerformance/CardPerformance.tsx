@@ -20,14 +20,14 @@ export default class CardPerformance extends React.Component<ICardPerformancePro
   };
 
   private _currentEmployeeAverage(skillName: string){
-    return this._skillAverage(this.props.employeePerformanceSkills, skillName);
+    return this._getAverageBySkill(this.props.employeePerformanceSkills, skillName);
   }
 
   private _allEmployeesAverage(skillName: string){
-    return this._skillAverage(this.props.allPerformanceSkills, skillName);
+    return this._getAverageBySkill(this.props.allPerformanceSkills, skillName);
   }
 
-  private _skillAverage(array: any[], skillName: string){
+  private _getAverageBySkill(array: any[], skillName: string){
     return lodash.sumBy(array, skillName) / array.length;
   }
 

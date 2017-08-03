@@ -1,14 +1,98 @@
 import * as React from 'react';
+import { IPerformanceDashboardProps } from './IPerformanceDashboardProps';
 import styles from './styles.module.scss';
 import ChartContainer from './ChartContainer';
+import * as lodash from '@microsoft/sp-lodash-subset';
 import { Radar, Line, Doughnut } from 'react-chartjs-2';
 
-export default class PerformanceDashboard extends React.Component<{},{}>{
-  public render(): React.ReactElement<{}>{
-    const legend = {
-      display:false
+export default class PerformanceDashboard extends React.Component<IPerformanceDashboardProps,{}>{
+  private _primaryColor =      '#0078D7';
+  private _secondaryColor =    '#A3A3A3';
+  private _borderColor =       '#FFFFFF';
+  private _primaryColorAlpha = 'rgba(199,224,244,.3)';
+  
+  private _getAverageBySkill(skillName: string){
+    let { performanceSkills } = this.props;
+    return lodash.sumBy(performanceSkills, skillName) / performanceSkills.length;
+  }
+
+  // private _getAverageByEmployee(array: any[], upn: string){
+  //   return lodash.sumBy((array, upn) / array.length;
+  // }
+
+  private _groupByArray(xs, key) { 
+    return xs.reduce((rv, x) => { 
+      let v = key instanceof Function ? key(x) : x[key]; let el = rv.find((r) => r && r.key === v); 
+      if (el) { 
+        el.values.push(x); 
+      } else {
+        rv.push({
+          key: v, values: [x] }); 
+        } 
+        return rv; 
+      },
+    []); 
+  } 
+
+  private _getLegendOptions(){
+    return {
+            display:false
+          };
+  }
+
+  private _averagePerformanceChart(){    
+    let { performanceSkills } = this.props;
+
+    let averagePerformance = 0;
+    for (var index = 0; index < performanceSkills.length; index++) {
+      var element = performanceSkills[index];
+      averagePerformance += (
+        element.leadership +
+        element.management +
+        element.meetingDeadlines +
+        element.problemSolving +
+        element.teamwork +
+        element.technicalKnowledge
+      ) / 6;     
+    }
+
+    averagePerformance = Math.round(averagePerformance / performanceSkills.length);
+
+    const dataDoughnut = {
+      labels: [
+        '',
+        'Average Performance',
+      ],
+      datasets: [{
+        data: [
+          (10 - averagePerformance),
+          averagePerformance
+        ],
+        backgroundColor: [
+          this._primaryColorAlpha,
+          this._primaryColor,
+        ],
+        hoverBackgroundColor: [
+          this._primaryColorAlpha,
+          this._primaryColor,
+        ]
+      }]
     };
 
+    return (
+      <ChartContainer
+        title="Average Performance"
+        chart={
+          <Doughnut 
+            data={dataDoughnut}
+            legend={this._getLegendOptions()}
+          />
+        }
+      />
+    );
+  }
+
+  private _skillAverageChart(){
     const optionsRadar = {
       scale: {
         ticks: {
@@ -24,31 +108,53 @@ export default class PerformanceDashboard extends React.Component<{},{}>{
     };
 
     const dataRadar = {
-      labels: ['Communication', 'Creative', 'Leadership', 'Management', 'Meeting Deadlines', 'Problem Solving', 'Teamwork', 'Thecnical Knowledge'],
+      labels: ['Teamwork', 'Problem Solving', 'Leadership', 'Management', 'Meeting Deadlines', 'Thecnical Knowledge'],
       datasets: [
         {
-          label: 'Current Employee',
-          backgroundColor: 'rgba(199,224,244,.3)',
-          borderColor: '#0078d7',
-          pointBackgroundColor: '#005a9e',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: '#0078d7',
-          data: [6, 8, 10, 8, 9, 7, 8, 9]
-        },
-        {
-          label: 'Employees Average',
-          backgroundColor: 'rgba(179,181,198,0.2)',
-          borderColor: '#a3a3a3',
-          pointBackgroundColor: '#a3a3a3',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: '#a3a3a3',
-          data: [7, 7, 9, 7, 9, 8, 9, 8]
+          label: 'Skill Average',
+          backgroundColor: this._primaryColorAlpha,
+          borderColor: this._primaryColor,
+          pointBackgroundColor: this._primaryColor,
+          pointBorderColor: this._borderColor,
+          pointHoverBackgroundColor: this._borderColor,
+          pointHoverBorderColor: this._primaryColor,
+          data: [
+            this._getAverageBySkill("teamwork"),
+            this._getAverageBySkill("problemSolving"),
+            this._getAverageBySkill("leadership"),
+            this._getAverageBySkill("management"),
+            this._getAverageBySkill("meetingDeadlines"),
+            this._getAverageBySkill("technicalKnowledge")
+          ]
         }        
       ]
     };
 
+    return (
+      <ChartContainer
+        title="Skill Performance Average"
+        chart={
+          <Radar 
+            data={dataRadar}
+            options={optionsRadar}
+            legend={this._getLegendOptions()}
+          />
+        }
+      />
+    );
+  }
+
+  private _skillNormalDistributionChart(){
+    // let { performanceSkills } = this.props;
+
+    // let performanceSkillsByEmployee = this._groupByArray(performanceSkills, "userPrincipalName");
+
+    // let averageData = [];
+    // performanceSkillsByEmployee.forEach(element => {
+    //   averageData.push(this._getAverageByEmployee(element.values, element.key));
+    // });    
+
+    
     const optionsLine = {
       responsive: true,
       tooltips: {
@@ -101,90 +207,60 @@ export default class PerformanceDashboard extends React.Component<{},{}>{
     };
 
     const dataLine = {
-      labels: ['Bottom', 'Low', 'Regular', 'Average', 'Best', 'High', 'Top'],
-      datasets: [{
-        label: 'Should be',
-        data: [1, 2, 5, 10, 5, 2, 1],
-        fill: false,
-        borderColor: '#EC932F',
-        backgroundColor: '#EC932F',
-        pointBorderColor: '#EC932F',
-        pointBackgroundColor: '#EC932F',
-        pointHoverBackgroundColor: '#EC932F',
-        pointHoverBorderColor: '#EC932F',
-        yAxisID: 'y-axis-2'
-      },{
-        label: 'Current',
-        data: [1, 2, 6, 11, 5, 3, 2],
-        fill: true,
-        backgroundColor: '#71B37C',
-        borderColor: '#71B37C',
-        hoverBackgroundColor: '#71B37C',
-        hoverBorderColor: '#71B37C',
-        yAxisID: 'y-axis-1'
-      }]
-    };
+      labels: ['Bottom', 'Low', 'Regular', 'Average', 'Remarkable', 'High', 'Top'],
+      datasets: [
+        {
+          label: 'Current',
+          data: [1, 2, 6, 9, 4, 3, 1],
+          fill: true,
+          backgroundColor: this._primaryColorAlpha,
+          borderColor: this._primaryColor,        
+          pointBorderColor: this._borderColor,
+          pointBackgroundColor: this._primaryColor,
+          yAxisID: 'y-axis-1'
+        },
+        {
+          label: 'Should be',
+          data: [1, 2, 5, 10, 5, 2, 1],
+          fill: false,
+          borderColor: this._secondaryColor,
+          backgroundColor: this._secondaryColor,
+          pointBorderColor: this._borderColor,
+          pointBackgroundColor: this._secondaryColor,
+          yAxisID: 'y-axis-2'
+        },
+      ]
+    };  
 
-    const dataDoughnut = {
-      labels: [
-        '',
-        'Average',
-      ],
-      datasets: [{
-        data: [1, 9],
-        backgroundColor: [
-        '#FF6384',
-        '#36A2EB',
-        '#FFCE56'
-        ],
-        hoverBackgroundColor: [
-        '#FF6384',
-        '#36A2EB',
-        '#FFCE56'
-        ]
-      }]
-    };
+    return (
+      <ChartContainer
+        title="Normal Distribution for Employees Performance"
+        chart={
+          <Line 
+            data={dataLine}
+            options={optionsLine}
+            legend={this._getLegendOptions()}
+            width={600}
+          />
+        }
+      />
+    );
+  }
 
+  public render(): React.ReactElement<IPerformanceDashboardProps>{
     return (
       <div className={styles.performanceDashboard}>
         <div className="ms-Grid-row ms-u-slideDownIn20">   
           <div className="ms-Grid-col ms-u-sm12 ms-u-md6">
-            <ChartContainer
-              title="Average Performance"
-              chart={
-                <Doughnut 
-                  data={dataDoughnut}
-                  legend={legend}
-                />
-              }
-            />
+            { this._averagePerformanceChart() }
           </div>
           <div className="ms-Grid-col ms-u-sm12 ms-u-md6"> 
-            <ChartContainer
-              title="Skill Performance Average"
-              chart={
-                <Radar 
-                  data={dataRadar}
-                  options={optionsRadar}
-                  legend={legend}
-                />
-              }
-            />
+            { this._skillAverageChart() }
           </div>             
         </div>
         <div className="ms-Grid-row">
           <div className="ms-Grid-col ms-u-sm12">
-            <ChartContainer
-              title="Normal Distribution for Employees Performance"
-              chart={
-                <Line 
-                  data={dataLine}
-                  options={optionsLine}
-                  legend={legend}
-                  width={600}
-                />
-              }
-            />
+            { this._skillNormalDistributionChart() }
           </div>
         </div>
       </div>

@@ -109,20 +109,22 @@ export default class AchievementsDashboard extends React.Component<IAchievements
 
     return (
       <FocusZone className={styles.allAchievements} direction={ FocusZoneDirection.vertical }>
-        <span className="ms-font-m">
+        <div className={`${styles.title} ms-font-m`}>
           All Achievements
-        </span>
-        <TextField 
-          placeholder="Type to filter achievements" 
-          onBeforeChange={ this._onFilterChanged } 
-          description={resultCountText}
-        />
-        <List
-          items={ filteredAchievements }
-          onRenderCell={ (item , index) => (
-            <Achievement key={item.id} achievement={item} />
-          )}
-        />
+        </div>
+        <div>
+          <TextField 
+            placeholder="Type to filter achievements" 
+            onBeforeChange={ this._onFilterChanged } 
+            description={resultCountText}
+          />
+          <List
+            items={ filteredAchievements }
+            onRenderCell={ (item , index) => (
+              <Achievement key={item.id} achievement={item} />
+            )}
+          />
+        </div>        
       </FocusZone>
     );
   }

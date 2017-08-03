@@ -4,6 +4,11 @@
   background: white;
   margin: $margin 0;
 
+  .title {
+    padding: 0 .6em;
+    margin-bottom: $margin;
+  }
+
   .container {
     padding: 0 $padding;
 
