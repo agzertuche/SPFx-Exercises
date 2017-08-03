@@ -2,7 +2,8 @@
   "solution": {
     "name": "employee-development-app-client-side-solution",
     "id": "f1961b52-5795-45bb-93ae-517b178a68c5",
-    "version": "1.0.0.1"
+    "version": "1.0.0.1",
+    "iconPath": "Images/EmployeePerformanceIcon.png"
   },
   "paths": {
     "zippedPackage": "solution/employee-development-app.sppkg"

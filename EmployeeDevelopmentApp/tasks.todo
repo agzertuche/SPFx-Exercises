@@ -60,8 +60,8 @@ Project:
         ✔ All @done (8/2/2017, 6:16:07 PM)
         ✘ from id/mail @cancelled (8/2/2017, 6:16:06 PM)
       ☐ Get Performance
-        ☐ Average Performance (All employees)
-        ☐ Skill Average Performance (Performance per skill)
+        ✔ Average Performance (All employees) @done (3/8/2017 11:41:05)
+        ✔ Skill Average Performance (Performance per skill) @done (3/8/2017 11:41:07)
         ☐ Normal Distribution for Employees Performance
     ☐ Implement MS Graph @high  https://github.com/SharePoint/PnP/blob/master/Samples/MicrosoftGraph.Office365.GroupsExplorer/Utils/TokenHelper.cs
       ☐ Get user info from UPS
@@ -74,14 +74,14 @@ UI:
   ✔ UI Cards @done (7/23/2017, 12:59:21 AM)
   ✔ UI Information @done (7/23/2017, 12:59:23 AM)
   ✔ UI Achievements @done (7/23/2017, 12:59:24 AM)
-  ☐ UI Performance Dashboard
-    ☐ Change chart colors
+  ✔ UI Performance Dashboard @done (3/8/2017 11:40:59)
+    ✔ Change chart colors @done (3/8/2017 11:40:58)
   ✔ Add Microtransactions http://www.n8d.at/blog/microinteractions-how-to-hide-an-ux-easter-egg-in-sharepoint/ @done (8/1/2017, 9:36:08 PM)
   ☐ Add themes http://www.n8d.at/blog/how-to-use-theme-colors-in-spfx-web-parts/
   ✔ Add 4 primary colors @done (7/21/2017, 9:18:55 PM)
   ✔ Add 2 prmiary Fonts @done (7/21/2017, 9:18:55 PM)
   ✘ Define Icon colors @cancelled (18/7/2017 20:37:22)
-  ☐ App icon when to display when adding the webpart to the page https://thechriskent.com/2017/06/19/sharepoint-framework-app-icon/
+  ✔ App icon when to display when adding the webpart to the page https://thechriskent.com/2017/06/19/sharepoint-framework-app-icon/ @done (3/8/2017 17:28:59)
   ✔ Improve transitions on components @done (8/1/2017, 3:10:42 AM)
   ✔ App Styles @done (8/1/2017, 3:10:43 AM)
     ✔ Set background color @done (7/22/2017, 5:30:54 AM)
