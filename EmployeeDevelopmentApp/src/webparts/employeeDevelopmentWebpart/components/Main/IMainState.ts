@@ -4,7 +4,7 @@ import IPerformanceSkills from '../../models/IPerformanceSkills';
 import { ComponentStatus, MenuItem } from '../../models/Enums';
 
 export interface IMainState{
-  selectedUsers?: IUser[];
+  users?: IUser[];
   achievements?: IAchievement[];
   performanceSkills?: IPerformanceSkills[];
   componentStatus?: ComponentStatus;

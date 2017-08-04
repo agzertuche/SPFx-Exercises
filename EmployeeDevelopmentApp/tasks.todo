@@ -41,33 +41,33 @@ Project:
   ✔ Add CommandBar en Employee info https://dev.office.com/fabric#/components/commandbar @done (7/22/2017, 5:29:04 AM)
   ✘ Add ContextualMenu on Achievements component https://dev.office.com/fabric#/components/contextualmenu @cancelled (7/22/2017, 11:16:10 PM)
   
-  Artifacts:
-    ☐ Add lists schemas to deploy a list instance when app is installed @high  
-      ☐ List for user information (Car, primary contact, cell phone, etc)
-      ☐ List for user performance (Personal growth, professional and relationship)
-      ☐ List for user Achievements
+Artifacts:
+  ☐ Add lists schemas to deploy a list instance when app is installed @high  
+    ☐ List for user information (Car, primary contact, cell phone, etc)
+    ☐ List for user performance (Personal growth, professional and relationship)
+    ☐ List for user Achievements
 
-  API:
-    ✔ Add data providers: https://github.com/SharePoint/sp-dev-fx-webparts/tree/master/samples/react-todo-basic#data-providers @done (17/7/2017 18:14:39)
-    ☐ Implement Mock Data Provider @critical 
-      ✔ Get Achievements @done (8/1/2017, 8:45:46 PM)
-        ✔ All @done (8/1/2017, 8:45:54 PM)
-        ✔ from user @done (8/1/2017, 8:45:51 PM)
-        ✔ Most used @done (8/1/2017, 8:45:51 PM)
-        ✔ Rising @done (8/1/2017, 8:45:52 PM)
-        ✔ Grouped by users @done (8/1/2017, 8:45:56 PM)
-      ✔ Get Emp info @done (8/2/2017, 6:16:07 PM)
-        ✔ All @done (8/2/2017, 6:16:07 PM)
-        ✘ from id/mail @cancelled (8/2/2017, 6:16:06 PM)
-      ☐ Get Performance
-        ✔ Average Performance (All employees) @done (3/8/2017 11:41:05)
-        ✔ Skill Average Performance (Performance per skill) @done (3/8/2017 11:41:07)
-        ☐ Normal Distribution for Employees Performance
-    ☐ Implement MS Graph @high  https://github.com/SharePoint/PnP/blob/master/Samples/MicrosoftGraph.Office365.GroupsExplorer/Utils/TokenHelper.cs
-      ☐ Get user info from UPS
-      ☐ Get performance info from SP Lists
-      ☐ Get achievements form SP List
-    ✔ Implement Mockup data @done (17/7/2017 18:15:01)
+API:
+  ✔ Add data providers: https://github.com/SharePoint/sp-dev-fx-webparts/tree/master/samples/react-todo-basic#data-providers @done (17/7/2017 18:14:39)
+  ✔ Implement Mock Data Provider @critical @done (8/4/2017, 1:29:22 AM)
+    ✔ Get Achievements @done (8/1/2017, 8:45:46 PM)
+      ✔ All @done (8/1/2017, 8:45:54 PM)
+      ✔ from user @done (8/1/2017, 8:45:51 PM)
+      ✔ Most used @done (8/1/2017, 8:45:51 PM)
+      ✔ Rising @done (8/1/2017, 8:45:52 PM)
+      ✔ Grouped by users @done (8/1/2017, 8:45:56 PM)
+    ✔ Get Emp info @done (8/2/2017, 6:16:07 PM)
+      ✔ All @done (8/2/2017, 6:16:07 PM)
+      ✘ from id/mail @cancelled (8/2/2017, 6:16:06 PM)
+    ✔ Get Performance @done (8/4/2017, 1:29:21 AM)
+      ✔ Average Performance (All employees) @done (3/8/2017 11:41:05)
+      ✔ Skill Average Performance (Performance per skill) @done (3/8/2017 11:41:07)
+      ✔ Normal Distribution for Employees Performance @done (8/4/2017, 1:29:25 AM)
+  ☐ Implement MS Graph @high  https://github.com/SharePoint/PnP/blob/master/Samples/MicrosoftGraph.Office365.GroupsExplorer/Utils/TokenHelper.cs
+    ☐ Get user info from UPS
+    ☐ Get performance info from SP Lists
+    ☐ Get achievements form SP List
+  ✔ Implement Mockup data @done (17/7/2017 18:15:01)
 
 UI: 
   ✔ Change main menu functionality to render content separetely as mentioned on the documentation https://dev.office.com/fabric#/components/pivot, to avoid having to render a different component depending on the size of the screen that cause weird behaviors. @high @done (7/31/2017, 8:12:24 PM)
@@ -77,7 +77,7 @@ UI:
   ✔ UI Performance Dashboard @done (3/8/2017 11:40:59)
     ✔ Change chart colors @done (3/8/2017 11:40:58)
   ✔ Add Microtransactions http://www.n8d.at/blog/microinteractions-how-to-hide-an-ux-easter-egg-in-sharepoint/ @done (8/1/2017, 9:36:08 PM)
-  ☐ Add themes http://www.n8d.at/blog/how-to-use-theme-colors-in-spfx-web-parts/
+  ✔ Add themes http://www.n8d.at/blog/how-to-use-theme-colors-in-spfx-web-parts/  (Didnt need to change anything since I'm using Office Fabric UI) @done (8/4/2017, 3:37:04 AM)
   ✔ Add 4 primary colors @done (7/21/2017, 9:18:55 PM)
   ✔ Add 2 prmiary Fonts @done (7/21/2017, 9:18:55 PM)
   ✘ Define Icon colors @cancelled (18/7/2017 20:37:22)
@@ -101,10 +101,10 @@ Tests:
     ☐ Nav
     ☐ Performance
     ☐ Search
-  ☐ Test application on following windows:
-    ☐ Small - Cellphone
-    ☐ Medium - Tablet
-    ☐ Large - PC
+  ✔ Test application on following windows: @done (8/4/2017, 3:18:24 AM)
+    ✔ Small - Cellphone @done (8/4/2017, 3:18:24 AM)
+    ✔ Medium - Tablet @done (8/4/2017, 3:18:25 AM)
+    ✔ Large - PC @done (8/4/2017, 3:18:32 AM)
 
 Publishing:
   ☐ Fix warnings and erros, gulp serve && gulp bundle
@@ -112,5 +112,6 @@ Publishing:
   ☐ Deploy final package to a SPOnline tenant
 
 Bugs:
-  ☐ Performance chart on card information renders too small on moblie view
-  ☐ Lift one level up the state of navigation to sync both navigations (mobile and pc)
+  ✔ Performance chart on card information renders too small on moblie view @done (8/4/2017, 3:20:18 AM)
+  ☐ Lift up one level the state of navigation to sync both navigations (mobile and pc)
+  ☐ Make sure theme colors on fonts/backgrounds/charts change depending the current site theme

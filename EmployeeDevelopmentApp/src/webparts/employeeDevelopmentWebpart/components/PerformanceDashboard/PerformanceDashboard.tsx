@@ -4,21 +4,18 @@ import styles from './styles.module.scss';
 import ChartContainer from './ChartContainer';
 import * as lodash from '@microsoft/sp-lodash-subset';
 import { Radar, Line, Doughnut } from 'react-chartjs-2';
+import { Chart } from 'react-chartjs-2/lib';
 
 export default class PerformanceDashboard extends React.Component<IPerformanceDashboardProps,{}>{
   private _primaryColor =      '#0078D7';
   private _secondaryColor =    '#A3A3A3';
   private _borderColor =       '#FFFFFF';
-  private _primaryColorAlpha = 'rgba(199,224,244,.3)';
-  
+  private _primaryColorAlpha = 'rgba(199,224,244,.3)'; 
+
   private _getAverageBySkill(skillName: string){
     let { performanceSkills } = this.props;
     return lodash.sumBy(performanceSkills, skillName) / performanceSkills.length;
   }
-
-  // private _getAverageByEmployee(array: any[], upn: string){
-  //   return lodash.sumBy((array, upn) / array.length;
-  // }
 
   private _groupByArray(xs, key) { 
     return xs.reduce((rv, x) => { 
@@ -40,33 +37,23 @@ export default class PerformanceDashboard extends React.Component<IPerformanceDa
           };
   }
 
-  private _averagePerformanceChart(){    
-    let { performanceSkills } = this.props;
+  private _performanceEvaluationCompletion(){    
+    
+    let { performanceSkills, usersCount } = this.props;
 
-    let averagePerformance = 0;
-    for (var index = 0; index < performanceSkills.length; index++) {
-      var element = performanceSkills[index];
-      averagePerformance += (
-        element.leadership +
-        element.management +
-        element.meetingDeadlines +
-        element.problemSolving +
-        element.teamwork +
-        element.technicalKnowledge
-      ) / 6;     
-    }
+    let performanceSkillsByEmployee = this._groupByArray(performanceSkills, "userPrincipalName");
 
-    averagePerformance = Math.round(averagePerformance / performanceSkills.length);
+    let completedPercent = (performanceSkillsByEmployee.length * 100) / usersCount;
 
     const dataDoughnut = {
       labels: [
-        '',
-        'Average Performance',
+        'Pending',
+        'Completed',
       ],
       datasets: [{
         data: [
-          (10 - averagePerformance),
-          averagePerformance
+          usersCount - performanceSkillsByEmployee.length,
+          performanceSkillsByEmployee.length
         ],
         backgroundColor: [
           this._primaryColorAlpha,
@@ -76,12 +63,37 @@ export default class PerformanceDashboard extends React.Component<IPerformanceDa
           this._primaryColorAlpha,
           this._primaryColor,
         ]
-      }]
+      }]      
     };
+
+    // This is need to display the completed percentage on the center of the doughnut chart
+    let originalDoughnutDraw = Chart.controllers.doughnut.prototype.draw;
+    Chart.helpers.extend(Chart.controllers.doughnut.prototype, {
+      draw: function() {
+        originalDoughnutDraw.apply(this, arguments);
+        
+        let chart = this.chart;
+        let width = chart.chart.width,
+            height = chart.chart.height,
+            ctx = chart.chart.ctx;
+
+        let fontSize = (height / 100).toFixed(2) + 'em';
+        let fontFamily = "Segoe UI WestEuropean,Segoe UI,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif";
+        ctx.font = `${fontSize} ${fontFamily}`;
+        ctx.textBaseline = "middle";
+
+        let text = completedPercent + '%',
+            textX = Math.round((width - ctx.measureText(text).width) / 2),
+            textY = height / 2;
+
+        ctx.fillText(text, textX, textY);
+      }
+    });
+
 
     return (
       <ChartContainer
-        title="Average Performance"
+        title="Performance Evaluation Completion"
         chart={
           <Doughnut 
             data={dataDoughnut}
@@ -104,7 +116,7 @@ export default class PerformanceDashboard extends React.Component<IPerformanceDa
       },
       animation: {
         duration: 2000
-      }
+      },
     };
 
     const dataRadar = {
@@ -145,16 +157,54 @@ export default class PerformanceDashboard extends React.Component<IPerformanceDa
   }
 
   private _skillNormalDistributionChart(){
-    // let { performanceSkills } = this.props;
+    let { performanceSkills, usersCount } = this.props;
+    let bottomCount = 0;
+    let lowCount = 0;
+    let regularCount = 0;
+    let averageCount = 0;
+    let remarkableCount = 0;
+    let highCount = 0;
+    let topCount = 0;    
 
-    // let performanceSkillsByEmployee = this._groupByArray(performanceSkills, "userPrincipalName");
+    let performanceSkillsByEmployee = this._groupByArray(performanceSkills, "userPrincipalName");
 
-    // let averageData = [];
-    // performanceSkillsByEmployee.forEach(element => {
-    //   averageData.push(this._getAverageByEmployee(element.values, element.key));
-    // });    
+    performanceSkillsByEmployee.forEach(emp => {
+      let employeeAverage = 0;
+      
+      emp.values.forEach(ps => {
+        employeeAverage += 
+          (
+            ps.leadership + 
+            ps.management + 
+            ps.meetingDeadlines + 
+            ps.problemSolving + 
+            ps.teamwork + 
+            ps.technicalKnowledge
+          ) / 6;
+      });
 
-    
+      employeeAverage = employeeAverage/emp.values.length;
+
+        if (employeeAverage <= 0.5) bottomCount++;
+        else if (employeeAverage > 0.5 && employeeAverage <= 1.5) lowCount++;
+        else if (employeeAverage > 1.5 && employeeAverage <= 3.5) regularCount++;
+        else if (employeeAverage > 3.5 && employeeAverage <= 6.5) averageCount++;
+        else if (employeeAverage > 6.5 && employeeAverage <= 8.5) remarkableCount++;
+        else if (employeeAverage > 8.5 && employeeAverage <= 9.5) highCount++;
+        else if (employeeAverage > 9.5) topCount++;
+    });    
+
+    let maxTickValue = Math.max(
+      Math.round(usersCount * .3),
+      bottomCount,
+      lowCount,
+      regularCount,
+      averageCount,
+      remarkableCount,
+      highCount,
+      topCount
+    );
+
     const optionsLine = {
       responsive: true,
       tooltips: {
@@ -189,6 +239,11 @@ export default class PerformanceDashboard extends React.Component<IPerformanceDa
             labels: {
               show: true
             },
+            ticks: {
+              beginAtZero: true,
+              min: 0,
+              max: maxTickValue,
+            }
           },
           {
             type: 'linear',
@@ -200,6 +255,11 @@ export default class PerformanceDashboard extends React.Component<IPerformanceDa
             },
             labels: {
               show: true
+            },
+            ticks: {
+              beginAtZero: true,
+              min: 0,
+              max: maxTickValue,
             }
           }
         ]
@@ -211,7 +271,15 @@ export default class PerformanceDashboard extends React.Component<IPerformanceDa
       datasets: [
         {
           label: 'Current',
-          data: [1, 2, 6, 9, 4, 3, 1],
+          data: [
+            bottomCount,
+            lowCount,
+            regularCount,
+            averageCount,
+            remarkableCount,
+            highCount,
+            topCount
+          ],
           fill: true,
           backgroundColor: this._primaryColorAlpha,
           borderColor: this._primaryColor,        
@@ -221,7 +289,15 @@ export default class PerformanceDashboard extends React.Component<IPerformanceDa
         },
         {
           label: 'Should be',
-          data: [1, 2, 5, 10, 5, 2, 1],
+          data: [
+            Math.round(usersCount * .025),
+            Math.round(usersCount * .075),
+            Math.round(usersCount * .2),
+            Math.round(usersCount * .4),
+            Math.round(usersCount * .2),
+            Math.round(usersCount * .075),
+            Math.round(usersCount * .025),
+          ],
           fill: false,
           borderColor: this._secondaryColor,
           backgroundColor: this._secondaryColor,
@@ -252,7 +328,7 @@ export default class PerformanceDashboard extends React.Component<IPerformanceDa
       <div className={styles.performanceDashboard}>
         <div className="ms-Grid-row ms-u-slideDownIn20">   
           <div className="ms-Grid-col ms-u-sm12 ms-u-md6">
-            { this._averagePerformanceChart() }
+            { this._performanceEvaluationCompletion() }
           </div>
           <div className="ms-Grid-col ms-u-sm12 ms-u-md6"> 
             { this._skillAverageChart() }

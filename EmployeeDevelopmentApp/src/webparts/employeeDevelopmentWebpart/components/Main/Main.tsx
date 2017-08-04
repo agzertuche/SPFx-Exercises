@@ -24,7 +24,7 @@ export default class Main extends React.Component<IMainProps, IMainState>{
     this._updateSelectedComponent = this._updateSelectedComponent.bind(this);
 
     this.state = {
-      selectedUsers: [],
+      users: [],
       componentStatus: ComponentStatus.Loading,
       selectedComponent: MenuItem.Cards
     };
@@ -34,13 +34,13 @@ export default class Main extends React.Component<IMainProps, IMainState>{
     this.props.dataProvider.getUsers()
     .then((usersArray: IUser[]) => {
       this.setState({
-        selectedUsers: usersArray,
+        users: usersArray,
         componentStatus: ComponentStatus.Completed,
       });
     })    
     .catch(error => {
       this.setState({
-        selectedUsers: [],
+        users: [],
         componentStatus: ComponentStatus.Error
       });
     });
@@ -48,7 +48,6 @@ export default class Main extends React.Component<IMainProps, IMainState>{
     this.props.dataProvider.getAchievements()
     .then((achievementsArray: IAchievement[]) => {
       this.setState({
-        selectedUsers: this.state.selectedUsers,
         achievements: achievementsArray
       });
     });
@@ -146,13 +145,13 @@ export default class Main extends React.Component<IMainProps, IMainState>{
         return (
           <EmployeeCards 
             dataProvider={this.props.dataProvider} 
-            users={this.state.selectedUsers} 
+            users={this.state.users} 
           />
         );
       case MenuItem.Information:
         return (
           <EmployeeInformation 
-            users={this.state.selectedUsers} 
+            users={this.state.users} 
           />
         );
       case MenuItem.Achievements:
@@ -168,13 +167,14 @@ export default class Main extends React.Component<IMainProps, IMainState>{
         return (
           <PerformanceDashboard 
             performanceSkills={ this.state.performanceSkills } 
+            usersCount={ this.state.users.length }
           /> 
         );
       default:
         return (
           <EmployeeCards 
             dataProvider={this.props.dataProvider} 
-            users={this.state.selectedUsers} 
+            users={this.state.users} 
           />
         );
     }
