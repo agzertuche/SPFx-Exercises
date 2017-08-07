@@ -5,6 +5,7 @@ import ChartContainer from './ChartContainer';
 import * as lodash from '@microsoft/sp-lodash-subset';
 import { Radar, Line, Doughnut } from 'react-chartjs-2';
 import { Chart } from 'react-chartjs-2/lib';
+import Placeholder from '../Common/Placeholder';
 
 export default class PerformanceDashboard extends React.Component<IPerformanceDashboardProps,{}>{
   private _primaryColor =      '#0078D7';
@@ -325,20 +326,34 @@ export default class PerformanceDashboard extends React.Component<IPerformanceDa
 
   public render(): React.ReactElement<IPerformanceDashboardProps>{
     return (
-      <div className={styles.performanceDashboard}>
-        <div className="ms-Grid-row ms-u-slideDownIn20">   
-          <div className="ms-Grid-col ms-u-sm12 ms-u-md6">
-            { this._performanceEvaluationCompletion() }
-          </div>
-          <div className="ms-Grid-col ms-u-sm12 ms-u-md6"> 
-            { this._skillAverageChart() }
-          </div>             
-        </div>
-        <div className="ms-Grid-row">
-          <div className="ms-Grid-col ms-u-sm12">
-            { this._skillNormalDistributionChart() }
-          </div>
-        </div>
+      <div>
+        { 
+          this.props.performanceSkills.length == 0 ? 
+            <div className="ms-Grid-row ms-u-slideDownIn20">
+              <div className="ms-Grid-col ms-u-sm12">
+                <Placeholder 
+                  icon="BarChart4"
+                  title="No performance information found..."
+                />
+              </div>
+            </div>
+          :
+            <div className={styles.performanceDashboard}>
+              <div className="ms-Grid-row ms-u-slideDownIn20">   
+                <div className="ms-Grid-col ms-u-sm12 ms-u-md6">
+                  { this._performanceEvaluationCompletion() }
+                </div>
+                <div className="ms-Grid-col ms-u-sm12 ms-u-md6"> 
+                  { this._skillAverageChart() }
+                </div>             
+              </div>
+              <div className="ms-Grid-row">
+                <div className="ms-Grid-col ms-u-sm12">
+                  { this._skillNormalDistributionChart() }
+                </div>
+              </div>
+            </div>
+        }
       </div>
     );
   }

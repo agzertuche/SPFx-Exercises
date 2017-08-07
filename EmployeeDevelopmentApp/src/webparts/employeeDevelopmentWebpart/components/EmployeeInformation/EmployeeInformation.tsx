@@ -2,8 +2,7 @@ import * as React from 'react';
 import { 
   IEmployeeInformationProps,
   items, 
-  overflowItems,
-  farItems
+  overflowItems
 } from './IEmployeeInformationProps';
 import { IEmployeeInformationState } from './IEmployeeInformationState';
 import styles from './styles.module.scss';
@@ -11,6 +10,7 @@ import { Link } from 'office-ui-fabric-react/lib/Link';
 import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image';
 import { DetailsList, buildColumns } from 'office-ui-fabric-react/lib/DetailsList';
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import Placeholder from '../Common/Placeholder';
 
 let _items: any[];
 
@@ -80,19 +80,28 @@ export default class EmployeeInformation extends React.Component<IEmployeeInform
       <div className={styles.employeeInformation}>
         <div className="ms-Grid-row ms-u-slideDownIn20"> 
           <div className={`${styles.detailsList} ms-Grid-col ms-u-sm12`}>
-            <CommandBar
-              searchPlaceholderText='Search...'
-              elipisisAriaLabel='More options'
-              items={ items }
-              overflowItems={ overflowItems }
-              /* farItems={ farItems  }               */
-            />     
-            <DetailsList
-              items={ sortedItems }
-              columns={ columns }
-              onRenderItemColumn={ _renderItemColumn }
-              onColumnHeaderClick={ this._onColumnClick }  
-            />
+            {
+              sortedItems.length == 0 ? 
+              <Placeholder 
+                icon="ThumbnailView"
+                title="No employee information found..."   
+              />
+            : 
+            <div>
+              <CommandBar
+                searchPlaceholderText='Search...'
+                elipisisAriaLabel='More options'
+                items={ items }
+                overflowItems={ overflowItems }
+              />     
+              <DetailsList
+                items={ sortedItems }
+                columns={ columns }
+                onRenderItemColumn={ _renderItemColumn }
+                onColumnHeaderClick={ this._onColumnClick }  
+              />
+            </div>
+            }
           </div>
         </div>
       </div>

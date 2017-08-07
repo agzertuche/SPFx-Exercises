@@ -11,7 +11,7 @@ import { IEmployeeDevelopmentWebpartWebPartProps } from './IEmployeeDevelopmentW
 import Main, { IMainProps } from './components/Main';
 import { Environment, EnvironmentType } from '@microsoft/sp-core-library';
 import IDataProvider from './dataProviders/IDataProvider';
-import { MockDataProvider } from './dataProviders';
+import { MockDataProvider, MSALDataProvider } from './dataProviders';
 
 export default class EmployeeDevelopmentWebpartWebPart extends BaseClientSideWebPart<IEmployeeDevelopmentWebpartWebPartProps> {
   private _dataProvider: IDataProvider;
@@ -22,10 +22,10 @@ export default class EmployeeDevelopmentWebpartWebPart extends BaseClientSideWeb
       The DEBUG flag will ensure the mock data provider is not bundled with the web part when you package the solution for distribution, that is, using the --ship flag with the package-solution gulp command.
     */
     if (DEBUG && Environment.type === EnvironmentType.Local) {
-      this._dataProvider = new MockDataProvider();
+      this._dataProvider = new MSALDataProvider();
       this._dataProvider.webPartContext = this.context;
     } else {
-      this._dataProvider = new MockDataProvider();
+      this._dataProvider = new MSALDataProvider();
       this._dataProvider.webPartContext = this.context;
     }
     

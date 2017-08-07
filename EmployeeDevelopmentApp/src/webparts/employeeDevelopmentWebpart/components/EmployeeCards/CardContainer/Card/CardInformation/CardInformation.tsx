@@ -74,7 +74,10 @@ export default class CardInformation extends React.Component<ICardInformationPro
             <IconComponent iconName={"Mail"} description={this.props.employee.mail} size={ Size.Small } />
             <IconComponent iconName={"Phone"} description={this.props.employee.mobilePhone} size={ Size.Small } />
             <IconComponent iconName={"Cake"} description={this.props.employee.birthday} size={ Size.Small } />
-            <IconComponent iconName={"Ribbon"} description={this.props.employee.rewardPoints.toString()} size={ Size.Small } />
+            {
+              this.props.employee.rewardPoints &&
+              <IconComponent iconName={"Ribbon"} description={this.props.employee.rewardPoints.toString()} size={ Size.Small } />
+            }            
           </div>
           <div className="ms-Grid-col ms-u-sm12 ms-u-md6">
             <IconComponent iconName={"CellPhone"} description={this.props.employee.mobilePhone} size={ Size.Small } />

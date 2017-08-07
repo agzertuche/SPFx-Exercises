@@ -5,12 +5,35 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
+      "name": "Local workbench",
+      "type": "chrome",
       "request": "launch",
-      "name": "Launch Program",
-      "program": "${file}",
-      "outFiles": [
-        "${workspaceRoot}/out/**/*.js"
+      "url": "https://localhost:4321/temp/workbench.html",
+      "webRoot": "${workspaceRoot}",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+          "webpack:///../../../src/*": "${webRoot}/src/*",
+          "webpack:///../../../../src/*": "${webRoot}/src/*",
+          "webpack:///../../../../../src/*": "${webRoot}/src/*"
+      },
+      "runtimeArgs": [
+          "--remote-debugging-port=9222"
+      ]
+    },
+    {
+      "name": "Hosted workbench",
+      "type": "chrome",
+      "request": "launch",
+      "url": "https://agzertuche.sharepoint.com/_layouts/workbench.aspx",
+      "webRoot": "${workspaceRoot}",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+          "webpack:///../../../src/*": "${webRoot}/src/*",
+          "webpack:///../../../../src/*": "${webRoot}/src/*",
+          "webpack:///../../../../../src/*": "${webRoot}/src/*"
+      },
+      "runtimeArgs": [
+          "--remote-debugging-port=9222"
       ]
     }
   ]

@@ -48,4 +48,4 @@ Temporary Items
 
 # Ignore node_modules folder on each webpart
 node_modules
-debug
+solution

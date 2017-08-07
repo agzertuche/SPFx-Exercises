@@ -13,6 +13,7 @@ import Achievement from '../Common/Achievement';
 import { IPersonaProps, Persona, PersonaSize, PersonaPresence } from 'office-ui-fabric-react/lib/Persona';
 import IconComponent from '../Common/IconComponent';
 import { Size } from '../../models/Enums';
+import Placeholder from '../Common/Placeholder';
 
 export default class AchievementsDashboard extends React.Component<IAchievementsDashboardProps,IAchievementsDashboardState>{
   constructor(props: IAchievementsDashboardProps) {
@@ -135,28 +136,42 @@ export default class AchievementsDashboard extends React.Component<IAchievements
     let resultCountText = filteredAchievements.length === originalItems.length ? '' : ` (${filteredAchievements.length} of ${originalItems.length} shown)`;
 
     return (
-      <div className={styles.achievementsDashboard}>
-        <div className="ms-Grid-row ms-u-slideDownIn20">   
-          <div className={`${styles.container} ms-Grid-col ms-u-sm12`}>
-            <div className="ms-Grid-row">
-              <div className="ms-Grid-col ms-u-sm12 ms-u-md4">
-                { this._mostCompletedAchievement() }
-              </div>
-              <div className="ms-Grid-col ms-u-sm12 ms-u-md4">
-                { this._trendingCompletedAchievement() }
-              </div>
-              <div className="ms-Grid-col ms-u-sm12 ms-u-md4">
-                { this._topAchievers() }                
-              </div>
-            </div>
-            <div className="ms-Grid-row">
+      <div>
+        {
+          this.props.achievements.length == 0 ? 
+            <div className="ms-Grid-row ms-u-slideDownIn20">
               <div className="ms-Grid-col ms-u-sm12">
-                { this._filterAchievementsContainer() }
+                <Placeholder 
+                  icon="Trophy"
+                  title="No achievements found..."
+                />
               </div>
             </div>
-          </div>
+            :
+            <div className={styles.achievementsDashboard}>
+              <div className="ms-Grid-row ms-u-slideDownIn20">   
+                <div className={`${styles.container} ms-Grid-col ms-u-sm12`}>
+                  <div className="ms-Grid-row">
+                    <div className="ms-Grid-col ms-u-sm12 ms-u-md4">
+                      { this._mostCompletedAchievement() }
+                    </div>
+                    <div className="ms-Grid-col ms-u-sm12 ms-u-md4">
+                      { this._trendingCompletedAchievement() }
+                    </div>
+                    <div className="ms-Grid-col ms-u-sm12 ms-u-md4">
+                      { this._topAchievers() }                
+                    </div>
+                  </div>
+                  <div className="ms-Grid-row">
+                    <div className="ms-Grid-col ms-u-sm12">
+                      { this._filterAchievementsContainer() }
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>  
+          }
         </div>
-      </div>  
     );
   }
 }

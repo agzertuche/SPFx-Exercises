@@ -5,6 +5,7 @@ import IUser from '../../models/IUser';
 import CardSearch from './CardSearch';
 import CardContainer from './CardContainer';
 import IEmployee from '../../models/IEmployee';
+import Placeholder from '../Common/Placeholder';
 
 export default class EmployeeCards extends 
 React.Component<IEmployeeCardsProps, IEmployeeCardsState>{
@@ -20,7 +21,8 @@ React.Component<IEmployeeCardsProps, IEmployeeCardsState>{
 
   private _updateSelectedUsers(users: IUser[]){
     return this.props.dataProvider.getEmployees(users)
-    .then((employees: IEmployee[]) => {      
+    .then((employees: IEmployee[]) => {
+      debugger;
       this.setState({ 
         selectedEmployees: employees
       });    
@@ -28,22 +30,34 @@ React.Component<IEmployeeCardsProps, IEmployeeCardsState>{
   }
 
   public render(): React.ReactElement<IEmployeeCardsProps>{
+    const { users } = this.props;
+
     return (
       <div className={`ms-Grid-row ms-u-slideDownIn20`}> 
         <div className="ms-Grid-col ms-u-sm12">
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm12">
-              <CardSearch 
-                onSelectedEmployeesChange={this._updateSelectedUsers} 
-                users={this.props.users} 
-              />            
+          {
+            users.length == 0 ? 
+            <Placeholder 
+              icon="ContactCard"
+              title="No users found..."   
+            />
+            :
+            <div>
+              <div className="ms-Grid-row">
+                <div className="ms-Grid-col ms-u-sm12">
+                  <CardSearch 
+                    onSelectedEmployeesChange={this._updateSelectedUsers} 
+                    users={this.props.users} 
+                  />            
+                </div>
+              </div>
+              <div className="ms-Grid-row">
+                <div className="ms-Grid-col ms-u-sm12">
+                  <CardContainer employees={this.state.selectedEmployees}/>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="ms-Grid-row">
-            <div className="ms-Grid-col ms-u-sm12">
-              <CardContainer employees={this.state.selectedEmployees}/>
-            </div>
-          </div>
+          }
         </div>
       </div>
     );

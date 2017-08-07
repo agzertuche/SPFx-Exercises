@@ -42,10 +42,10 @@ Project:
   ✘ Add ContextualMenu on Achievements component https://dev.office.com/fabric#/components/contextualmenu @cancelled (7/22/2017, 11:16:10 PM)
   
 Artifacts:
-  ☐ Add lists schemas to deploy a list instance when app is installed @high  
-    ☐ List for user information (Car, primary contact, cell phone, etc)
-    ☐ List for user performance (Personal growth, professional and relationship)
-    ☐ List for user Achievements
+  ✔ Add lists schemas to deploy a list instance when app is installed https://dev.office.com/sharepoint/docs/spfx/web-parts/get-started/provision-sp-assets-from-package @high @done (8/4/2017, 4:13:53 PM)
+    ✔ List for user information (Car, primary contact, cell phone, etc) @done (8/4/2017, 4:13:46 PM)
+    ✔ List for user performance (Personal growth, professional and relationship) @done (8/4/2017, 4:13:47 PM)
+    ✔ List for user Achievements @done (8/4/2017, 4:13:48 PM)
 
 API:
   ✔ Add data providers: https://github.com/SharePoint/sp-dev-fx-webparts/tree/master/samples/react-todo-basic#data-providers @done (17/7/2017 18:14:39)
@@ -64,6 +64,7 @@ API:
       ✔ Skill Average Performance (Performance per skill) @done (3/8/2017 11:41:07)
       ✔ Normal Distribution for Employees Performance @done (8/4/2017, 1:29:25 AM)
   ☐ Implement MS Graph @high  https://github.com/SharePoint/PnP/blob/master/Samples/MicrosoftGraph.Office365.GroupsExplorer/Utils/TokenHelper.cs
+    ☐ Fix promises hell!! *&%#$^%$#^%$@#
     ☐ Get user info from UPS
     ☐ Get performance info from SP Lists
     ☐ Get achievements form SP List
@@ -91,9 +92,10 @@ UI:
     ✔ Ensure all components are viewable on mobile using office ui fabric grid @done (7/31/2017, 8:11:42 PM)
     
 Tests:
-  ☐ Fix Test gulp task, since it is not finding any test on the project
-  ☐ Verify if the test could be running from outside the Test folder @high 
-  ☐ Implement tests for each component: https://github.com/OfficeDev/office-ui-fabric-react/blob/master/ghdocs/TESTING.md
+  ✔ Fix Test gulp task, since it is not finding any test on the project @done (8/6/2017, 7:17:24 PM)
+  ✔ Verify if the test could be running from outside the Test folder @high @done (8/6/2017, 7:17:28 PM)
+  ☐ Implement tests for each component: 
+  https://www.eliostruyf.com/writing-unit-test-for-your-sharepoint-framework-components/ https://github.com/OfficeDev/office-ui-fabric-react/blob/master/ghdocs/TESTING.md
     ☐ Achievements
     ☐ Card
     ☐ Information
@@ -108,10 +110,11 @@ Tests:
 
 Publishing:
   ☐ Fix warnings and erros, gulp serve && gulp bundle
-  ☐ Update readme.md file
+  ☐ Update readme.md file https://github.com/SharePoint/sp-dev-fx-webparts/tree/master/samples/react-aad-implicitflow
   ☐ Deploy final package to a SPOnline tenant
 
 Bugs:
   ✔ Performance chart on card information renders too small on moblie view @done (8/4/2017, 3:20:18 AM)
   ☐ Lift up one level the state of navigation to sync both navigations (mobile and pc)
   ☐ Make sure theme colors on fonts/backgrounds/charts change depending the current site theme
+  ☐ Refactor components (container/components)

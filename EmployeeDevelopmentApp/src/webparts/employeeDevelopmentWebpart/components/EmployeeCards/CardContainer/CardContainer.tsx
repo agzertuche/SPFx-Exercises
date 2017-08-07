@@ -5,13 +5,14 @@ import Card from './Card';
 
 export default class CardContainer extends React.Component<ICardContainerProps,{}>{
   public render(): React.ReactElement<ICardContainerProps>{
-    const cards = this.props.employees.map((e) => {
+    const cards = this.props.employees.map((e, index) => {
       if (e){
-        return ( <Card key={e.id} employee={e}/> );
+        return ( <Card key={index} employee={e}/> );
       } 
       else {
         return (
           <Placeholder 
+            key={index}
             icon="ContactCard" 
             title="Employee not found"
             description="No employee information found for this user..."
@@ -30,7 +31,7 @@ export default class CardContainer extends React.Component<ICardContainerProps,{
               <Placeholder 
                 icon="Search"
                 title="No employees selected"
-                description="Please search for any employees and select at least one..."
+                description="Please search for employees and select at least one..."
               />
           }
         </div>
