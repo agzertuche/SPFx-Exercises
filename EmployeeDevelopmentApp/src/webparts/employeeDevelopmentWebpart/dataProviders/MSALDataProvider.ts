@@ -38,16 +38,19 @@ export class MSALDataProvider implements IDataProvider {
       this._clientApplication = new UserAgentApplication(msalconfig.clientID,
         null, (errorDesc, token, error, tokenType) => {
         // Called after loginRedirect or acquireTokenPopup
+        console.error(
+          errorDesc,
+          token,
+          error,
+          tokenType
+        );
       });
-    }
 
-    if (this._clientApplication.getUser()) {
-      // this._getAccessToken();
-    } else {
-      this._clientApplication.loginPopup(msalconfig.scopes).then((idToken: string) => {
-        // this._getAccessToken();
-      });
-    }  
+      if (this._clientApplication.getUser()) {
+      } else {
+        this._clientApplication.loginPopup(msalconfig.scopes);
+      }  
+    }
   }
 
   private _groupByArray(xs, key) { 
@@ -134,7 +137,7 @@ export class MSALDataProvider implements IDataProvider {
       return response.json();     
     })
     .then(result => {
-      return this._getUsersPhotos(token, result.value)
+      return this._getUsersPhotos(token, result.value);
     })
     .catch(err => {
       console.error(err);
@@ -154,12 +157,12 @@ export class MSALDataProvider implements IDataProvider {
 
   public getEmployees(users: IUser[]): Promise<IEmployee[]> {
     return this._clientApplication.acquireTokenSilent(msalconfig.scopes).then((token: string) => {
-      return this._getEmployees(token, users).then();
+      return this._getEmployeesInformation(token, users);
     }, (error) => {
       // Interaction required
       if (error) {
         this._clientApplication.acquireTokenPopup(msalconfig.scopes).then((token: string) => {
-          return this._getEmployees(token, users).then();
+          return this._getEmployeesInformation(token, users);
         }, (err: string) => {
           // Something went wrong
           console.error(err);
@@ -169,12 +172,12 @@ export class MSALDataProvider implements IDataProvider {
     });
   }
 
-  private _getEmployeeInformation(token, user) {
+  private _getEmployeesInformation(token, users): Promise<IEmployee[]> {
     // Call the Microsoft Graph
     //this._webPartContext.pageContext.site.id
     //https://graph.microsoft.com/beta/sites/agzertuche.sharepoint.com:/teams/NewTeamSite:/lists/employees/items?$expand=fields & $filter=fields/userPrincipalName eq 'arturo@agzertuche.onmicrosoft.com' or fields/userPrincipalName eq 'asdf'
     //https://graph.microsoft.com/beta/sites/{hostname},{spsite-id},{spweb-id}/
-    return this._webPartContext.httpClient.get(`https://graph.microsoft.com/beta/sites/agzertuche.sharepoint.com:/teams/NewTeamSite:/lists/employees/items?expand=fields & $filter=fields/userPrincipalName eq '${user.userPrincipalName}'`, HttpClient.configurations.v1, {
+    return this._webPartContext.httpClient.get(`https://graph.microsoft.com/beta/sites/agzertuche.sharepoint.com:/teams/NewTeamSite:/lists/employees/items?expand=fields`, HttpClient.configurations.v1, {
       headers: {
         "authorization": `Bearer ${token}`
       }
@@ -186,10 +189,11 @@ export class MSALDataProvider implements IDataProvider {
       return response.json();
     })
     .then((result) => {
-      if (!result.value[0]) {
-        throw "Couldn't get employee information";
+      if (result.value.length == 0) {
+        throw `Couldn't get employees information`;
       }
-      return result.value[0].fields;
+
+      return this._convertToEmployees(token, result.value, users);
     })
     .catch(err => {
       console.error(err);
@@ -197,18 +201,20 @@ export class MSALDataProvider implements IDataProvider {
     });    
   }
 
-  private _getEmployees(token, users) {
+  private _convertToEmployees(token, employeesInformation, users) {
     let promises = users.map((u) => {    
-      return this._getEmployeeInformation(token, u)
-      .then(ei => {
+      let ei = employeesInformation.find(x => 
+        x.fields.userPrincipalName.toUpperCase() == u.userPrincipalName.toUpperCase());
+
+      if(ei) {
         return {
-            ...u,
-            ...ei,
-            achievements: this._getEmployeeAchievements(u.userPrincipalName),
-            performanceSkills: this._getEmployeePerformanceSkills(u.userPrincipalName)
-          };
-      });
-    });    
+          ...u,
+          ...ei,
+          achievements: [],
+          performanceSkills: []
+        };
+      }
+    });
 
     return Promise.all(promises);
   } 
@@ -293,7 +299,7 @@ export class MSALDataProvider implements IDataProvider {
     return this._getPerformanceSkills();
   }
 
-   private _getPerformanceSkills(): Promise<IPerformanceSkills[]>{
+  private _getPerformanceSkills(): Promise<IPerformanceSkills[]>{
     return new Promise<IPerformanceSkills[]>((resolve) => {
       setTimeout(() => resolve(this._performanceSkills), 500);
     });

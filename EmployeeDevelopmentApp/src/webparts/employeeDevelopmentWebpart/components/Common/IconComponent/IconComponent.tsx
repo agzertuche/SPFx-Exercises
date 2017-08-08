@@ -4,81 +4,76 @@ import styles from './styles.module.scss';
 import { IIconComponentProps } from './IIconComponentProps';
 import { Size } from '../../../models/Enums';
 
-export default class IconComponent extends React.Component<IIconComponentProps, {}>{
-  constructor(props: IIconComponentProps){
-    super(props);
-  } 
+const IconComponent: React.StatelessComponent<IIconComponentProps> = (props) => {
+  const { title, description, iconName, size } = props;
 
-  public static defaultProps: Partial<IIconComponentProps> = {
-    size: Size.Medium
+  const _renderTitle = () => { 
+    if(!title) return;
+
+    return(
+      <div className={ styles.iconTitle } >
+        { title }
+      </div>
+    );
   };
 
-  private _renderTitle(){
-    if (!this.props.title) {
-      return;
-    }  
+  let iconSize:any = {
+    fontSize: 'xx-large'
+  };
 
-    return(
-      <div className={styles.iconTitle} >
-        {this.props.title}
-      </div>
-    );
+  let fontSize:any = {
+    fontSize: 'small'
+  };
+
+  switch (size) {
+    case Size.XXSmall:
+      iconSize = { fontSize: '.7em'};
+      fontSize = { fontSize: '.7em'};        
+      break;        
+    case Size.XSmall:
+      iconSize = { fontSize: '.9em'};
+      fontSize = { fontSize: '.8em'};        
+      break;        
+    case Size.Small:
+      iconSize = { fontSize: '1.2em'};
+      fontSize = { fontSize: '.8em'};        
+      break;    
+    case Size.Medium:
+      iconSize = { fontSize: '1.4em'};
+      fontSize = { fontSize: '.9em'};        
+      break;            
+    case Size.Large:
+      iconSize = { fontSize: '2em'};
+      fontSize = { fontSize: '.9em'};        
+      break;        
+    case Size.XLarge:
+      iconSize = { fontSize: '2.4em'};
+      fontSize = { fontSize: '1em'};        
+      break;        
+    case Size.XXLarge:
+      iconSize = { fontSize: '3em'};
+      fontSize = { fontSize: '1em'};        
+      break;
+    default:
+      iconSize = { fontSize: '1.4em'};
+      fontSize = { fontSize: '.9em'};        
   }
-
-  public render(): React.ReactElement<IIconComponentProps>{
-    let iconSize:any = {
-      fontSize: 'xx-large'
-    };
-
-    let fontSize:any = {
-      fontSize: 'small'
-    };
-
-    switch (this.props.size) {
-      case Size.XXSmall:
-        iconSize = { fontSize: '.7em'};
-        fontSize = { fontSize: '.7em'};        
-        break;        
-      case Size.XSmall:
-        iconSize = { fontSize: '.9em'};
-        fontSize = { fontSize: '.8em'};        
-        break;        
-      case Size.Small:
-        iconSize = { fontSize: '1.2em'};
-        fontSize = { fontSize: '.8em'};        
-        break;    
-      case Size.Medium:
-        iconSize = { fontSize: '1.4em'};
-        fontSize = { fontSize: '.9em'};        
-        break;            
-      case Size.Large:
-        iconSize = { fontSize: '2em'};
-        fontSize = { fontSize: '.9em'};        
-        break;        
-      case Size.XLarge:
-        iconSize = { fontSize: '2.4em'};
-        fontSize = { fontSize: '1em'};        
-        break;        
-      case Size.XXLarge:
-        iconSize = { fontSize: '3em'};
-        fontSize = { fontSize: '1em'};        
-        break;        
-    }
-
-    return(
-      <div className={styles.iconComponent} >
-        <div className="ms-Grid-row">
-          <div className={`${styles.icon} ms-Grid-col ms-u-sm3`}>
-            <Icon alt={this.props.title} iconName={this.props.iconName} style={iconSize} />
-          </div>
-          <div className={`ms-Grid-col ms-u-sm9`} style={fontSize}>
-            { this._renderTitle() }
-            <div className={styles.iconDescription} >
-              {this.props.description}
-            </div>            
-          </div>
+  
+  return(
+    <div className={ styles.iconComponent } >
+      <div className="ms-Grid-row">
+        <div className={`${styles.icon} ms-Grid-col ms-u-sm3`}>
+          <Icon alt={ title } iconName={ iconName } style={ iconSize } />
+        </div>
+        <div className={`ms-Grid-col ms-u-sm9`} style={ fontSize } >
+          { _renderTitle }
+          <div className={ styles.iconDescription } >
+            { description }
+          </div>            
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default IconComponent;

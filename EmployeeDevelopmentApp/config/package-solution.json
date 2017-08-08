@@ -2,13 +2,13 @@
   "solution": {
     "name": "employee-development-app",
     "id": "f1961b52-5795-45bb-93ae-517b178a68c5",
-    "version": "1.0.1.0",
+    "version": "2.0.0.0",
     "iconPath": "Images/EmployeePerformanceIcon.png",
     "features": [{
       "title": "employee-development-app-assets",
       "description": "List assets for employee development app",
       "id": "523fe887-ced5-4036-b564-8dad5c6c6e24",
-      "version": "1.0.0.0",
+      "version": "2.0.0.0",
       "assets": {        
         "elementManifests": [
           "elements.xml"

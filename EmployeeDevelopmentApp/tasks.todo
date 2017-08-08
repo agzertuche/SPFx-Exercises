@@ -64,8 +64,8 @@ API:
       ✔ Skill Average Performance (Performance per skill) @done (3/8/2017 11:41:07)
       ✔ Normal Distribution for Employees Performance @done (8/4/2017, 1:29:25 AM)
   ☐ Implement MS Graph @high  https://github.com/SharePoint/PnP/blob/master/Samples/MicrosoftGraph.Office365.GroupsExplorer/Utils/TokenHelper.cs
-    ☐ Fix promises hell!! *&%#$^%$#^%$@#
-    ☐ Get user info from UPS
+    ✔ Fix promises hell!! *&%#$^%$#^%$@# @done (7/8/2017 20:42:47)
+    ✔ Get user info from Office365 @done (7/8/2017 20:42:47)
     ☐ Get performance info from SP Lists
     ☐ Get achievements form SP List
   ✔ Implement Mockup data @done (17/7/2017 18:15:01)
@@ -117,4 +117,4 @@ Bugs:
   ✔ Performance chart on card information renders too small on moblie view @done (8/4/2017, 3:20:18 AM)
   ☐ Lift up one level the state of navigation to sync both navigations (mobile and pc)
   ☐ Make sure theme colors on fonts/backgrounds/charts change depending the current site theme
-  ☐ Refactor components (container/components)
+  ☐ Refactor components (container/components) https://www.youtube.com/watch?v=m2q3Dyr6To4 https://facebook.github.io/react/docs/higher-order-components.html

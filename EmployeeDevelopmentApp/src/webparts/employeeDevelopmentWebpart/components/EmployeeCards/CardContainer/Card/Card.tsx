@@ -6,10 +6,7 @@ import CardInformation from './CardInformation';
 import CardPerformance from './CardPerformance';
 
 export default class Card extends React.Component<ICardProps,{}>{
-//TODO: get performance skills and achievements for employee
-
-
-  public render(): React.ReactElement<ICardProps>{
+  public render(): React . ReactElement<ICardProps>{
     return (
       <div className={`${styles.card}`}> 
         <div className="ms-Grid-row">

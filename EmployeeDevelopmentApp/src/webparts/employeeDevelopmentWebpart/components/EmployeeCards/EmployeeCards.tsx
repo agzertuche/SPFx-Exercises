@@ -22,7 +22,6 @@ React.Component<IEmployeeCardsProps, IEmployeeCardsState>{
   private _updateSelectedUsers(users: IUser[]){
     return this.props.dataProvider.getEmployees(users)
     .then((employees: IEmployee[]) => {
-      debugger;
       this.setState({ 
         selectedEmployees: employees
       });    

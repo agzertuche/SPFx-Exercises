@@ -22,12 +22,12 @@ export default class EmployeeDevelopmentWebpartWebPart extends BaseClientSideWeb
       The DEBUG flag will ensure the mock data provider is not bundled with the web part when you package the solution for distribution, that is, using the --ship flag with the package-solution gulp command.
     */
     if (DEBUG && Environment.type === EnvironmentType.Local) {
-      this._dataProvider = new MSALDataProvider();
-      this._dataProvider.webPartContext = this.context;
+      this._dataProvider = new MockDataProvider();
     } else {
       this._dataProvider = new MSALDataProvider();
-      this._dataProvider.webPartContext = this.context;
     }
+
+    this._dataProvider.webPartContext = this.context;
     
     return super.onInit();   
   }
