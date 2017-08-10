@@ -66,7 +66,7 @@ const IconComponent: React.StatelessComponent<IIconComponentProps> = (props) => 
           <Icon alt={ title } iconName={ iconName } style={ iconSize } />
         </div>
         <div className={`ms-Grid-col ms-u-sm9`} style={ fontSize } >
-          { _renderTitle }
+          { _renderTitle() }
           <div className={ styles.iconDescription } >
             { description }
           </div>            

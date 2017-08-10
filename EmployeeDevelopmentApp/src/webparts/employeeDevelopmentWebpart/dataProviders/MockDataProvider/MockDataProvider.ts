@@ -62,13 +62,11 @@ export class MockDataProvider implements IDataProvider {
   }
 
   private _getUser(upn): IUser{
-    const user = this._users.filter((u) => {
+    return this._users.filter((u) => {
       if(u.userPrincipalName == upn){
         return u;
       }
-    });
-
-    return user.length > 0 ? user[0] : null;
+    }).pop();
   }
 
   public getEmployees(users: IUser[]): Promise<IEmployee[]> {
@@ -78,11 +76,11 @@ export class MockDataProvider implements IDataProvider {
   private _getEmployees(users: IUser[]): Promise<IEmployee[]> {
     
     const employees: IEmployee[] = users.map(user => {    
-      let employeeInfo = this._employeeInformation.filter(e => user.userPrincipalName == e.userPrincipalName);
-      if(employeeInfo.length > 0){
+      let employeeInfo = this._employeeInformation.filter(e => user.userPrincipalName == e.userPrincipalName).pop();
+      if(employeeInfo){
         return {
           ...user,
-          ...employeeInfo[0],
+          ...employeeInfo,
           achievements: this._getEmployeeAchievements(user.userPrincipalName),
           performanceSkills: this._getEmployeePerformanceSkills(user.userPrincipalName)
         };
@@ -116,14 +114,22 @@ export class MockDataProvider implements IDataProvider {
     });
   }
 
+  public getEarnedAchievements(): Promise<any[]> {
+    return this._getEarnedAchievements();
+  }
+
+  private _getEarnedAchievements(): Promise<any[]> {
+    return new Promise<any[]>((resolve) => {
+      setTimeout(() => resolve(this._earnedAchievements), 500);
+    });
+  }
+
   private _getAchievement(achievementId): IAchievement{
-    const achievement = this._achievements.filter((a) => {
+    return this._achievements.filter((a) => {
       if(a.id == achievementId){
         return a;
       }
-    });
-
-    return achievement.length > 0 ? achievement[0] : null;
+    }).pop();
   }
 
   public getMostCompletedAchievements(): Promise<IAchievement[]>{

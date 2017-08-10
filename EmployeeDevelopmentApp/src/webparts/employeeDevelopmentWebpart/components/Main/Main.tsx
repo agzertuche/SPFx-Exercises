@@ -9,10 +9,10 @@ import IPerformanceSkills from '../../models/IPerformanceSkills';
 import styles from './styles.module.scss';
 import Nav from '../Nav';
 import Placeholder from '../Common/Placeholder';
-import EmployeeCards from '../EmployeeCards';
-import AchievementsDashboard from '../AchievementsDashboard';
-import PerformanceDashboard from '../PerformanceDashboard';
-import EmployeeInformation from '../EmployeeInformation';
+import EmployeeCards from '../Cards';
+import Achievements from '../Achievements';
+import Performance from '../Performance';
+import Information from '../Information';
 
 export default class Main extends React.Component<IMainProps, IMainState>{
   private _menuItems: any[];
@@ -52,24 +52,17 @@ export default class Main extends React.Component<IMainProps, IMainState>{
       });
     });
 
-    this.props.dataProvider.getMostCompletedAchievements()
-    .then((items: IAchievement[]) => {
+    this.props.dataProvider.getEarnedAchievements()
+    .then((items: any[]) => {
       this.setState({
-        mostCompleted: items
+        earnedAchievements: items
       });
     });
 
-    this.props.dataProvider.getTrendingAchievements()
-    .then((items: IAchievement[]) => {
+    this.props.dataProvider.getPerformanceSkills()
+    .then((skills: IPerformanceSkills[]) => {
       this.setState({
-        trending: items
-      });
-    });
-
-    this.props.dataProvider.getTopAchievers()
-    .then((users: IUser[]) => {
-      this.setState({
-        topAchievements: users
+        performanceSkills: skills
       });
     });
 
@@ -113,12 +106,14 @@ export default class Main extends React.Component<IMainProps, IMainState>{
   }
 
   private _updateSelectedComponent(item){
+    debugger;
     this.setState({
       selectedComponent: item.props.itemKey
     });
   }
 
-  private _renderNavigation(showLinkText: boolean){
+  private _renderNavigation(showLinkText: boolean, selectedIndex: number){
+    debugger;
     if (showLinkText) {
       this._menuItems = menuItems;
     } else {
@@ -135,11 +130,13 @@ export default class Main extends React.Component<IMainProps, IMainState>{
       <Nav 
         menuItems={ this._menuItems } 
         onNavegationItemChange={ this._updateSelectedComponent }
+        selectedItemIndex={ selectedIndex }
       />
     );
   }
 
   private _renderSelectedComponent(){
+    debugger;
     switch (this.state.selectedComponent) {
       case MenuItem.Cards:
         return (
@@ -150,44 +147,37 @@ export default class Main extends React.Component<IMainProps, IMainState>{
         );
       case MenuItem.Information:
         return (
-          <EmployeeInformation 
+          <Information 
             users={this.state.users} 
           />
         );
       case MenuItem.Achievements:
         return (
-          <AchievementsDashboard 
+          <Achievements 
             achievements={ this.state.achievements } 
-            mostCompleted={ this.state.mostCompleted }
-            trending={ this.state.trending }
-            topAchievers={ this.state.topAchievements }
+            earnedAchievements={ this.state.earnedAchievements }
+            users={ this.state.users }
           /> 
         );
       case MenuItem.Performance:
         return (
-          <PerformanceDashboard 
+          <Performance 
             performanceSkills={ this.state.performanceSkills } 
             usersCount={ this.state.users.length }
           /> 
-        );
-      default:
-        return (
-          <EmployeeCards 
-            dataProvider={this.props.dataProvider} 
-            users={this.state.users} 
-          />
         );
     }
   }
 
   private _renderApp() {
+    debugger;
     return (
       <div>
         <div className={'ms-u-hiddenLgUp'} >
-          { this._renderNavigation(false) }
+          { this._renderNavigation(false, this.state.selectedComponent) }
         </div>
         <div className={'ms-u-hiddenMdDown'} >
-          { this._renderNavigation(true) }
+          { this._renderNavigation(true, this.state.selectedComponent) }
         </div>
         <div className={styles.componentSection}>
           { 

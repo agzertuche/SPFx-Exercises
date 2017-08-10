@@ -1,16 +1,23 @@
 // Colors
-$blue:      #0078d7;
-$lightGrey: #f4f4f4;
-$grey:      #eaeaea;
-$darkGrey:  #333333;
+  $blue:        #0078D7;
+  $lightGrey:   #F4F4F4;
+  $grey:        #DADADA;
+  $darkGrey:    #EAEAEA;
+  $dark:        #333333;
+  $white:       #FFFFFF;
 
 // Common colors
-$primaryBackground:     $lightGrey;
-$primaryForeground:     $darkGrey;
-$secondaryBackground:   $blue;
-$secondaryForeground:   white;
+  $backgroundPrimaryColor:     $lightGrey;  
+  $foregroundPrimaryColor:     $dark;
+  $foregroundSecondaryColor:   $white;
 
-$border: 1px solid $grey;
+// Layout
+  $border: 1px solid $darkGrey;
+  $padding: .4em;
+  $margin: .4em;
 
-$padding: .4em;
-$margin: .4em;
+// Chart colors
+  $chartPrimaryColor:       $blue;
+  $chartSecondaryColor:     $grey;
+  $chartBorderColor:        $white;
+  $chartPrimaryColorAlpha:  rgba(199,224,244,.3); 

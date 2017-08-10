@@ -13,6 +13,8 @@ interface IDataProvider {
   getMostCompletedAchievements(): Promise<IAchievement[]>;
   getTrendingAchievements(): Promise<IAchievement[]>;
   getTopAchievers(): Promise<IUser[]>;
+  getEarnedAchievements(): Promise<any[]>;
+
 }
 
 export default IDataProvider;

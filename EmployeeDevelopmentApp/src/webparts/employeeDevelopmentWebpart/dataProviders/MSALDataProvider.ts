@@ -146,13 +146,11 @@ export class MSALDataProvider implements IDataProvider {
   }
 
   private _getUser(upn): IUser{
-    const user = this._users.filter((u) => {
+    return this._users.filter((u) => {
       if(u.userPrincipalName == upn){
         return u;
       }
-    });
-
-    return user.length > 0 ? user[0] : null;
+    }).pop();
   }
 
   public getEmployees(users: IUser[]): Promise<IEmployee[]> {
@@ -220,12 +218,10 @@ export class MSALDataProvider implements IDataProvider {
   } 
 
   private _getEmployeePerformanceSkills(userPrincipalName: string): IPerformanceSkills[] {
-    debugger;
     return this._performanceSkills.filter(ps => ps.userPrincipalName == userPrincipalName);
   }
 
   private _getEmployeeAchievements(userPrincipalName: string): IAchievement[] {
-    debugger;
     const earnedAchievements = this._earnedAchievements.filter(a => a.userPrincipalName == userPrincipalName);
     
     return this._achievements.filter((a) => {
@@ -244,13 +240,11 @@ export class MSALDataProvider implements IDataProvider {
   }
 
   private _getAchievement(achievementId): IAchievement{
-    const achievement = this._achievements.filter((a) => {
+    return this._achievements.filter((a) => {
       if(a.id == achievementId){
         return a;
       }
-    });
-
-    return achievement.length > 0 ? achievement[0] : null;
+    }).pop();
   }
 
   public getMostCompletedAchievements(): Promise<IAchievement[]>{
@@ -302,6 +296,16 @@ export class MSALDataProvider implements IDataProvider {
   private _getPerformanceSkills(): Promise<IPerformanceSkills[]>{
     return new Promise<IPerformanceSkills[]>((resolve) => {
       setTimeout(() => resolve(this._performanceSkills), 500);
+    });
+  }
+
+  public getEarnedAchievements(): Promise<any[]> {
+    return this._getEarnedAchievements();
+  }
+
+  private _getEarnedAchievements(): Promise<any[]> {
+    return new Promise<any[]>((resolve) => {
+      setTimeout(() => resolve(this._earnedAchievements), 500);
     });
   }
 }

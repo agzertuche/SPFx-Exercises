@@ -9,7 +9,5 @@ export interface IMainState{
   performanceSkills?: IPerformanceSkills[];
   componentStatus?: ComponentStatus;
   selectedComponent?: MenuItem;
-  mostCompleted?: IAchievement[];
-  trending?: IAchievement[];
-  topAchievements?: IUser[];
+  earnedAchievements?: any[];
 }

@@ -1,8 +1,8 @@
 .main{
   @import "../../styles/variables.module";
 
-  background-color: $primaryBackground;
-  color: $primaryForeground;        
+  background-color: $backgroundPrimaryColor;
+  color: $foregroundPrimaryColor;        
   
   .componentSection {
     margin-top: .6em;

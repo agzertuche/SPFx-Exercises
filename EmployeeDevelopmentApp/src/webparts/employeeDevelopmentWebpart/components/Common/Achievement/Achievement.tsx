@@ -6,6 +6,7 @@ import { Size } from '../../../models/Enums';
 
 const Achievement: React.StatelessComponent<IAchievementProps> = (props) => {
   const { achievement } = props;
+  
   return(
     <div className={ styles.achievement }>
       <IconComponent 
