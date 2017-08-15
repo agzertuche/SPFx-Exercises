@@ -56,4 +56,9 @@
       animation: flip 1s;
     }    
   }
+
+  .menuItem > span{
+    vertical-align: top;
+    padding-left: $margin;
+  }
 }

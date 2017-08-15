@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Fabric } from 'office-ui-fabric-react';
-import { IMainProps, menuItems } from './IMainProps';
+import { IMainProps } from './IMainProps';
 import { IMainState } from './IMainState';
 import { ComponentStatus, MenuItem } from '../../models/Enums';
 import IUser from '../../models/IUser';
@@ -20,7 +20,6 @@ export default class Main extends React.Component<IMainProps, IMainState>{
   constructor(props: IMainProps) {
     super(props);
 
-    this._menuItems = menuItems;
     this._updateSelectedComponent = this._updateSelectedComponent.bind(this);
 
     this.state = {
@@ -106,37 +105,12 @@ export default class Main extends React.Component<IMainProps, IMainState>{
   }
 
   private _updateSelectedComponent(item){
-    debugger;
     this.setState({
-      selectedComponent: item.props.itemKey
+      selectedComponent: parseInt(item.props.itemKey)
     });
   }
 
-  private _renderNavigation(showLinkText: boolean, selectedIndex: number){
-    debugger;
-    if (showLinkText) {
-      this._menuItems = menuItems;
-    } else {
-      this._menuItems = menuItems.map((i) => {
-        return {          
-          itemKey: i.itemKey,
-          linkText: '',
-          itemIcon: i.itemIcon,       
-        };
-      });
-    }
-
-    return(
-      <Nav 
-        menuItems={ this._menuItems } 
-        onNavegationItemChange={ this._updateSelectedComponent }
-        selectedItemIndex={ selectedIndex }
-      />
-    );
-  }
-
   private _renderSelectedComponent(){
-    debugger;
     switch (this.state.selectedComponent) {
       case MenuItem.Cards:
         return (
@@ -170,14 +144,10 @@ export default class Main extends React.Component<IMainProps, IMainState>{
   }
 
   private _renderApp() {
-    debugger;
     return (
       <div>
-        <div className={'ms-u-hiddenLgUp'} >
-          { this._renderNavigation(false, this.state.selectedComponent) }
-        </div>
-        <div className={'ms-u-hiddenMdDown'} >
-          { this._renderNavigation(true, this.state.selectedComponent) }
+        <div>
+          <Nav onNavegationItemChange={ this._updateSelectedComponent } />
         </div>
         <div className={styles.componentSection}>
           { 
