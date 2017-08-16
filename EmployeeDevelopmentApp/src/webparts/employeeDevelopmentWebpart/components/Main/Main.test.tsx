@@ -1,16 +1,38 @@
 /// <reference types="mocha" />
 
 import * as React from 'react';
-import * as TestUtils from 'react-addons-test-utils'; 
-import { assert, expect } from 'chai';
+import { expect } from 'chai';
 import { mount } from 'enzyme';
 import Main from './Main';
+import { MockDataProvider } from '../../dataProviders';
 
-declare const sinon;
- 
-describe('<Main />', () => {
+describe('Main', () => {
+  let props;
+  let mountedMain;
+  
+  const main = () => {
+    if(!mountedMain){
+      mountedMain = mount(
+        <Main {...props} />
+      );
+    }
+
+    return mountedMain;
+  };
+
+  beforeEach(() => {
+    props = {
+      dataProvider: new MockDataProvider()
+    };
+    mountedMain = undefined;
+  });
+
+  it('Should exists', () => {
+    expect(main).to.exist;
+  });  
+
   it('Should render something', () => {
-    expect(0).to.be.greaterThan(0);
-    assert.ok(true);
+    const divs = main().find('div');
+    expect(divs.length).to.be.greaterThan(0);
   });  
 });

@@ -94,15 +94,16 @@ UI:
 Tests:
   ✔ Fix Test gulp task, since it is not finding any test on the project @done (8/6/2017, 7:17:24 PM)
   ✔ Verify if the test could be running from outside the Test folder @high @done (8/6/2017, 7:17:28 PM)
-  ☐ Implement tests for each component: 
+  ✘ Implement tests for each component: @cancelled (8/16/2017, 1:20:11 AM)
   https://www.eliostruyf.com/writing-unit-test-for-your-sharepoint-framework-components/ https://github.com/OfficeDev/office-ui-fabric-react/blob/master/ghdocs/TESTING.md
-    ☐ Achievements
-    ☐ Card
-    ☐ Information
-    ☐ Main
-    ☐ Nav
-    ☐ Performance
-    ☐ Search
+  Need to wait until MS fix this issue: https://github.com/SharePoint/sp-dev-docs/issues/526 
+    ✘ Achievements @cancelled (8/16/2017, 1:20:13 AM)
+    ✘ Card @cancelled (8/16/2017, 1:20:13 AM)
+    ✘ Informationc @cancelled (8/16/2017, 1:20:15 AM)
+    ✘ Main @cancelled (8/16/2017, 1:20:14 AM)
+    ✘ Nav @cancelled (8/16/2017, 1:20:16 AM)
+    ✘ Performance @cancelled (8/16/2017, 1:20:19 AM)
+    ✘ Search @cancelled (8/16/2017, 1:20:20 AM)
   ✔ Test application on following windows: @done (8/4/2017, 3:18:24 AM)
     ✔ Small - Cellphone @done (8/4/2017, 3:18:24 AM)
     ✔ Medium - Tablet @done (8/4/2017, 3:18:25 AM)
