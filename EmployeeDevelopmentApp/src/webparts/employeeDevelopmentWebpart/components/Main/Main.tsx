@@ -4,12 +4,13 @@ import { IMainProps } from './IMainProps';
 import { IMainState } from './IMainState';
 import { ComponentStatus, MenuItem } from '../../models/Enums';
 import IUser from '../../models/IUser';
+import IEmployeeInformation from '../../models/IEmployeeInformation';
 import IAchievement from '../../models/IAchievement';
 import IPerformanceSkills from '../../models/IPerformanceSkills';
 import styles from './styles.module.scss';
 import Nav from '../Nav';
 import Placeholder from '../Common/Placeholder';
-import EmployeeCards from '../Cards';
+import Cards from '../Cards';
 import Achievements from '../Achievements';
 import Performance from '../Performance';
 import Information from '../Information';
@@ -29,46 +30,63 @@ export default class Main extends React.Component<IMainProps, IMainState>{
     };
   }
 
-  private componentWillMount(): void {
-    this.props.dataProvider.getUsers()
+  private componentDidMount(): void {
+    this._loadAllData();
+  }
+
+  private _loadAllData(){
+    const users = this.props.dataProvider.getUsers()
     .then((usersArray: IUser[]) => {
       this.setState({
         users: usersArray,
-        componentStatus: ComponentStatus.Completed,
-      });
-    })    
-    .catch(error => {
-      this.setState({
-        users: [],
-        componentStatus: ComponentStatus.Error
       });
     });
 
-    this.props.dataProvider.getAchievements()
+    const empInfo = this.props.dataProvider.getEmployeeInformation()
+    .then((empInfoArray: IEmployeeInformation[]) => {
+      this.setState({
+        employeeInformation: empInfoArray
+      });
+    });
+
+    const achievements = this.props.dataProvider.getAchievements()
     .then((achievementsArray: IAchievement[]) => {
       this.setState({
         achievements: achievementsArray
       });
     });
 
-    this.props.dataProvider.getEarnedAchievements()
+    const earnedAchievements = this.props.dataProvider.getEarnedAchievements()
     .then((items: any[]) => {
       this.setState({
         earnedAchievements: items
       });
     });
 
-    this.props.dataProvider.getPerformanceSkills()
+    const performanceSkills = this.props.dataProvider.getPerformanceSkills()
     .then((skills: IPerformanceSkills[]) => {
       this.setState({
         performanceSkills: skills
       });
     });
+    const promises = [
+      users,
+      empInfo,
+      achievements,
+      earnedAchievements,
+      performanceSkills
+    ];
 
-    this.props.dataProvider.getPerformanceSkills()
-    .then((skills: IPerformanceSkills[]) => {
+    return Promise.all(promises)
+    .then(() => {
       this.setState({
-        performanceSkills: skills
+        componentStatus: ComponentStatus.Completed,
+      });
+    })
+    .catch(error => {
+      console.error(error);
+      this.setState({
+        componentStatus: ComponentStatus.Error,
       });
     });
   }
@@ -98,9 +116,9 @@ export default class Main extends React.Component<IMainProps, IMainState>{
   private _renderError() {
     return (
       <Placeholder
-        title={"Ooops! error... .  .   .    .     ."}
-        description={"We couldn't find Nemo... sorry =*("}
-      />           
+        title={"Ooops! something went wrong..."}
+        description={"We couldn't start the app. Please try starting it again."}
+      />
     );
   }
 
@@ -114,16 +132,17 @@ export default class Main extends React.Component<IMainProps, IMainState>{
     switch (this.state.selectedComponent) {
       case MenuItem.Cards:
         return (
-          <EmployeeCards 
-            dataProvider={this.props.dataProvider} 
+          <Cards             
             users={this.state.users} 
+            employeeInformation={this.state.employeeInformation} 
+            earnedAchievements={this.state.earnedAchievements} 
+            achievements={this.state.achievements} 
+            performanceSkills={this.state.performanceSkills} 
           />
         );
       case MenuItem.Information:
         return (
-          <Information 
-            users={this.state.users} 
-          />
+          <Information users={this.state.users} />
         );
       case MenuItem.Achievements:
         return (

@@ -18,7 +18,7 @@ const List: React.StatelessComponent<IListProps> = (props) => {
         { title }
       </div> 
       <div className={`${styles.container} ms-Grid-row`}>
-        { items.length == 0 ?
+        { items.length === 0 ?
           <Placeholder 
             icon="DocumentSearch" 
             description="Data not found..."

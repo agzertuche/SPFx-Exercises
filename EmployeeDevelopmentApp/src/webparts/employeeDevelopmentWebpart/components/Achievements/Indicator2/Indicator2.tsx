@@ -30,7 +30,7 @@ const Indicator2: React.StatelessComponent<IIndicator2Props> = (props) => {
   let trendingCompletedAchievements = _groupByProperty(groupedAchievements, 'achievementId')
     .slice(0, 3)
     .map(g => {
-      return achievements.filter(a => a.id == g.key).pop();
+      return achievements.filter(a => a.id === g.key).pop();
     });
 
   const items = trendingCompletedAchievements.map((a, index) => {

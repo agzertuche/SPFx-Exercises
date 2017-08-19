@@ -68,7 +68,7 @@ export default class Achievements extends React.Component<IAchievementsProps,IAc
     let { achievements, earnedAchievements, users } = this.props;
     return (
       <div>
-        { achievements.length == 0 ? 
+        { achievements.length === 0 ? 
           <div className="ms-Grid-row ms-u-slideDownIn20">
             <div className="ms-Grid-col ms-u-sm12">
               <Placeholder 

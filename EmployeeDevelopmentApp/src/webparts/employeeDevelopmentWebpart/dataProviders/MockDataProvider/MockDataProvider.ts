@@ -1,45 +1,63 @@
 import { IWebPartContext } from '@microsoft/sp-webpart-base';
 import IDataProvider from '../../dataProviders/IDataProvider';
 import IUser from '../../models/IUser';
-import { Users } from './Users';
 import IEmployeeInformation from '../../models/IEmployeeInformation';
-import IEmployee from '../../models/IEmployee';
 import IAchievement from '../../models/IAchievement';
+import IPerformanceSkills from '../../models/IPerformanceSkills';
+import { Users } from './Users';
 import { Achievements } from './Achievements';
 import { EarnedAchievements } from './EarnedAchievements';
-import IPerformanceSkills from '../../models/IPerformanceSkills';
 import { PerformanceSkills } from './PerformanceSkills';
 import { EmployeeInformation } from './EmployeeInformation';
 
 export class MockDataProvider implements IDataProvider {
-  private _users: IUser[];
-  private _achievements: IAchievement[];
-  private _employeeInformation: IEmployeeInformation[];
-  private _earnedAchievements: any[];
-  private _performanceSkills: IPerformanceSkills[];
   private _webPartContext: IWebPartContext;
+  private _msTimeout = 500;
 
-  constructor() {
-    this._users = Users;
-    this._achievements = Achievements;
-    this._earnedAchievements = EarnedAchievements;
-    this._performanceSkills = PerformanceSkills;
-    this._employeeInformation = EmployeeInformation;
+  private _getUsers(): Promise<IUser[]> {
+    return new Promise<IUser[]>(resolve => {
+      return setTimeout(() => resolve(Users), this._msTimeout);
+    }).catch(error => {
+      console.error(error);
+      return Promise.reject(error);
+    });
   }
 
-  private _groupByArray(xs, key) { 
-    return xs.reduce((rv, x) => { 
-      let v = key instanceof Function ? key(x) : x[key]; let el = rv.find((r) => r && r.key === v); 
-      if (el) { 
-        el.values.push(x); 
-      } else {
-        rv.push({
-          key: v, values: [x] }); 
-        } 
-        return rv; 
-      },
-    []); 
+  private _getEmployeeInformation(): Promise<IEmployeeInformation[]> {
+    return new Promise<IEmployeeInformation[]>(resolve => {
+      return setTimeout(() => resolve(EmployeeInformation), this._msTimeout);
+    }).catch(error => {
+      console.error(error);
+      return Promise.reject(error);
+    });
   } 
+
+  private _getAchievements(): Promise<IAchievement[]> {
+    return new Promise<IAchievement[]>(resolve => {
+      return setTimeout(() => resolve(Achievements), this._msTimeout);
+    }).catch(error => {
+      console.error(error);
+      return Promise.reject(error);
+    });
+  }
+
+  private _getEarnedAchievements(): Promise<any[]> {
+    return new Promise<any[]>(resolve => {
+      return setTimeout(() => resolve(EarnedAchievements), this._msTimeout);
+    }).catch(error => {
+      console.error(error);
+      return Promise.reject(error);
+    });
+  }
+
+  private _getPerformanceSkills(): Promise<IPerformanceSkills[]>{
+    return new Promise<any[]>(resolve => {
+      return setTimeout(() => resolve(PerformanceSkills), this._msTimeout);
+    }).catch(error => {
+      console.error(error);
+      return Promise.reject(error);
+    });
+  }
 
   public set webPartContext(value: IWebPartContext) {
     this._webPartContext = value;
@@ -52,135 +70,20 @@ export class MockDataProvider implements IDataProvider {
   public getUsers(): Promise<IUser[]> {
     return this._getUsers();
   }
-
-  private _getUsers(): Promise<IUser[]> {
-    const users: IUser[] = this._users;
-
-    return new Promise<IUser[]>((resolve) => {
-      setTimeout(() => resolve(users), 2000);
-    });
-  }
-
-  private _getUser(upn): IUser{
-    return this._users.filter((u) => {
-      if(u.userPrincipalName == upn){
-        return u;
-      }
-    }).pop();
-  }
-
-  public getEmployees(users: IUser[]): Promise<IEmployee[]> {
-    return this._getEmployees(users);
-  }
-
-  private _getEmployees(users: IUser[]): Promise<IEmployee[]> {
-    
-    const employees: IEmployee[] = users.map(user => {    
-      let employeeInfo = this._employeeInformation.filter(e => user.userPrincipalName == e.userPrincipalName).pop();
-      if(employeeInfo){
-        return {
-          ...user,
-          ...employeeInfo,
-          achievements: this._getEmployeeAchievements(user.userPrincipalName),
-          performanceSkills: this._getEmployeePerformanceSkills(user.userPrincipalName)
-        };
-      }      
-    });
-    
-    return new Promise<IEmployee[]>((resolve) => {
-      setTimeout(() => resolve(employees), 500);
-    });
-  } 
-
-  private _getEmployeePerformanceSkills(userPrincipalName: string): IPerformanceSkills[] {
-    return this._performanceSkills.filter(ps => ps.userPrincipalName == userPrincipalName);
-  }
-
-  private _getEmployeeAchievements(userPrincipalName: string): IAchievement[] {
-    const earnedAchievements = this._earnedAchievements.filter(a => a.userPrincipalName == userPrincipalName);
-    
-    return this._achievements.filter((a) => {
-      return earnedAchievements.some(x => x.id == a.id);
-    });
+  
+  public getEmployeeInformation(): Promise<IEmployeeInformation[]> {
+    return this._getEmployeeInformation();
   }
 
   public getAchievements(): Promise<IAchievement[]> {
     return this._getAchievements();
   }
 
-  private _getAchievements(): Promise<IAchievement[]> {
-    return new Promise<IAchievement[]>((resolve) => {
-      setTimeout(() => resolve(this._achievements), 500);
-    });
-  }
-
   public getEarnedAchievements(): Promise<any[]> {
     return this._getEarnedAchievements();
   }
 
-  private _getEarnedAchievements(): Promise<any[]> {
-    return new Promise<any[]>((resolve) => {
-      setTimeout(() => resolve(this._earnedAchievements), 500);
-    });
-  }
-
-  private _getAchievement(achievementId): IAchievement{
-    return this._achievements.filter((a) => {
-      if(a.id == achievementId){
-        return a;
-      }
-    }).pop();
-  }
-
-  public getMostCompletedAchievements(): Promise<IAchievement[]>{
-    let groupedBy = this._groupByArray(this._earnedAchievements, 'achievementId').sort((a,b) => {
-      return b.values.length - a.values.length;
-    });
-
-    let achievements: IAchievement[] = groupedBy.map((x) => {
-      return this._getAchievement(x.key);
-    });
-    
-    return new Promise<IAchievement[]>((resolve) => {
-      setTimeout(() => resolve(achievements), 500);
-    });
-  }
-
-  public getTrendingAchievements(): Promise<IAchievement[]>{
-    let groupedBy = this._earnedAchievements.sort((a,b) => {
-      return b.id - a.id;
-    });
-    
-    let achievements: IAchievement[] = groupedBy.map((x) => {
-      return this._getAchievement(x.achievementId);
-    });
-    
-    return new Promise<IAchievement[]>((resolve) => {
-      setTimeout(() => resolve(achievements), 500);
-    });
-  }
-
-  public getTopAchievers(): Promise<IUser[]>{
-    let groupedBy = this._groupByArray(this._earnedAchievements, 'userPrincipalName').sort((a,b) => {
-      return b.values.length - a.values.length;
-    });
-
-    let users: IUser[] = groupedBy.map((x) => {
-      return this._getUser(x.key);
-    });
-    
-    return new Promise<IUser[]>((resolve) => {
-      setTimeout(() => resolve(users), 500);
-    });
-  }
-
   public getPerformanceSkills(): Promise<IPerformanceSkills[]>{
     return this._getPerformanceSkills();
-  }
-
-   private _getPerformanceSkills(): Promise<IPerformanceSkills[]>{
-    return new Promise<IPerformanceSkills[]>((resolve) => {
-      setTimeout(() => resolve(this._performanceSkills), 500);
-    });
-  }
+  }  
 }

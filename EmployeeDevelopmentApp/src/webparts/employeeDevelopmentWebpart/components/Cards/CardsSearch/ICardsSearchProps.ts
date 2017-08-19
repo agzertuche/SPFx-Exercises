@@ -1,6 +1,6 @@
 import IUser from '../../../models/IUser';
 
 export interface ICardsSearchProps {
-  onSelectedEmployeesChange: any;
+  onChangeSelectedUsers: any;
   users: IUser[];
 }

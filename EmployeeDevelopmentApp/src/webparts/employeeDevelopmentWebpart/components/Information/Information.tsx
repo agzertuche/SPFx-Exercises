@@ -81,7 +81,7 @@ export default class Information extends React.Component<IInformationProps,IInfo
         <div className="ms-Grid-row ms-u-slideDownIn20"> 
           <div className={`${styles.detailsList} ms-Grid-col ms-u-sm12`}>
             {
-              sortedItems.length == 0 ? 
+              sortedItems.length === 0 ? 
               <Placeholder 
                 icon="ThumbnailView"
                 title="No employee information found..."   

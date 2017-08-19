@@ -6,6 +6,10 @@ import Card from '../../Common/Card';
 const CardsList: React.StatelessComponent<ICardsListProps> = (props) => {
   const { employees } = props;
 
+  CardsList.defaultProps = {
+    employees: employees || []
+  };
+
   const cards = employees.map((e, index) => {
     if (!e) {
       return (

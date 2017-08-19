@@ -1,7 +1,12 @@
 import IUser from '../../models/IUser';
-import IDataProvider from '../../dataProviders/IDataProvider';
+import IEmployeeInformation from '../../models/IEmployeeInformation';
+import IAchievement from '../../models/IAchievement';
+import IPerformanceSkills from '../../models/IPerformanceSkills';
 
-export interface ICardsProps{
+export interface ICardsProps{  
   users: IUser[];
-  dataProvider: IDataProvider;
+  employeeInformation: IEmployeeInformation[];
+  earnedAchievements: any[];
+  achievements: IAchievement[];
+  performanceSkills: IPerformanceSkills[];
 }

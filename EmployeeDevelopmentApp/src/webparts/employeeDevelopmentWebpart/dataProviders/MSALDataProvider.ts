@@ -87,7 +87,7 @@ export class MSALDataProvider implements IDataProvider {
     return this._webPartContext.httpClient.get(`https://graph.microsoft.com/beta/users/${user.userPrincipalName}/photo/$value`, HttpClient.configurations.v1, {
       headers: {
         "authorization": `Bearer ${token}`
-      },          
+      },
     })
     .then((response) => {
       if (!response.ok) {
@@ -105,6 +105,19 @@ export class MSALDataProvider implements IDataProvider {
       return user;
     });
   }
+
+  public getEmployeeInformation(): Promise<IEmployeeInformation[]> {
+    return this._getEmployeeInformation();
+  }
+
+  private _getEmployeeInformation(): Promise<IEmployeeInformation[]> {
+    return new Promise<IEmployeeInformation[]>(resolve => {
+      return setTimeout(() => resolve([]), 500);
+    }).catch(error => {
+      console.error(error);
+      return Promise.reject(error);
+    });
+  } 
 
   public getUsers(): Promise<IUser[]> {
     return this._clientApplication.acquireTokenSilent(msalconfig.scopes).then((token: string) => {
@@ -124,7 +137,8 @@ export class MSALDataProvider implements IDataProvider {
   }
 
   private _getUsers(token): Promise<IUser[]>{
-     // Call the Microsoft Graph
+    
+    // Call the Microsoft Graph
     return this._webPartContext.httpClient.get('https://graph.microsoft.com/beta/users/', HttpClient.configurations.v1, {
       headers: {
         "authorization": `Bearer ${token}`
@@ -147,7 +161,7 @@ export class MSALDataProvider implements IDataProvider {
 
   private _getUser(upn): IUser{
     return this._users.filter((u) => {
-      if(u.userPrincipalName == upn){
+      if(u.userPrincipalName === upn){
         return u;
       }
     }).pop();
@@ -155,6 +169,7 @@ export class MSALDataProvider implements IDataProvider {
 
   public getEmployees(users: IUser[]): Promise<IEmployee[]> {
     return this._clientApplication.acquireTokenSilent(msalconfig.scopes).then((token: string) => {
+      
       return this._getEmployeesInformation(token, users);
     }, (error) => {
       // Interaction required
@@ -187,7 +202,7 @@ export class MSALDataProvider implements IDataProvider {
       return response.json();
     })
     .then((result) => {
-      if (result.value.length == 0) {
+      if (result.value.length === 0) {
         throw `Couldn't get employees information`;
       }
 
@@ -202,14 +217,14 @@ export class MSALDataProvider implements IDataProvider {
   private _convertToEmployees(token, employeesInformation, users) {
     let promises = users.map((u) => {    
       let ei = employeesInformation.find(x => 
-        x.fields.userPrincipalName.toUpperCase() == u.userPrincipalName.toUpperCase());
+        x.fields.userPrincipalName.toUpperCase() === u.userPrincipalName.toUpperCase());
 
       if(ei) {
         return {
           ...u,
           ...ei,
-          achievements: [],
-          performanceSkills: []
+          achievements: this._getEmployeeAchievements(u.userPrincipalName),
+          performanceSkills: this._getEmployeePerformanceSkills(u.userPrincipalName)
         };
       }
     });
@@ -218,14 +233,14 @@ export class MSALDataProvider implements IDataProvider {
   } 
 
   private _getEmployeePerformanceSkills(userPrincipalName: string): IPerformanceSkills[] {
-    return this._performanceSkills.filter(ps => ps.userPrincipalName == userPrincipalName);
+    return this._performanceSkills.filter(ps => ps.userPrincipalName === userPrincipalName);
   }
 
   private _getEmployeeAchievements(userPrincipalName: string): IAchievement[] {
-    const earnedAchievements = this._earnedAchievements.filter(a => a.userPrincipalName == userPrincipalName);
+    const earnedAchievements = this._earnedAchievements.filter(a => a.userPrincipalName === userPrincipalName);
     
     return this._achievements.filter((a) => {
-      return earnedAchievements.some(x => x.id == a.id);
+      return earnedAchievements.some(x => x.id === a.id);
     });
   }
 
@@ -241,7 +256,7 @@ export class MSALDataProvider implements IDataProvider {
 
   private _getAchievement(achievementId): IAchievement{
     return this._achievements.filter((a) => {
-      if(a.id == achievementId){
+      if(a.id === achievementId){
         return a;
       }
     }).pop();

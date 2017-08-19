@@ -11,7 +11,7 @@ const Performance: React.StatelessComponent<IPerformanceProps> = (props) => {
 
   return (
     <div>
-      { performanceSkills.length == 0 ? 
+      { performanceSkills.length === 0 ? 
         <div className="ms-Grid-row ms-u-slideDownIn20">
           <div className="ms-Grid-col ms-u-sm12">
             <Placeholder 

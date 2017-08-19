@@ -25,16 +25,16 @@ export default class CardsSearch extends React.Component<ICardsSearchProps, {}>{
     return users.map((u) => {
       return {
         ...u,
-        primaryText: u.displayName,
-        secondaryText: u.jobTitle,
-        tertiaryText: u.officeLocation,
-        optionalText: u.department,
+        primaryText: u.displayName || "",
+        secondaryText: u.jobTitle || "",
+        tertiaryText: u.officeLocation || "",
+        optionalText: u.department || "",
       };
     });
   }
 
   private _onFilterChanged(filterText: string, currentPersonas: IPersonaProps[]) {
-    if (!filterText || filterText.length == 0){
+    if (!filterText || filterText.length === 0){
       return [];
     }
       
@@ -64,7 +64,7 @@ export default class CardsSearch extends React.Component<ICardsSearchProps, {}>{
   }
 
   private _onChangeSelection(items){
-    this.props.onSelectedEmployeesChange(items);
+    this.props.onChangeSelectedUsers(items);
   }
   
   public render(): React.ReactElement<ICardsSearchProps>{   

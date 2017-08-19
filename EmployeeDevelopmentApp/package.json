@@ -5,6 +5,10 @@
   "engines": {
     "node": ">=0.10.0"
   },
+  "author": {
+    "name": "Arturo De la Garza",
+    "url": "https://twitter.com/agzertuche"
+  },
   "dependencies": {
     "@microsoft/sp-core-library": "~1.1.0",
     "@microsoft/sp-webpart-base": "~1.1.1",
@@ -14,6 +18,7 @@
     "@types/react-addons-update": "0.14.14",
     "@types/react-dom": "0.14.18",
     "@types/webpack-env": ">=1.12.1 <1.14.0",
+    "adal-angular": "1.0.12",
     "axios": "^0.16.2",
     "chart.js": "^2.6.0",
     "msalx": "^0.1.1",
@@ -28,10 +33,11 @@
     "@microsoft/sp-webpart-workbench": "~1.1.0",
     "@types/chai": ">=3.4.34 <3.6.0",
     "@types/mocha": ">=2.2.33 <2.6.0",
+    "@types/sinon": "^1.16.36",
+    "@types/adal": "^1.0.25",
     "enzyme": "2.9.1",
     "gulp": "~3.9.1",
-    "react-addons-test-utils": "^15.6.0",
-    "sinon": "^3.0.0"
+    "react-addons-test-utils": "^15.6.0"
   },
   "scripts": {
     "build": "gulp bundle",

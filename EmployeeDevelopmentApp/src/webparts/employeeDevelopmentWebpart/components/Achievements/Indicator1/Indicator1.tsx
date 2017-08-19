@@ -26,7 +26,7 @@ const Indicator1: React.StatelessComponent<IIndicator1Props> = (props) => {
     })
     .slice(0,3)
     .map(g => {
-    return achievements.filter(a => a.id == g.key).pop();
+    return achievements.filter(a => a.id === g.key).pop();
   });
 
   const items = mostCompletedAchievements.map((a, index) => {

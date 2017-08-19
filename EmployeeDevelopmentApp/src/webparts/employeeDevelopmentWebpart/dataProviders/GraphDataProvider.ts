@@ -20,7 +20,7 @@
 //   }
 
 //   // to get photo: https://graph.microsoft.com/v1.0/users/admin@agzertuche.onmicrosoft.com/photo/$value
-
+//   // use /_api/SP.OAuth.Token/Acquire to get token
 //   //https://graph.microsoft.com/beta/users?$select=displayName,mail,mobilePhone,jobTitle,officeLocation,department
 //   private _getUsers(requester: GraphHttpClient): Promise<IUser[]> {
 //     const queryString: string = `?$select=displayName,mail,mobilePhone,jobTitle,officeLocation,department`;

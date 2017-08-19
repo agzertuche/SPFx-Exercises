@@ -29,7 +29,7 @@ const Indicator3: React.StatelessComponent<IIndicator3Props> = (props) => {
     })
     .slice(0, 3)
     .map(g => {
-      return users.filter(u => u.userPrincipalName == g.key).pop();
+      return users.filter(u => u.userPrincipalName === g.key).pop();
     });    
 
   const _onRenderSecondaryText = (personaProps: IPersonaProps): JSX.Element => {
