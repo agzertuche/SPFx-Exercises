@@ -1,3 +1,5 @@
+/// <reference path="../../../../../node_modules/@types/adal/index.d.ts" />
+
 import { IWebPartContext } from '@microsoft/sp-webpart-base';
 import IDataProvider from '../../dataProviders/IDataProvider';
 import IUser from '../../models/IUser';
@@ -6,33 +8,44 @@ import IAchievement from '../../models/IAchievement';
 import IPerformanceSkills from '../../models/IPerformanceSkills';
 
 import { HttpClient, IHttpClientOptions, HttpClientResponse } from '@microsoft/sp-http';
-import * as AuthenticationContext from 'adal-angular';
 import adalConfig from './AdalConfig';
-import { IAdalConfig } from './IAdalConfig';
-import './WebPartAuthenticationContext';
-
-window.AuthenticationContext = AuthContext;
+import 'expose-loader?AuthenticationContext!../../../../../node_modules/adal-angular/lib/adal.js';
 
 export class AdalDataProvider implements IDataProvider {
   private _webPartContext: IWebPartContext;
-  private authCtx: AuthenticationContext;
+  private createAuthContext: adal.AuthenticationContextStatic = AuthenticationContext;
+  private authContext;
+
+  constructor(){
+    this.authContext = new this.createAuthContext(adalConfig);
+
+    var isCallback = this.authContext.isCallback(window.location.hash);
+    if (isCallback) {
+      this.authContext.handleWindowCallback();  
+    } 
+    else {
+      // if(!this.authContext.getCachedUser()){
+        this.authContext.login();
+      // }      
+    }
+  }
 
   private getGraphAccessToken(): Promise<string> {
     return new Promise<string>((resolve: (accessToken: string) => void, reject: (error: any) => void): void => {
-      const graphResource: string = 'https://graph.microsoft.com';
-      const accessToken: string = this.authCtx.getCachedToken(graphResource);
+      const accessToken: string = this.authContext.getCachedToken(adalConfig.clientId);
+
       if (accessToken) {
         console.log('ACCESS TOKEN: ' + accessToken);
         resolve(accessToken);
         return;
-      }
+      } 
 
-      if (this.authCtx.loginInProgress()) {
+      if (this.authContext.loginInProgress()) {
         reject('Login already in progress');
         return;
-      }
+      }      
 
-      this.authCtx.acquireToken(graphResource, (error: string, token: string) => {
+      this.authContext.acquireToken(adalConfig.clientId, (error: string, token: string) => {
         if (error) {
           reject(error);
           return;
@@ -40,13 +53,16 @@ export class AdalDataProvider implements IDataProvider {
 
         if (token) {
           resolve(token);
+          return;
         }
         else {
+          
           reject(`Couldn't retrieve access token`);
+          this.authContext.login();
         }
       });
     });
-  }
+  }  
 
   private _getUsers(accessToken: string): Promise<IUser[]> {
     const URL = `https://graph.microsoft.com/beta/users`; 
@@ -71,15 +87,6 @@ export class AdalDataProvider implements IDataProvider {
         });
     });
   }
-
-  // private _getUsers(): Promise<IUser[]> {
-  //   return new Promise<IUser[]>(resolve => {
-  //     return setTimeout(() => resolve(Users), this._msTimeout);
-  //   }).catch(error => {
-  //     console.error(error);
-  //     return Promise.reject(error);
-  //   });
-  // }
 
   private _getEmployeeInformation(): Promise<IEmployeeInformation[]> {
     return new Promise<IEmployeeInformation[]>(resolve => {
@@ -129,6 +136,10 @@ export class AdalDataProvider implements IDataProvider {
     return this.getGraphAccessToken()
     .then(accessToken => {
       return this._getUsers(accessToken);
+    })
+    .catch(error => {
+      console.error(error);
+      return Promise.reject(error);
     });
   }
   

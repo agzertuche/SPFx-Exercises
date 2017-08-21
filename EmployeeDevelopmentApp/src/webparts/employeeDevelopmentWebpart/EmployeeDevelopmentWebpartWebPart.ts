@@ -11,7 +11,7 @@ import { IEmployeeDevelopmentWebpartWebPartProps } from './IEmployeeDevelopmentW
 import Main, { IMainProps } from './components/Main';
 import { Environment, EnvironmentType } from '@microsoft/sp-core-library';
 import IDataProvider from './dataProviders/IDataProvider';
-import { MockDataProvider, AdalDataProvider } from './dataProviders';
+import { MockDataProvider, MSALDataProvider } from './dataProviders';
 
 export default class EmployeeDevelopmentWebpartWebPart extends BaseClientSideWebPart<IEmployeeDevelopmentWebpartWebPartProps> {
   private _dataProvider: IDataProvider;
@@ -25,7 +25,7 @@ export default class EmployeeDevelopmentWebpartWebPart extends BaseClientSideWeb
       this._dataProvider = new MockDataProvider();
       //this._dataProvider = new MSALDataProvider();
     } else {
-      this._dataProvider = new AdalDataProvider();
+      this._dataProvider = new MSALDataProvider();
       //this._dataProvider = new AxiosDataProvider();
     }
 

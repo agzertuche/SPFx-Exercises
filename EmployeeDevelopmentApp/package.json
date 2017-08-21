@@ -21,6 +21,7 @@
     "adal-angular": "1.0.12",
     "axios": "^0.16.2",
     "chart.js": "^2.6.0",
+    "expose-loader": "^0.7.3",
     "msalx": "^0.1.1",
     "office-ui-fabric-react": "^4.21.2",
     "react": "15.4.2",
