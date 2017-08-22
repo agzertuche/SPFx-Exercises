@@ -4,60 +4,68 @@ import ChartComponent from '../../Common/ChartComponent';
 import { Line } from 'react-chartjs-2';
 import styles from './styles.module.scss';
 
-const Chart3: React.StatelessComponent<IChart3Props> = (props) => {
+const Chart3: React.StatelessComponent<IChart3Props> = props => {
   const { performanceSkills, usersCount } = props;
 
-  const legend = { display:false };
+  const legend = { display: false };
 
-  const _groupByProperty = (xs, key) => { 
-    return xs.reduce((rv, x) => { 
-      let v = key instanceof Function ? key(x) : x[key]; let el = rv.find((r) => r && r.key === v); 
-      if (el) { 
-        el.values.push(x); 
+  const groupByProperty = (xs, key) => {
+    return xs.reduce((rv, x) => {
+      const v = key instanceof Function ? key(x) : x[key]; const el = rv.find(r => r && r.key === v);
+      if (el) {
+        el.values.push(x);
       } else {
         rv.push({
-          key: v, values: [x] }); 
-        } 
-        return rv; 
+          key: v, values: [x] });
+        }
+      return rv;
       },
-    []); 
+    []);
   };
 
-  let performanceSkillsByEmployee = _groupByProperty(performanceSkills, "userPrincipalName");
-  
+  const performanceSkillsByEmployee = groupByProperty(performanceSkills, "userPrincipalName");
+
   let bottomCount = 0;
   let lowCount = 0;
   let regularCount = 0;
   let averageCount = 0;
   let remarkableCount = 0;
   let highCount = 0;
-  let topCount = 0;    
+  let topCount = 0;
 
   performanceSkillsByEmployee.forEach(emp => {
     let employeeAverage = 0;
-    
+
     emp.values.forEach(ps => {
-      employeeAverage += 
+      employeeAverage +=
         (
-          ps.leadership + 
-          ps.management + 
-          ps.meetingDeadlines + 
-          ps.problemSolving + 
-          ps.teamwork + 
+          ps.leadership +
+          ps.management +
+          ps.meetingDeadlines +
+          ps.problemSolving +
+          ps.teamwork +
           ps.technicalKnowledge
         ) / 6;
     });
 
-    employeeAverage = employeeAverage/emp.values.length;
+    employeeAverage = employeeAverage / emp.values.length;
 
-      if (employeeAverage <= 0.5) bottomCount++;
-      else if (employeeAverage > 0.5 && employeeAverage <= 1.5) lowCount++;
-      else if (employeeAverage > 1.5 && employeeAverage <= 3.5) regularCount++;
-      else if (employeeAverage > 3.5 && employeeAverage <= 6.5) averageCount++;
-      else if (employeeAverage > 6.5 && employeeAverage <= 8.5) remarkableCount++;
-      else if (employeeAverage > 8.5 && employeeAverage <= 9.5) highCount++;
-      else if (employeeAverage > 9.5) topCount++;
-  });    
+    if (employeeAverage <= 0.5) {
+      bottomCount++;
+    } else if (employeeAverage > 0.5 && employeeAverage <= 1.5) {
+      lowCount++;
+    } else if (employeeAverage > 1.5 && employeeAverage <= 3.5) {
+      regularCount++;
+    } else if (employeeAverage > 3.5 && employeeAverage <= 6.5) {
+      averageCount++;
+    } else if (employeeAverage > 6.5 && employeeAverage <= 8.5) {
+      remarkableCount++;
+    } else if (employeeAverage > 8.5 && employeeAverage <= 9.5) {
+      highCount++;
+    } else if (employeeAverage > 9.5) {
+      topCount++;
+    }
+  });
 
   const maxTickValue = Math.max(
     Math.round(usersCount * .3),
@@ -90,7 +98,7 @@ const Chart3: React.StatelessComponent<IChart3Props> = (props) => {
           labels: {
             show: true
           }
-        }
+        },
       ],
       yAxes: [
         {
@@ -126,7 +134,7 @@ const Chart3: React.StatelessComponent<IChart3Props> = (props) => {
             min: 0,
             max: maxTickValue,
           }
-        }
+        },
       ]
     }
   };
@@ -143,11 +151,11 @@ const Chart3: React.StatelessComponent<IChart3Props> = (props) => {
           averageCount,
           remarkableCount,
           highCount,
-          topCount
+          topCount,
         ],
         fill: true,
         backgroundColor: styles.primaryColorAlpha,
-        borderColor: styles.primaryColor,        
+        borderColor: styles.primaryColor,
         pointBorderColor: styles.borderColor,
         pointBackgroundColor: styles.primaryColor,
         yAxisID: 'y-axis-1'
@@ -171,13 +179,13 @@ const Chart3: React.StatelessComponent<IChart3Props> = (props) => {
         yAxisID: 'y-axis-2'
       },
     ]
-  };  
+  };
 
   return (
     <ChartComponent
       title="Normal Distribution for Employees Performance"
       chart={
-        <Line 
+        <Line
           data={ data }
           options={ options }
           legend={ legend }

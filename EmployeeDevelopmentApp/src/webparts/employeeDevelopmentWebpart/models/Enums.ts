@@ -1,7 +1,7 @@
 export enum ComponentStatus {
   Loading,
   Completed,
-  Error
+  Error,
 }
 
 export enum Size {
@@ -11,12 +11,12 @@ export enum Size {
   Medium,
   Large,
   XLarge,
-  XXLarge
+  XXLarge,
 }
 
-export enum MenuItem{
+export enum MenuItem {
   Cards,
   Information,
   Achievements,
-  Performance
+  Performance,
 }

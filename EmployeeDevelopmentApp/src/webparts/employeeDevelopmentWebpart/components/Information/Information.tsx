@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { 
+import {
   IInformationProps,
-  items, 
+  items,
   overflowItems
 } from './IInformationProps';
 import { IInformationState } from './IInformationState';
@@ -12,25 +12,25 @@ import { DetailsList, buildColumns } from 'office-ui-fabric-react/lib/DetailsLis
 import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
 import Placeholder from '../Common/Placeholder';
 
-let _items: any[];
+let rowItems: any[];
 
-export default class Information extends React.Component<IInformationProps,IInformationState>{
+export default class Information extends React.Component<IInformationProps, IInformationState> {
   constructor(props: IInformationProps) {
     super(props);
 
-    _items = _items || this.props.users;
-    
+    rowItems = rowItems || this.props.users;
+
     this._onColumnClick = this._onColumnClick.bind(this);
 
     this.state = {
-      sortedItems: _items,
+      sortedItems: rowItems,
       columns: _buildColumns(),
       showModal: false
     };
   }
 
   private _onColumnClick(event, column) {
-    let { sortedItems, columns } = this.state;
+    const { sortedItems, columns } = this.state;
     let isSortedDescending = column.isSortedDescending;
 
     // If we've sorted this column, flip it.
@@ -39,9 +39,9 @@ export default class Information extends React.Component<IInformationProps,IInfo
     }
 
     // Sort the items.
-    sortedItems = sortedItems.concat([]).sort((a, b) => {
-      let firstValue = a[column.fieldName];
-      let secondValue = b[column.fieldName];
+    const newSortedItems = sortedItems.concat([]).sort((a, b) => {
+      const firstValue = a[column.fieldName];
+      const secondValue = b[column.fieldName];
 
       if (isSortedDescending) {
         return firstValue > secondValue ? -1 : 1;
@@ -52,7 +52,7 @@ export default class Information extends React.Component<IInformationProps,IInfo
 
     // Reset the items and columns to match the state.
     this.setState({
-      sortedItems: sortedItems,
+      sortedItems: newSortedItems,
       columns: columns.map(col => {
         col.isSorted = (col.key === column.key);
 
@@ -73,32 +73,32 @@ export default class Information extends React.Component<IInformationProps,IInfo
     this.setState({ showModal: false });
   }
 
-  public render(): React.ReactElement<{}>{
-    let { sortedItems, columns, showModal } = this.state;
+  public render(): React.ReactElement<{}> {
+    const { sortedItems, columns, showModal } = this.state;
 
     return (
       <div className={styles.information}>
-        <div className="ms-Grid-row ms-u-slideDownIn20"> 
+        <div className="ms-Grid-row ms-u-slideDownIn20">
           <div className={`${styles.detailsList} ms-Grid-col ms-u-sm12`}>
             {
-              sortedItems.length === 0 ? 
-              <Placeholder 
+              sortedItems.length === 0 ?
+              <Placeholder
                 icon="ThumbnailView"
-                title="No employee information found..."   
+                title="No employee information found..."
               />
-            : 
+            :
             <div>
               <CommandBar
                 searchPlaceholderText='Search...'
                 elipisisAriaLabel='More options'
                 items={ items }
                 overflowItems={ overflowItems }
-              />     
+              />
               <DetailsList
                 items={ sortedItems }
                 columns={ columns }
                 onRenderItemColumn={ _renderItemColumn }
-                onColumnHeaderClick={ this._onColumnClick }  
+                onColumnHeaderClick={ this._onColumnClick }
               />
             </div>
             }
@@ -110,17 +110,17 @@ export default class Information extends React.Component<IInformationProps,IInfo
 }
 
 function _buildColumns() {
-  let columns = buildColumns(_items);
-  let filteredColumns = columns.filter((c) => {
+  const columns = buildColumns(rowItems);
+  const filteredColumns = columns.filter(c => {
     c.maxWidth = 100;
     switch (c.name) {
       case "imageUrl":
         c.name = "Thumbnail";
         return c;
       case "displayName":
-        c.name = "Name";        
+        c.name = "Name";
         return c;
-      case "mail":      
+      case "mail":
         c.name = "e-Mail";
         return c;
       case "department":
@@ -136,14 +136,14 @@ function _buildColumns() {
         c.name = "Country";
         return c;
       default:
-    }    
+    }
   });
 
   return filteredColumns;
 }
 
 function _renderItemColumn(item, index, column) {
-  let fieldContent = item[column.fieldName];
+  const fieldContent = item[column.fieldName];
 
   switch (column.key) {
     case 'imageUrl':

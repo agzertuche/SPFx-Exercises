@@ -1,46 +1,43 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import { Version } from '@microsoft/sp-core-library';
-import {
-  BaseClientSideWebPart,
-  IPropertyPaneConfiguration,
-  PropertyPaneTextField
-} from '@microsoft/sp-webpart-base';
+import { Environment, EnvironmentType, Version } from '@microsoft/sp-core-library';
+import { BaseClientSideWebPart, IPropertyPaneConfiguration,  PropertyPaneTextField } from '@microsoft/sp-webpart-base';
 import * as strings from 'employeeDevelopmentWebpartStrings';
 import { IEmployeeDevelopmentWebpartWebPartProps } from './IEmployeeDevelopmentWebpartWebPartProps';
-import Main, { IMainProps } from './components/Main';
-import { Environment, EnvironmentType } from '@microsoft/sp-core-library';
-import IDataProvider from './dataProviders/IDataProvider';
 import { MockDataProvider, MSALDataProvider } from './dataProviders';
+import IDataProvider from './dataProviders/IDataProvider';
+import Main, { IMainProps } from './components/Main';
 
 export default class EmployeeDevelopmentWebpartWebPart extends BaseClientSideWebPart<IEmployeeDevelopmentWebpartWebPartProps> {
-  private _dataProvider: IDataProvider;
+  private dataProvider: IDataProvider;
 
   protected onInit(): Promise<void> {
     /*
       Create the appropriate data provider depending on where the web part is running.
-      The DEBUG flag will ensure the mock data provider is not bundled with the web part when you package the solution for distribution, that is, using the --ship flag with the package-solution gulp command.
+      The DEBUG flag will ensure the mock data provider is not bundled with the web part
+      when you package the solution for distribution, that is,
+      using the --ship flag with the package-solution gulp command.
     */
     if (DEBUG && Environment.type === EnvironmentType.Local) {
-      this._dataProvider = new MockDataProvider();
-      //this._dataProvider = new MSALDataProvider();
+      this.dataProvider = new MockDataProvider();
+      // this._dataProvider = new MSALDataProvider();
     } else {
-      this._dataProvider = new MSALDataProvider();
-      //this._dataProvider = new AxiosDataProvider();
+      this.dataProvider = new MSALDataProvider();
+      // this._dataProvider = new AxiosDataProvider();
     }
 
-    this._dataProvider.webPartContext = this.context;
-    
-    return super.onInit();   
+    this.dataProvider.webPartContext = this.context;
+
+    return super.onInit();
   }
 
   public render(): void {
     const main: React.ReactElement<IMainProps> = React.createElement(
       Main,
       {
-        dataProvider: this._dataProvider
+        dataProvider: this.dataProvider,
       }
-    );      
+    );
 
     ReactDom.render(main, this.domElement);
   }
@@ -54,20 +51,20 @@ export default class EmployeeDevelopmentWebpartWebPart extends BaseClientSideWeb
       pages: [
         {
           header: {
-            description: strings.PropertyPaneDescription
+            description: strings.PropertyPaneDescription,
           },
           groups: [
             {
               groupName: strings.BasicGroupName,
               groupFields: [
                 PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
-                })
-              ]
-            }
-          ]
-        }
-      ]
+                  label: strings.DescriptionFieldLabel,
+                }),
+              ],
+            },
+          ],
+        },
+      ],
     };
   }
 }

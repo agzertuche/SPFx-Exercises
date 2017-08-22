@@ -1,6 +1,6 @@
 import IPerformanceSkills from '../../../models/IPerformanceSkills';
 
-export interface Chart1Props {
+export interface IChart1Props {
   performanceSkills: IPerformanceSkills[];
   usersCount: number;
 }

@@ -6,8 +6,8 @@ const adalConfig: adal.Config = {
   //   'https://graph.microsoft.com': 'https://graph.microsoft.com'
   // },
   redirectUri: 'https://agzertuche.sharepoint.com/teams/NewTeamSite/_layouts/15/workbench.aspx',
-  //redirectUri: window.location.origin + '/',//'https://localhost/',
-  cacheLocation: 'localStorage',//sessionStorage',
+  // redirectUri: window.location.origin + '/',//'https://localhost/',
+  cacheLocation: 'localStorage', // sessionStorage',
 };
 
 export default adalConfig;

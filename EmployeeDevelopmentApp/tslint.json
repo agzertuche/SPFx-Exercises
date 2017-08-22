@@ -1,0 +1,31 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:latest"
+  ],
+  "jsRules": {},
+  "rules": {
+    "quotemark": [false],
+    "arrow-parens": [true, "ban-single-arg-parens"],
+    "indent": [true, "spaces", 2],
+    "max-line-length": [false],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": {
+          "objects": "ignore",
+          "arrays": "always",
+          "functions": "never",
+          "typeLiterals": "ignore"
+        }
+      }
+    ],
+    "jsx-wrap-multiline": [false],
+    "no-console": [false],
+    "object-literal-sort-keys": [false],
+    "prefer-conditional-expression": [false],
+    "ordered-imports": [false],
+    "member-ordering": [false]
+  },
+  "rulesDirectory": []
+}

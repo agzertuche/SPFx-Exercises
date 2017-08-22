@@ -1,5 +1,5 @@
 import IPerformanceSkills from '../../../models/IPerformanceSkills';
 
-export interface Chart2Props {
+export interface IChart2Props {
   performanceSkills: IPerformanceSkills[];
 }

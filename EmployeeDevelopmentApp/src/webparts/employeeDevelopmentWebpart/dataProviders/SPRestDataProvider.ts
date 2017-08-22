@@ -12,7 +12,7 @@
 //   private _getUsers(): Promise<IUser[]> {
 //     //return new Promise<IUser[]>(resolve => {
 //       //return setTimeout(() => resolve(Users), this._msTimeout);
-//     return axios.get("https://agzertuche.sharepoint.com/teams/NewTeamSite/_api/web/title")    
+//     return axios.get("https://agzertuche.sharepoint.com/teams/NewTeamSite/_api/web/title")
 //     .then(response => {
 //       return response.data.value.map((user: IUser) => {
 //         return user;
@@ -31,7 +31,7 @@
 //       console.error(error);
 //       return Promise.reject(error);
 //     });
-//   } 
+//   }
 
 //   private _getAchievements(): Promise<IAchievement[]> {
 //     return new Promise<IAchievement[]>(resolve => {
@@ -71,7 +71,7 @@
 //   public getUsers(): Promise<IUser[]> {
 //     return this._getUsers();
 //   }
-  
+
 //   public getEmployeeInformation(): Promise<IEmployeeInformation[]> {
 //     return this._getEmployeeInformation();
 //   }
@@ -86,5 +86,5 @@
 
 //   public getPerformanceSkills(): Promise<IPerformanceSkills[]>{
 //     return this._getPerformanceSkills();
-//   }  
+//   }
 // }

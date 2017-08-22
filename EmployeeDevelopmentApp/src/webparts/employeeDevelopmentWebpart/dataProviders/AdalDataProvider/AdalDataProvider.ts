@@ -1,3 +1,4 @@
+// tslint:disable-next-line:no-reference
 /// <reference path="../../../../../node_modules/@types/adal/index.d.ts" />
 
 import { IWebPartContext } from '@microsoft/sp-webpart-base';
@@ -12,21 +13,20 @@ import adalConfig from './AdalConfig';
 import 'expose-loader?AuthenticationContext!../../../../../node_modules/adal-angular/lib/adal.js';
 
 export class AdalDataProvider implements IDataProvider {
-  private _webPartContext: IWebPartContext;
+  private wpContext: IWebPartContext;
   private createAuthContext: adal.AuthenticationContextStatic = AuthenticationContext;
   private authContext;
 
-  constructor(){
+  constructor() {
     this.authContext = new this.createAuthContext(adalConfig);
 
-    var isCallback = this.authContext.isCallback(window.location.hash);
+    const isCallback = this.authContext.isCallback(window.location.hash);
     if (isCallback) {
-      this.authContext.handleWindowCallback();  
-    } 
-    else {
+      this.authContext.handleWindowCallback();
+    } else {
       // if(!this.authContext.getCachedUser()){
         this.authContext.login();
-      // }      
+      // }
     }
   }
 
@@ -38,12 +38,12 @@ export class AdalDataProvider implements IDataProvider {
         console.log('ACCESS TOKEN: ' + accessToken);
         resolve(accessToken);
         return;
-      } 
+      }
 
       if (this.authContext.loginInProgress()) {
         reject('Login already in progress');
         return;
-      }      
+      }
 
       this.authContext.acquireToken(adalConfig.clientId, (error: string, token: string) => {
         if (error) {
@@ -54,27 +54,25 @@ export class AdalDataProvider implements IDataProvider {
         if (token) {
           resolve(token);
           return;
-        }
-        else {
-          
+        } else {
           reject(`Couldn't retrieve access token`);
           this.authContext.login();
         }
       });
     });
-  }  
+  }
 
   private _getUsers(accessToken: string): Promise<IUser[]> {
-    const URL = `https://graph.microsoft.com/beta/users`; 
+    const URL = `https://graph.microsoft.com/beta/users`;
 
-    const requestHeaders: Headers = new Headers(); 
-    requestHeaders.append('Accept', 'application/json'); 
-    //For an OAuth token 
-    requestHeaders.append('Authorization', 'Bearer ' + accessToken); 
+    const requestHeaders: Headers = new Headers();
+    requestHeaders.append('Accept', 'application/json');
+    // For an OAuth token
+    requestHeaders.append('Authorization', 'Bearer ' + accessToken);
     const httpClientOptions: IHttpClientOptions = { headers: requestHeaders };
 
     return new Promise<IUser[]>(resolve => {
-      this._webPartContext.httpClient.get(URL, HttpClient.configurations.v1, httpClientOptions)
+      this.webPartContext.httpClient.get(URL, HttpClient.configurations.v1, httpClientOptions)
         .then((response: HttpClientResponse): Promise<any> => {
           return response.json();
         })
@@ -95,7 +93,7 @@ export class AdalDataProvider implements IDataProvider {
       console.error(error);
       return Promise.reject(error);
     });
-  } 
+  }
 
   private _getAchievements(): Promise<IAchievement[]> {
     return new Promise<IAchievement[]>(resolve => {
@@ -115,7 +113,7 @@ export class AdalDataProvider implements IDataProvider {
     });
   }
 
-  private _getPerformanceSkills(): Promise<IPerformanceSkills[]>{
+  private _getPerformanceSkills(): Promise<IPerformanceSkills[]> {
     return new Promise<any[]>(resolve => {
       return setTimeout(() => resolve([]), 500);
     }).catch(error => {
@@ -125,11 +123,11 @@ export class AdalDataProvider implements IDataProvider {
   }
 
   public set webPartContext(value: IWebPartContext) {
-    this._webPartContext = value;
+    this.wpContext = value;
   }
 
   public get webPartContext(): IWebPartContext {
-    return this._webPartContext;
+    return this.wpContext;
   }
 
   public getUsers(): Promise<IUser[]> {
@@ -142,7 +140,7 @@ export class AdalDataProvider implements IDataProvider {
       return Promise.reject(error);
     });
   }
-  
+
   public getEmployeeInformation(): Promise<IEmployeeInformation[]> {
     return this._getEmployeeInformation();
   }
@@ -155,7 +153,7 @@ export class AdalDataProvider implements IDataProvider {
     return this._getEarnedAchievements();
   }
 
-  public getPerformanceSkills(): Promise<IPerformanceSkills[]>{
+  public getPerformanceSkills(): Promise<IPerformanceSkills[]> {
     return this._getPerformanceSkills();
-  }  
+  }
 }

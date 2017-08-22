@@ -9,13 +9,13 @@ import IAchievement from '../../models/IAchievement';
 import IPerformanceSkills from '../../models/IPerformanceSkills';
 import Placeholder from '../Common/Placeholder';
 
-export default class Cards extends React.Component<ICardsProps, ICardsState>{
-  constructor(props: ICardsProps){
+export default class Cards extends React.Component<ICardsProps, ICardsState> {
+  constructor(props: ICardsProps) {
     super(props);
-    
+
     this._updateSelectedEmployees = this._updateSelectedEmployees.bind(this);
-    
-    this.state = {      
+
+    this.state = {
       selectedEmployees: []
     };
   }
@@ -32,7 +32,7 @@ export default class Cards extends React.Component<ICardsProps, ICardsState>{
     const { earnedAchievements, achievements } = this.props;
 
     const employeeAchievements = earnedAchievements.filter(a => a.userPrincipalName === userPrincipalName);
-    
+
     return achievements.filter(a => {
       return employeeAchievements.some(x => x.id === a.id);
     });
@@ -44,15 +44,15 @@ export default class Cards extends React.Component<ICardsProps, ICardsState>{
     return performanceSkills.filter(ps => ps.userPrincipalName === userPrincipalName);
   }
 
-  private _getEmployees(users: IUser[]): IEmployee[]{
+  private _getEmployees(users: IUser[]): IEmployee[] {
     const { employeeInformation } = this.props;
-    
-    return users.map(user => {        
-      let employeeInfo = employeeInformation.filter(e => {
+
+    return users.map(user => {
+      const employeeInfo = employeeInformation.filter(e => {
         return e.userPrincipalName === user.userPrincipalName;
       }).pop();
 
-      if(employeeInfo){
+      if (employeeInfo) {
         return {
           ...employeeInfo,
           ...user,
@@ -62,35 +62,35 @@ export default class Cards extends React.Component<ICardsProps, ICardsState>{
       }
     });
   }
-  
-  private _updateSelectedEmployees(users: IUser[]){
+
+  private _updateSelectedEmployees(users: IUser[]) {
     this.setState({
       selectedEmployees: this._getEmployees(users)
     });
   }
 
-  public render(): React.ReactElement<ICardsProps>{
+  public render(): React.ReactElement<ICardsProps> {
     const { users } = this.props;
 
-    if (users.length === 0){
+    if (users.length === 0) {
       return (
         <Placeholder
           displaySpinner
           spinnerText={"Loading employees data... please wait."}
-        /> 
+        />
       );
     }
 
     return (
-      <div className={`ms-Grid-row ms-u-slideDownIn20`}> 
+      <div className={`ms-Grid-row ms-u-slideDownIn20`}>
         <div className="ms-Grid-col ms-u-sm12">
           <div>
             <div className="ms-Grid-row">
               <div className="ms-Grid-col ms-u-sm12">
-                <CardsSearch 
-                  onChangeSelectedUsers={ this._updateSelectedEmployees } 
-                  users={ users } 
-                />            
+                <CardsSearch
+                  onChangeSelectedUsers={ this._updateSelectedEmployees }
+                  users={ users }
+                />
               </div>
             </div>
             <div className="ms-Grid-row">

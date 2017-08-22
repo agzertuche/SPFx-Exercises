@@ -1,7 +1,7 @@
 interface IAchievement {
   id: number;
   title: string;
-  iconName: string;  
+  iconName: string;
   description: string;
 }
 

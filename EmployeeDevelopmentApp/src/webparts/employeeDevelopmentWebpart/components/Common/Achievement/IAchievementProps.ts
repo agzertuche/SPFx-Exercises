@@ -1,5 +1,5 @@
 import IAchievement from '../../../models/IAchievement';
 
-export interface IAchievementProps{
+export interface IAchievementProps {
     achievement: IAchievement;
 }

@@ -15,9 +15,9 @@ import Achievements from '../Achievements';
 import Performance from '../Performance';
 import Information from '../Information';
 
-export default class Main extends React.Component<IMainProps, IMainState>{
-  private _menuItems: any[];
-  
+export default class Main extends React.Component<IMainProps, IMainState> {
+  private menuItems: any[];
+
   constructor(props: IMainProps) {
     super(props);
 
@@ -34,7 +34,7 @@ export default class Main extends React.Component<IMainProps, IMainState>{
     this._loadAllData();
   }
 
-  private _loadAllData(){
+  private _loadAllData() {
     const users = this.props.dataProvider.getUsers()
     .then((usersArray: IUser[]) => {
       this.setState({
@@ -74,7 +74,7 @@ export default class Main extends React.Component<IMainProps, IMainState>{
       empInfo,
       achievements,
       earnedAchievements,
-      performanceSkills
+      performanceSkills,
     ];
 
     return Promise.all(promises)
@@ -91,7 +91,7 @@ export default class Main extends React.Component<IMainProps, IMainState>{
     });
   }
 
-  private _handleRenderMode(){
+  private _handleRenderMode() {
     switch (this.state.componentStatus) {
       case ComponentStatus.Loading:
         return this._renderLoading();
@@ -109,10 +109,10 @@ export default class Main extends React.Component<IMainProps, IMainState>{
       <Placeholder
         displaySpinner
         spinnerText={"Loading employees data... please wait."}
-      /> 
+      />
     );
   }
-  
+
   private _renderError() {
     return (
       <Placeholder
@@ -122,22 +122,22 @@ export default class Main extends React.Component<IMainProps, IMainState>{
     );
   }
 
-  private _updateSelectedComponent(item){
+  private _updateSelectedComponent(item) {
     this.setState({
-      selectedComponent: parseInt(item.props.itemKey)
+      selectedComponent: parseInt(item.props.itemKey, 10)
     });
   }
 
-  private _renderSelectedComponent(){
+  private _renderSelectedComponent() {
     switch (this.state.selectedComponent) {
       case MenuItem.Cards:
         return (
-          <Cards             
-            users={this.state.users} 
-            employeeInformation={this.state.employeeInformation} 
-            earnedAchievements={this.state.earnedAchievements} 
-            achievements={this.state.achievements} 
-            performanceSkills={this.state.performanceSkills} 
+          <Cards
+            users={this.state.users}
+            employeeInformation={this.state.employeeInformation}
+            earnedAchievements={this.state.earnedAchievements}
+            achievements={this.state.achievements}
+            performanceSkills={this.state.performanceSkills}
           />
         );
       case MenuItem.Information:
@@ -146,18 +146,18 @@ export default class Main extends React.Component<IMainProps, IMainState>{
         );
       case MenuItem.Achievements:
         return (
-          <Achievements 
-            achievements={ this.state.achievements } 
+          <Achievements
+            achievements={ this.state.achievements }
             earnedAchievements={ this.state.earnedAchievements }
             users={ this.state.users }
-          /> 
+          />
         );
       case MenuItem.Performance:
         return (
-          <Performance 
-            performanceSkills={ this.state.performanceSkills } 
+          <Performance
+            performanceSkills={ this.state.performanceSkills }
             usersCount={ this.state.users.length }
-          /> 
+          />
         );
     }
   }
@@ -169,23 +169,23 @@ export default class Main extends React.Component<IMainProps, IMainState>{
           <Nav onNavegationItemChange={ this._updateSelectedComponent } />
         </div>
         <div className={styles.componentSection}>
-          { 
+          {
             this._renderSelectedComponent()
           }
         </div>
       </div>
     );
   }
-  
-  public render(): React.ReactElement<IMainProps>{
+
+  public render(): React.ReactElement<IMainProps> {
     return (
       <Fabric className={styles.main}>
         <div className="ms-Grid">
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-sm12">
-              { this._handleRenderMode() } 
-            </div>    
-          </div>    
+              { this._handleRenderMode() }
+            </div>
+          </div>
         </div>
       </Fabric>
     );

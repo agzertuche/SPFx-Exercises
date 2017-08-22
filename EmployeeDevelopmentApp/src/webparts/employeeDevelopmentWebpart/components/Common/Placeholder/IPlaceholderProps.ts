@@ -1,7 +1,7 @@
-export interface IPlaceholderProps{
+export interface IPlaceholderProps {
     icon?: string;
     title?: string;
-    description?: string;    
+    description?: string;
     displaySpinner?: boolean;
     spinnerText?: string;
 }

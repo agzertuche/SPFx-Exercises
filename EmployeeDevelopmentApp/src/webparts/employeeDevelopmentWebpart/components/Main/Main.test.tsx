@@ -14,7 +14,7 @@
 // describe('Main', () => {
 //   // let props;
 //   // let mountedMain;
-  
+
 //   // const main = () => {
 //   //   if(!mountedMain){
 //   //     mountedMain = mount(
@@ -38,7 +38,7 @@
 //   //   dataProvider = new MockDataProvider()
 //   //   //renderedElement = mount(<Main dataProvider={dataProvider} />);
 //   //   //title, description, iconName, size
-//   //   renderedElement = mount(<IconComponent 
+//   //   renderedElement = mount(<IconComponent
 //   //     title='title'
 //   //     description='asd'
 //   //     iconName='Error'
@@ -51,15 +51,15 @@
 //     // let main = TestUtils.renderIntoDocument(<Main dataProvider={provider} /> );
 //     // expect(main).to.exist;
 //     expect(true).ok;
-//   });  
-  
+//   });
+
 //   it('<Main /> should render something', () => {
 //     // let main = TestUtils.renderIntoDocument(<IconComponent
 //     //   title='title'
 //     //   description='asd'
 //     //   iconName='Error'
 //     //   /> );
-//     const main = shallow(<IconComponent  
+//     const main = shallow(<IconComponent
 //       title='title'
 //       description='asd'
 //       iconName='Error'
@@ -67,13 +67,10 @@
 
 //     expect(main).to.exist;
 //     //expect(renderedElement.find('div')).to.be.exist;
-
-    
-
 //   });
 
 //   // it('Should render something', () => {
 //   //   const divs = main().find('div');
 //   //   expect(divs.length).to.be.greaterThan(0);
-//   // });  
+//   // });
 // });

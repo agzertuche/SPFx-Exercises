@@ -8,21 +8,21 @@ export const MenuItems = [
   {
     itemKey: MenuItem.Cards,
     linkText: 'Cards',
-    itemIcon: 'ContactCard',    
+    itemIcon: 'ContactCard',
   },
   {
     itemKey: MenuItem.Information,
     linkText: 'Information',
-    itemIcon: 'ThumbnailView',    
+    itemIcon: 'ThumbnailView',
   },
   {
     itemKey: MenuItem.Achievements,
     linkText: 'Achievements',
-    itemIcon: 'Trophy',    
+    itemIcon: 'Trophy',
   },
   {
     itemKey: MenuItem.Performance,
     linkText: 'Performance',
-    itemIcon: 'BarChart4',    
+    itemIcon: 'BarChart4',
   },
 ];

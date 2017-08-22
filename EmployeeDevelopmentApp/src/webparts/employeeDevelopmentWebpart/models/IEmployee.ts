@@ -1,11 +1,11 @@
-import IUser from './IUser';
-import IEmployeeInformation from './IEmployeeInformation';
 import IAchievement from './IAchievement';
+import IEmployeeInformation from './IEmployeeInformation';
 import IPerformanceSkills from './IPerformanceSkills';
+import IUser from './IUser';
 
-interface Employee extends IUser, IEmployeeInformation {
+interface IEmployee extends IUser, IEmployeeInformation {
   achievements?: IAchievement[];
   performanceSkills?: IPerformanceSkills[];
 }
 
-export default Employee;
+export default IEmployee;

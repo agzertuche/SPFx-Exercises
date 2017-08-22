@@ -10,14 +10,14 @@ import {
 } from 'office-ui-fabric-react/lib/Pivot';
 import { Icon } from 'office-ui-fabric-react';
 
-const Nav: React.StatelessComponent<INavProps> = (props) => {
+const Nav: React.StatelessComponent<INavProps> = props => {
   const { onNavegationItemChange } = props;
 
-  const _onNavegationItemChange = (item) => {
+  const onMenuItemClick = item => {
     onNavegationItemChange(item);
-  };  
+  };
 
-  const _customRenderer = (link: IPivotItemProps) => {
+  const customRenderer = (link: IPivotItemProps) => {
     return (
       <span className={styles.menuItem}>
         <Icon iconName={ link.itemIcon } />
@@ -30,27 +30,27 @@ const Nav: React.StatelessComponent<INavProps> = (props) => {
 
   const pivotItems = MenuItems.map(item => {
     return (
-      <PivotItem 
-        itemKey={ item.itemKey.toString() } 
-        key={ item.itemKey.toString() } 
+      <PivotItem
+        itemKey={ item.itemKey.toString() }
+        key={ item.itemKey.toString() }
         itemIcon={ item.itemIcon }
         linkText={ item.linkText }
-        onRenderItemLink={ _customRenderer }
+        onRenderItemLink={ customRenderer }
       />
     );
   });
 
   return (
     <div className={ styles.nav }>
-      <Pivot 
-        linkFormat={ PivotLinkFormat.tabs } 
-        linkSize={ PivotLinkSize.large }         
+      <Pivot
+        linkFormat={ PivotLinkFormat.tabs }
+        linkSize={ PivotLinkSize.large }
         headersOnly
-        onLinkClick={ _onNavegationItemChange }
+        onLinkClick={ onMenuItemClick }
       >
         { pivotItems }
       </Pivot>
-    </div>      
+    </div>
   );
 };
 

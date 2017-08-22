@@ -10,7 +10,7 @@ interface IDataProvider {
   getEmployeeInformation(): Promise<IEmployeeInformation[]>;
   getAchievements(): Promise<IAchievement[]>;
   getPerformanceSkills(): Promise<IPerformanceSkills[]>;
-  getEarnedAchievements(): Promise<any[]>;  
+  getEarnedAchievements(): Promise<any[]>;
 }
 
 export default IDataProvider;

@@ -11,25 +11,25 @@ import Indicator2 from './Indicator2';
 import Indicator3 from './Indicator3';
 import Placeholder from '../Common/Placeholder';
 
-export default class Achievements extends React.Component<IAchievementsProps,IAchievementsState>{
+export default class Achievements extends React.Component<IAchievementsProps, IAchievementsState> {
   constructor(props: IAchievementsProps) {
     super(props);
 
-    this._onFilterChanged = this._onFilterChanged.bind(this);
+    this.onFilterChanged = this.onFilterChanged.bind(this);
 
     this.state = {
       filterText: '',
       filteredAchievements: this.props.achievements
     };
   }
-  
-  private _onFilterChanged(text: string) {
-    let { achievements } = this.props;
+
+  private onFilterChanged(text: string) {
+    const { achievements } = this.props;
 
     this.setState({
       filterText: text,
       filteredAchievements: text ?
-      achievements.filter(item => 
+      achievements.filter(item =>
         item.title.toUpperCase().indexOf(text.toUpperCase()) >= 0 ||
         item.description.toUpperCase().indexOf(text.toUpperCase()) >= 0
       ) :
@@ -37,10 +37,10 @@ export default class Achievements extends React.Component<IAchievementsProps,IAc
     });
   }
 
-  private _filterAchievementsContainer(){
-    let { achievements: originalItems } = this.props;
-    let { filteredAchievements } = this.state;
-    let resultCountText = filteredAchievements.length === originalItems.length ? '' : ` (${filteredAchievements.length} of ${originalItems.length} shown)`;
+  private _filterAchievementsContainer() {
+    const { achievements: originalItems } = this.props;
+    const { filteredAchievements } = this.state;
+    const resultCountText = filteredAchievements.length === originalItems.length ? '' : ` (${filteredAchievements.length} of ${originalItems.length} shown)`;
 
     return (
       <FocusZone className={styles.allAchievements} direction={ FocusZoneDirection.vertical }>
@@ -48,9 +48,9 @@ export default class Achievements extends React.Component<IAchievementsProps,IAc
           All Achievements
         </div>
         <div>
-          <TextField 
-            placeholder="Type to filter achievements" 
-            onBeforeChange={ this._onFilterChanged } 
+          <TextField
+            placeholder="Type to filter achievements"
+            onBeforeChange={ this.onFilterChanged }
             description={resultCountText}
           />
           <List
@@ -59,19 +59,19 @@ export default class Achievements extends React.Component<IAchievementsProps,IAc
               <Achievement key={item.id} achievement={item} />
             )}
           />
-        </div>        
+        </div>
       </FocusZone>
     );
   }
 
-  public render(): React.ReactElement<IAchievementsProps>{
-    let { achievements, earnedAchievements, users } = this.props;
+  public render(): React.ReactElement<IAchievementsProps> {
+    const { achievements, earnedAchievements, users } = this.props;
     return (
       <div>
-        { achievements.length === 0 ? 
+        { achievements.length === 0 ?
           <div className="ms-Grid-row ms-u-slideDownIn20">
             <div className="ms-Grid-col ms-u-sm12">
-              <Placeholder 
+              <Placeholder
                 icon="Trophy"
                 title="No achievements found..."
               />
@@ -79,32 +79,32 @@ export default class Achievements extends React.Component<IAchievementsProps,IAc
           </div>
           :
           <div className={styles.achievements}>
-            <div className="ms-Grid-row ms-u-slideDownIn20">   
+            <div className="ms-Grid-row ms-u-slideDownIn20">
               <div className={`${styles.container} ms-Grid-col ms-u-sm12`}>
                 <div className="ms-Grid-row">
                   <div className="ms-Grid-col ms-u-sm12 ms-u-md4">
                     {
-                      <Indicator1 
-                        achievements={ achievements } 
-                        earnedAchievements={ earnedAchievements } 
-                      />                      
+                      <Indicator1
+                        achievements={ achievements }
+                        earnedAchievements={ earnedAchievements }
+                      />
                     }
                   </div>
                   <div className="ms-Grid-col ms-u-sm12 ms-u-md4">
-                    { 
+                    {
                       <Indicator2
-                        achievements={ achievements } 
-                        earnedAchievements={ earnedAchievements } 
-                      />     
+                        achievements={ achievements }
+                        earnedAchievements={ earnedAchievements }
+                      />
                     }
                   </div>
                   <div className="ms-Grid-col ms-u-sm12 ms-u-md4">
-                    { 
-                      <Indicator3                        
-                        achievements={ achievements } 
-                        earnedAchievements={ earnedAchievements } 
+                    {
+                      <Indicator3
+                        achievements={ achievements }
+                        earnedAchievements={ earnedAchievements }
                         users={ users }
-                      />     
+                      />
                     }
                   </div>
                 </div>
@@ -115,7 +115,7 @@ export default class Achievements extends React.Component<IAchievementsProps,IAc
                 </div>
               </div>
             </div>
-          </div>  
+          </div>
         }
       </div>
     );

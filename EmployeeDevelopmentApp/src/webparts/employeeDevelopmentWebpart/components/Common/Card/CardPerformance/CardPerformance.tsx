@@ -5,7 +5,7 @@ import { Radar } from 'react-chartjs-2';
 import * as lodash from '@microsoft/sp-lodash-subset';
 import Placeholder from '../../Placeholder';
 
-export default class CardPerformance extends React.Component<ICardPerformanceProps, {}>{
+export default class CardPerformance extends React.Component<ICardPerformanceProps, {}> {
   public static defaultProps: Partial<ICardPerformanceProps> = {
     allPerformanceSkills: [{
       id: 0,
@@ -19,21 +19,21 @@ export default class CardPerformance extends React.Component<ICardPerformancePro
     }]
   };
 
-  private _currentEmployeeAverage(skillName: string){
+  private _currentEmployeeAverage(skillName: string) {
     return this._getAverageBySkill(this.props.employeePerformanceSkills, skillName);
   }
 
-  private _allEmployeesAverage(skillName: string){
+  private _allEmployeesAverage(skillName: string) {
     return this._getAverageBySkill(this.props.allPerformanceSkills, skillName);
   }
 
-  private _getAverageBySkill(array: any[], skillName: string){
+  private _getAverageBySkill(array: any[], skillName: string) {
     return lodash.sumBy(array, skillName) / array.length;
   }
 
-  public render(): React.ReactElement<ICardPerformanceProps>{
+  public render(): React.ReactElement<ICardPerformanceProps> {
     const legend = {
-      display:false
+      display: false
     };
 
     const options = {
@@ -48,8 +48,8 @@ export default class CardPerformance extends React.Component<ICardPerformancePro
       animation: {
         duration: 2000
       }
-    };    
-   
+    };
+
     const data = {
       labels: ['Teamwork', 'Problem Solving', 'Leadership', 'Management', 'Meeting Deadlines', 'Thecnical Knowledge'],
       datasets: [
@@ -86,7 +86,7 @@ export default class CardPerformance extends React.Component<ICardPerformancePro
             this._allEmployeesAverage('meetingDeadlines'),
             this._allEmployeesAverage('technicalKnowledge'),
           ]
-        }        
+        },
       ]
     };
 
@@ -98,17 +98,17 @@ export default class CardPerformance extends React.Component<ICardPerformancePro
         <div className={`${styles.container} ms-Grid-row`}>
           {
             this.props.employeePerformanceSkills &&
-            this.props.employeePerformanceSkills.length > 0 ? 
-            <div className="ms-Grid-col ms-u-sm12"> 
-              <Radar 
+            this.props.employeePerformanceSkills.length > 0 ?
+            <div className="ms-Grid-col ms-u-sm12">
+              <Radar
                 data={data}
                 options={options}
                 legend={legend}
               />
             </div>
-            : 
-            <Placeholder 
-              icon="FolderSearch" 
+            :
+            <Placeholder
+              icon="FolderSearch"
               description="No performance data found for this employee..."
             />
           }
@@ -116,4 +116,4 @@ export default class CardPerformance extends React.Component<ICardPerformancePro
       </div>
     );
   }
-} 
+}

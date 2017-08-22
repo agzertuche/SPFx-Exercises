@@ -1,5 +1,5 @@
 import IEmployee from '../../../models/IEmployee';
 
-export interface ICardsListProps{
+export interface ICardsListProps {
   employees: IEmployee[];
 }

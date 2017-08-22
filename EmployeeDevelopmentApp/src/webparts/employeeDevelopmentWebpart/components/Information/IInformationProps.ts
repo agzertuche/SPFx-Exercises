@@ -23,7 +23,7 @@ export const items = [
           key: 'calendarEvent',
           name: 'Calendar event',
           icon: 'Calendar'
-        }
+        },
       ],
     },
   },
@@ -36,7 +36,7 @@ export const items = [
   {
     key: 'share',
     name: 'Share',
-    icon: 'Share',    
+    icon: 'Share',
     onClick: () => { return; }
   },
   {
@@ -51,7 +51,7 @@ export const items = [
     icon: 'Cancel',
     disabled: true,
     onClick: () => { return; }
-  }
+  },
 ];
 
 export const textOnlyItems = [
@@ -69,7 +69,7 @@ export const textOnlyItems = [
     key: 'download',
     name: 'Download',
     onClick: () => { return; }
-  }
+  },
 ];
 
 export const iconOnlyItems = [
@@ -114,7 +114,7 @@ export const iconOnlyItems = [
     icon: 'Cancel',
     disabled: true,
     onClick: () => { return; }
-  }
+  },
 ];
 
 export const overflowItems = [
@@ -132,7 +132,7 @@ export const overflowItems = [
     key: 'rename',
     name: 'Rename...',
     icon: 'Edit'
-  }
+  },
 ];
 
 export const farItems = [
@@ -141,5 +141,5 @@ export const farItems = [
     name: 'Grid view',
     icon: 'Tiles',
     onClick: () => { return; }
-  }
+  },
 ];

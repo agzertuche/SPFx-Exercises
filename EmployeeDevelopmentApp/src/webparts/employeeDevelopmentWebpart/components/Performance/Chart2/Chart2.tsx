@@ -1,16 +1,16 @@
 import * as React from 'react';
-import { Chart2Props } from './IChart2Props';
+import { IChart2Props } from './IChart2Props';
 import ChartComponent from '../../Common/ChartComponent';
 import * as lodash from '@microsoft/sp-lodash-subset';
 import { Radar } from 'react-chartjs-2';
 import styles from './styles.module.scss';
 
-const Chart2: React.StatelessComponent<Chart2Props> = (props) => {
+const Chart2: React.StatelessComponent<IChart2Props> = props => {
   const { performanceSkills } = props;
 
-  const legend = { display:false };
+  const legend = { display: false };
 
-  const _getAverageBySkill = (skillName: string) => {
+  const getAverageBySkill = (skillName: string) => {
     return lodash.sumBy(performanceSkills, skillName) / performanceSkills.length;
   };
 
@@ -40,14 +40,14 @@ const Chart2: React.StatelessComponent<Chart2Props> = (props) => {
         pointHoverBackgroundColor: styles.borderColor,
         pointHoverBorderColor: styles.primaryColor,
         data: [
-          _getAverageBySkill("teamwork"),
-          _getAverageBySkill("problemSolving"),
-          _getAverageBySkill("leadership"),
-          _getAverageBySkill("management"),
-          _getAverageBySkill("meetingDeadlines"),
-          _getAverageBySkill("technicalKnowledge")
+          getAverageBySkill("teamwork"),
+          getAverageBySkill("problemSolving"),
+          getAverageBySkill("leadership"),
+          getAverageBySkill("management"),
+          getAverageBySkill("meetingDeadlines"),
+          getAverageBySkill("technicalKnowledge"),
         ]
-      }        
+      },
     ]
   };
 
@@ -55,7 +55,7 @@ const Chart2: React.StatelessComponent<Chart2Props> = (props) => {
     <ChartComponent
       title="Skill Performance Average"
       chart={
-        <Radar 
+        <Radar
           data={ data }
           options={ options }
           legend={ legend }
