@@ -1,0 +1,5 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/write-manifests.schema.json",
+  "cdnBasePath": "<!-- PATH TO CDN -->"
+  // "https://agzertuche.sharepoint.com/teams/NewTeamSite/CDN/EmployeeDevelopmentApp"
+}
