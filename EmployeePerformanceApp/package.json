@@ -5,6 +5,10 @@
   "engines": {
     "node": ">=0.10.0"
   },
+  "author": {
+    "name": "Arturo De la Garza",
+    "url": "https://twitter.com/agzertuche"
+  },
   "scripts": {
     "build": "gulp bundle",
     "clean": "gulp clean",

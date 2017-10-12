@@ -17,8 +17,8 @@
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Other
     "group": { "default": "Other" },
     "title": { "default": "EmployeePerformanceApp" },
-    "description": { "default": "EmployeePerformanceApp description" },
-    "officeFabricIconFontName": "Page",
+    "description": { "default": "Webpart to view the employee information, performance and achievements." },
+    "officeFabricIconFontName": "Teamwork",
     "properties": {
       "description": "EmployeePerformanceApp"
     }
